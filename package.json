@@ -1,0 +1,31 @@
+{
+  "name": "adhyay-app",
+  "version": "1.0.0",
+  "description": "Adhyay - From Overwhelmed to Clear. Structured interactive mental clarity, factual relaxation techniques, and root-cause reflection.",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve . -l 3000",
+    "build": "node build-www.js",
+    "cap:sync": "npx cap sync",
+    "cap:android": "npx cap open android",
+    "cap:build": "npx cap copy android"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/cli": "^6.0.0",
+    "@capacitor/core": "^6.0.0",
+    "serve": "^14.2.3"
+  },
+  "keywords": [
+    "mental-clarity",
+    "guided-reflection",
+    "meditation",
+    "relaxation",
+    "stress-relief",
+    "cognitive-restructuring",
+    "productivity"
+  ],
+  "author": "Adhyay Foundation",
+  "license": "MIT"
+}

@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Adhyay 3D Studio Claymorphic Asset Generator</title>
+  <script src="three.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #FFFFFF;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 800px;
+      height: 800px;
+    }
+    #canvas3d {
+      width: 800px;
+      height: 800px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas3d" width="800" height="800"></canvas>
+
+  <script>
+    const canvas = document.getElementById('canvas3d');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
+    renderer.setSize(800, 800);
+    renderer.setPixelRatio(1);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.25;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
+
+    // Clay Materials Palette
+    const clayIvory = new THREE.MeshStandardMaterial({ color: 0xFDFBF7, roughness: 0.35, metalness: 0.04 });
+    const claySand = new THREE.MeshStandardMaterial({ color: 0xF4EDE4, roughness: 0.40, metalness: 0.04 });
+    const clayTerracotta = new THREE.MeshPhysicalMaterial({
+      color: 0xE07A5F,
+      roughness: 0.32,
+      metalness: 0.04,
+      clearcoat: 0.25,
+      clearcoatRoughness: 0.15
+    });
+    const claySage = new THREE.MeshPhysicalMaterial({
+      color: 0x81B29A,
+      roughness: 0.30,
+      metalness: 0.04,
+      clearcoat: 0.25,
+      clearcoatRoughness: 0.15
+    });
+    const clayLilac = new THREE.MeshPhysicalMaterial({
+      color: 0x9D8DF1,
+      roughness: 0.28,
+      metalness: 0.05,
+      clearcoat: 0.30,
+      clearcoatRoughness: 0.15
+    });
+    const clayGold = new THREE.MeshStandardMaterial({ color: 0xF6BD60, roughness: 0.22, metalness: 0.3 });
+    const claySkin = new THREE.MeshStandardMaterial({ color: 0xFAD2C0, roughness: 0.38, metalness: 0.03 });
+    const clayDark = new THREE.MeshStandardMaterial({ color: 0x2B2D42, roughness: 0.35, metalness: 0.05 });
+    const clayRose = new THREE.MeshPhysicalMaterial({
+      color: 0xF28482,
+      roughness: 0.30,
+      metalness: 0.04,
+      clearcoat: 0.25
+    });
+
+    const glassCyan = new THREE.MeshPhysicalMaterial({
+      color: 0x38B6FF,
+      roughness: 0.08,
+      metalness: 0.05,
+      transmission: 0.85,
+      transparent: true,
+      opacity: 0.9,
+      ior: 1.45
+    });
+
+    const glassMint = new THREE.MeshPhysicalMaterial({
+      color: 0x52B788,
+      roughness: 0.08,
+      metalness: 0.05,
+      transmission: 0.85,
+      transparent: true,
+      opacity: 0.9,
+      ior: 1.45
+    });
+
+    function setupLights() {
+      while (scene.children.length > 0) {
+        scene.remove(scene.children[0]);
+      }
+
+      const amb = new THREE.AmbientLight(0xFFFFFF, 0.85);
+      scene.add(amb);
+
+      // Studio Key Light
+      const dirLight = new THREE.DirectionalLight(0xFFF7EC, 1.45);
+      dirLight.position.set(4.5, 7.5, 5);
+      dirLight.castShadow = true;
+      dirLight.shadow.mapSize.width = 1024;
+      dirLight.shadow.mapSize.height = 1024;
+      dirLight.shadow.bias = -0.001;
+      scene.add(dirLight);
+
+      // Studio Fill Light
+      const fillLight = new THREE.DirectionalLight(0xEEE8F8, 0.7);
+      fillLight.position.set(-5, 3.5, 2.5);
+      scene.add(fillLight);
+
+      // Studio Rim Light
+      const rimLight = new THREE.DirectionalLight(0xFFFFFF, 0.65);
+      rimLight.position.set(0, 5, -5);
+      scene.add(rimLight);
+    }
+
+    // Proportional, elegant rounded pedestal
+    function createPedestal(color = 0xF5F2EB, rimColor = claySage, radius = 1.9) {
+      const group = new THREE.Group();
+      const mat = new THREE.MeshStandardMaterial({ color: color, roughness: 0.42, metalness: 0.02 });
+      
+      const base = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius + 0.15, 0.22, 64), mat);
+      base.position.y = -0.11;
+      base.receiveShadow = true;
+      group.add(base);
+
+      const rim = new THREE.Mesh(new THREE.TorusGeometry(radius + 0.04, 0.045, 16, 64), rimColor);
+      rim.rotation.x = Math.PI / 2;
+      rim.position.y = 0.0;
+      rim.castShadow = true;
+      group.add(rim);
+
+      const shadow = new THREE.Mesh(
+        new THREE.CircleGeometry(radius + 0.5, 64),
+        new THREE.ShadowMaterial({ opacity: 0.12 })
+      );
+      shadow.rotation.x = -Math.PI / 2;
+      shadow.position.y = -0.23;
+      shadow.receiveShadow = true;
+      group.add(shadow);
+
+      return group;
+    }
+
+    // Stylized, cute, high-craft 3D character in calm meditation
+    function createMeditator(robeMat = clayLilac, pantsMat = claySage) {
+      const charGroup = new THREE.Group();
+
+      // Rounded peaceful head
+      const head = new THREE.Mesh(new THREE.SphereGeometry(0.36, 32, 32), claySkin);
+      head.position.set(0, 1.35, 0);
+      head.castShadow = true;
+      charGroup.add(head);
+
+      // Serene clay hair bun & cap
+      const hair = new THREE.Mesh(new THREE.SphereGeometry(0.38, 32, 32), clayDark);
+      hair.position.set(0, 1.40, -0.05);
+      hair.scale.set(1.02, 1.0, 1.04);
+      hair.castShadow = true;
+      charGroup.add(hair);
+
+      const bun = new THREE.Mesh(new THREE.SphereGeometry(0.14, 24, 24), clayDark);
+      bun.position.set(0, 1.76, -0.12);
+      bun.castShadow = true;
+      charGroup.add(bun);
+
+      // Clay torso in soft robe
+      const torso = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.42, 0.72, 32), robeMat);
+      torso.position.set(0, 0.82, 0);
+      torso.castShadow = true;
+      charGroup.add(torso);
+
+      // Gentle curved robe collar
+      const collar = new THREE.Mesh(new THREE.TorusGeometry(0.24, 0.035, 12, 32), clayIvory);
+      collar.position.set(0, 1.15, 0.04);
+      collar.rotation.x = Math.PI / 3;
+      charGroup.add(collar);
+
+      // Lotus legs ring
+      const legs = new THREE.Mesh(new THREE.TorusGeometry(0.55, 0.16, 16, 48), pantsMat);
+      legs.rotation.x = Math.PI / 2.15;
+      legs.position.set(0, 0.22, 0.05);
+      legs.scale.set(1.22, 0.85, 1.0);
+      legs.castShadow = true;
+      charGroup.add(legs);
+
+      // Flowing draped arms resting on knees in mudra
+      for (let s = -1; s <= 1; s += 2) {
+        const pts = [
+          new THREE.Vector3(s * 0.32, 1.02, 0.02),
+          new THREE.Vector3(s * 0.48, 0.72, 0.12),
+          new THREE.Vector3(s * 0.44, 0.38, 0.28),
+          new THREE.Vector3(s * 0.34, 0.32, 0.38)
+        ];
+        const armCurve = new THREE.CatmullRomCurve3(pts);
+        const arm = new THREE.Mesh(new THREE.TubeGeometry(armCurve, 24, 0.075, 12, false), robeMat);
+        arm.castShadow = true;
+        charGroup.add(arm);
+
+        // Small clay hand in Gyan mudra
+        const hand = new THREE.Mesh(new THREE.SphereGeometry(0.07, 16, 16), claySkin);
+        hand.position.set(s * 0.34, 0.32, 0.38);
+        hand.castShadow = true;
+        charGroup.add(hand);
+      }
+
+      // Round meditation cushion (Zafu)
+      const zafu = new THREE.Mesh(new THREE.CylinderGeometry(0.68, 0.74, 0.16, 48), clayTerracotta);
+      zafu.position.set(0, 0.08, 0);
+      zafu.castShadow = true;
+      zafu.receiveShadow = true;
+      charGroup.add(zafu);
+
+      return charGroup;
+    }
+
+    // =========================================================================
+    // 1. SCENE: 3D ANATOMICAL LUNGS & VAGAL RESET (STEP 2 PHYSIOLOGY)
+    // =========================================================================
+    function buildLungsScene() {
+      setupLights();
+      camera.position.set(0, 1.35, 5.8);
+      camera.lookAt(0, 1.05, 0);
+
+      const group = new THREE.Group();
+      group.add(createPedestal(0xFDFBF7, claySage, 1.9));
+
+      // Trachea (Ivory ceramic windpipe)
+      const tracheaMat = new THREE.MeshStandardMaterial({ color: 0xF4EFEA, roughness: 0.3 });
+      const trachea = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.14, 1.25, 32), tracheaMat);
+      trachea.position.set(0, 1.82, 0);
+      trachea.castShadow = true;
+      group.add(trachea);
+
+      // Cartilage ribbed rings (Soft lilac rings)
+      for (let i = 0; i < 5; i++) {
+        const ring = new THREE.Mesh(new THREE.TorusGeometry(0.16, 0.022, 12, 32), clayLilac);
+        ring.rotation.x = Math.PI / 2;
+        ring.position.set(0, 1.38 + (i * 0.17), 0);
+        ring.castShadow = true;
+        group.add(ring);
+      }
+
+      // Main Bronchi Split
+      const leftBronchus = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.09, 0.6, 24), tracheaMat);
+      leftBronchus.position.set(-0.24, 1.1, 0);
+      leftBronchus.rotation.z = Math.PI / 5.5;
+      leftBronchus.castShadow = true;
+      group.add(leftBronchus);
+
+      const rightBronchus = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.09, 0.6, 24), tracheaMat);
+      rightBronchus.position.set(0.24, 1.1, 0);
+      rightBronchus.rotation.z = -Math.PI / 5.5;
+      rightBronchus.castShadow = true;
+      group.add(rightBronchus);
+
+      // Secondary & Tertiary Golden Prana Branches (Tree of life inside lungs)
+      const branchMat = clayGold;
+      const bCoords = [
+        // Left lung branches
+        [[-0.32, 0.95, 0.05], [-0.55, 0.75, 0.1]],
+        [[-0.35, 0.9, -0.05], [-0.6, 0.5, -0.05]],
+        // Right lung branches
+        [[0.32, 0.95, 0.05], [0.55, 0.75, 0.1]],
+        [[0.35, 0.9, -0.05], [0.6, 0.5, -0.05]]
+      ];
+      bCoords.forEach(pair => {
+        const bCurve = new THREE.CatmullRomCurve3([
+          new THREE.Vector3(...pair[0]),
+          new THREE.Vector3(...pair[1])
+        ]);
+        const branch = new THREE.Mesh(new THREE.TubeGeometry(bCurve, 12, 0.035, 8, false), branchMat);
+        branch.castShadow = true;
+        group.add(branch);
+      });
+
+      // SCULPTED ORGANIC LEFT LUNG (Warm Terracotta Clay with Cardiac Notch)
+      const leftGroup = new THREE.Group();
+      // Superior Lobe
+      const lSup = new THREE.Mesh(new THREE.SphereGeometry(0.55, 32, 32), clayTerracotta);
+      lSup.scale.set(0.85, 1.25, 0.75);
+      lSup.position.set(-0.62, 1.05, 0.04);
+      lSup.rotation.z = -0.22;
+      lSup.castShadow = true;
+      leftGroup.add(lSup);
+
+      // Inferior Lobe (Lower Base)
+      const lInf = new THREE.Mesh(new THREE.SphereGeometry(0.64, 32, 32), clayTerracotta);
+      lInf.scale.set(0.95, 1.3, 0.8);
+      lInf.position.set(-0.7, 0.52, 0.08);
+      lInf.rotation.z = -0.12;
+      lInf.castShadow = true;
+      leftGroup.add(lInf);
+      group.add(leftGroup);
+
+      // SCULPTED ORGANIC RIGHT LUNG (Soft Serene Lilac Clay with 3 Lobes)
+      const rightGroup = new THREE.Group();
+      // Superior Lobe
+      const rSup = new THREE.Mesh(new THREE.SphereGeometry(0.55, 32, 32), clayLilac);
+      rSup.scale.set(0.85, 1.22, 0.75);
+      rSup.position.set(0.62, 1.05, 0.04);
+      rSup.rotation.z = 0.22;
+      rSup.castShadow = true;
+      rightGroup.add(rSup);
+
+      // Middle Lobe
+      const rMid = new THREE.Mesh(new THREE.SphereGeometry(0.52, 32, 32), clayLilac);
+      rMid.scale.set(0.9, 0.9, 0.8);
+      rMid.position.set(0.72, 0.72, 0.08);
+      rMid.rotation.z = 0.15;
+      rMid.castShadow = true;
+      rightGroup.add(rMid);
+
+      // Inferior Lobe (Base)
+      const rInf = new THREE.Mesh(new THREE.SphereGeometry(0.62, 32, 32), clayLilac);
+      rInf.scale.set(0.95, 1.2, 0.8);
+      rInf.position.set(0.68, 0.42, 0.06);
+      rInf.rotation.z = 0.1;
+      rInf.castShadow = true;
+      rightGroup.add(rInf);
+      group.add(rightGroup);
+
+      // CENTRAL HEART & BARORECEPTOR NODE (Nestled in cardiac notch)
+      const heartMat = new THREE.MeshPhysicalMaterial({
+        color: 0xF28482,
+        roughness: 0.22,
+        clearcoat: 0.35
+      });
+      const heart = new THREE.Mesh(new THREE.SphereGeometry(0.32, 32, 32), heartMat);
+      heart.position.set(0, 0.68, 0.28);
+      heart.scale.set(0.95, 1.15, 0.85);
+      heart.castShadow = true;
+      group.add(heart);
+
+      // Luminous Golden Vagal Brake Loop
+      const vagalLoop = new THREE.Mesh(new THREE.TorusGeometry(0.48, 0.045, 16, 64), clayGold);
+      vagalLoop.position.set(0, 0.72, 0.32);
+      vagalLoop.rotation.set(Math.PI / 4, 0, 0.2);
+      vagalLoop.castShadow = true;
+      group.add(vagalLoop);
+
+      // Diaphragm Arc Cushion (Clay base)
+      const diaMat = new THREE.MeshStandardMaterial({ color: 0x81B29A, roughness: 0.35 });
+      const diaphragm = new THREE.Mesh(new THREE.CylinderGeometry(1.3, 1.45, 0.14, 48), diaMat);
+      diaphragm.position.set(0, 0.07, 0);
+      diaphragm.castShadow = true;
+      group.add(diaphragm);
+
+      // Luminous Translucent Alveoli Droplets (Cyan & Mint dew drops)
+      const alveoli = [
+        [-1.15, 1.2, 0.4, 0.12, glassCyan],
+        [-1.25, 0.7, 0.45, 0.15, glassMint],
+        [-1.0, 0.25, 0.45, 0.13, glassCyan],
+        [1.15, 1.2, 0.4, 0.12, glassMint],
+        [1.25, 0.7, 0.45, 0.15, glassCyan],
+        [1.0, 0.25, 0.45, 0.13, glassMint],
+        [-0.3, 2.05, 0.25, 0.09, glassCyan],
+        [0.3, 2.05, 0.25, 0.09, glassMint],
+        [0, 1.4, 0.42, 0.11, glassCyan]
+      ];
+      alveoli.forEach(a => {
+        const orb = new THREE.Mesh(new THREE.SphereGeometry(a[3], 24, 24), a[4]);
+        orb.position.set(a[0], a[1], a[2]);
+        orb.castShadow = true;
+        group.add(orb);
+      });
+
+      // Smooth Zen River Stones on Pedestal
+      const st1 = new THREE.Mesh(new THREE.SphereGeometry(0.2, 20, 16), claySand);
+      st1.scale.set(1.2, 0.45, 1.0);
+      st1.position.set(-1.45, 0.1, 0.8);
+      st1.castShadow = true;
+      group.add(st1);
+
+      const st2 = new THREE.Mesh(new THREE.SphereGeometry(0.14, 20, 16), claySage);
+      st2.scale.set(1.1, 0.45, 0.9);
+      st2.position.set(-1.45, 0.22, 0.8);
+      st2.castShadow = true;
+      group.add(st2);
+
+      scene.add(group);
+      renderer.render(scene, camera);
+    }
+
+    // =========================================================================
+    // 2. SCENE: 3D BOX BREATHING EQUILIBRIUM SANCTUARY (STEP 1 PURPOSE - BOX)
+    // =========================================================================
+    function buildBoxBreathingScene() {
+      setupLights();
+      // True Isometric Angle with balanced field of view
+      camera.position.set(3.4, 3.0, 5.2);
+      camera.lookAt(0, 0.85, 0);
+
+      const group = new THREE.Group();
+      group.add(createPedestal(0xFDFBF7, clayGold, 1.9));
+
+      // Meditating Clay Character
+      const meditator = createMeditator(clayLilac, claySage);
+      group.add(meditator);
+
+      // THE 3D EQUILIBRIUM ISOMETRIC BOX (Sama Vritti 4s Equal Perimeter)
+      const bW = 1.15;
+      const bY = 0.8;
+      const bD = 1.0;
+
+      const corners = [
+        { pos: [-bW, bY + 0.55, -bD], color: 0x81B29A, num: 1 }, // Inhale 4s
+        { pos: [bW, bY + 0.55, -bD],  color: 0xF6BD60, num: 2 }, // Hold 4s
+        { pos: [bW, bY - 0.35, bD],   color: 0xE07A5F, num: 3 }, // Exhale 4s
+        { pos: [-bW, bY - 0.35, bD],  color: 0x9D8DF1, num: 4 }  // Hold 4s
+      ];
+
+      // Smooth Glowing Glass Cube Perimeter Frame
+      const pts = corners.map(c => new THREE.Vector3(...c.pos));
+      pts.push(new THREE.Vector3(...corners[0].pos));
+      const curve = new THREE.CatmullRomCurve3(pts, true);
+      const tube = new THREE.Mesh(
+        new THREE.TubeGeometry(curve, 64, 0.04, 12, true),
+        glassCyan
+      );
+      tube.castShadow = true;
+      group.add(tube);
+
+      // 4 Floating Tactile Milestone Cubes with Rounded Clay Edges
+      corners.forEach((c) => {
+        const cubeMat = new THREE.MeshPhysicalMaterial({
+          color: c.color,
+          roughness: 0.25,
+          metalness: 0.08,
+          clearcoat: 0.3
+        });
+        const cube = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.28, 0.28), cubeMat);
+        cube.position.set(...c.pos);
+        cube.rotation.set(0.3, 0.4, 0.2);
+        cube.castShadow = true;
+        group.add(cube);
+
+        // Ivory halo ring around each cube
+        const halo = new THREE.Mesh(new THREE.TorusGeometry(0.22, 0.018, 12, 32), clayIvory);
+        halo.position.set(...c.pos);
+        halo.rotation.x = Math.PI / 2.3;
+        group.add(halo);
+      });
+
+      // Floating Luminous Prana Particle on the frame
+      const pranaOrb = new THREE.Mesh(new THREE.SphereGeometry(0.12, 24, 24), glassMint);
+      pranaOrb.position.set(0, bY + 0.55, -bD);
+      pranaOrb.castShadow = true;
+      group.add(pranaOrb);
+
+      // Zen Elements: River stones and delicate lotus
+      const stone1 = new THREE.Mesh(new THREE.SphereGeometry(0.22, 20, 16), claySand);
+      stone1.scale.set(1.2, 0.45, 1.0);
+      stone1.position.set(-1.4, 0.1, 0.9);
+      stone1.castShadow = true;
+      group.add(stone1);
+
+      const stone2 = new THREE.Mesh(new THREE.SphereGeometry(0.15, 20, 16), clayTerracotta);
+      stone2.scale.set(1.1, 0.45, 0.9);
+      stone2.position.set(-1.4, 0.22, 0.9);
+      stone2.castShadow = true;
+      group.add(stone2);
+
+      // Clay Lotus Flower
+      const lotusGroup = new THREE.Group();
+      lotusGroup.position.set(1.4, 0.1, 0.85);
+      const lotusCore = new THREE.Mesh(new THREE.SphereGeometry(0.1, 16, 16), clayGold);
+      lotusGroup.add(lotusCore);
+      for (let p = 0; p < 6; p++) {
+        const petal = new THREE.Mesh(new THREE.ConeGeometry(0.07, 0.24, 12), clayIvory);
+        const ang = (p / 6) * Math.PI * 2;
+        petal.position.set(Math.cos(ang) * 0.12, 0.04, Math.sin(ang) * 0.12);
+        petal.rotation.set(Math.cos(ang) * 0.35, 0, Math.sin(ang) * 0.35);
+        petal.castShadow = true;
+        lotusGroup.add(petal);
+      }
+      group.add(lotusGroup);
+
+      scene.add(group);
+      renderer.render(scene, camera);
+    }
+
+    // =========================================================================
+    // 3. SCENE: 3D PHYSIOLOGICAL SIGH RESET (STEP 1 PURPOSE - SIGH)
+    // =========================================================================
+    function buildSighScene() {
+      setupLights();
+      camera.position.set(2.8, 2.7, 5.8);
+      camera.lookAt(0, 1.1, 0);
+
+      const group = new THREE.Group();
+      group.add(createPedestal(0xFDFBF7, clayTerracotta, 1.9));
+
+      const meditator = createMeditator(claySage, clayTerracotta);
+      group.add(meditator);
+
+      // Dual Inhale Spiral Prana Streams (Glass Cyan & Glass Mint)
+      for (let s = -1; s <= 1; s += 2) {
+        const pts = [];
+        for (let i = 0; i < 24; i++) {
+          const t = i / 23;
+          const x = s * (0.3 + t * 0.8);
+          const y = 0.3 + t * 1.55;
+          const z = Math.sin(t * Math.PI * 2.2) * 0.35 + 0.25;
+          pts.push(new THREE.Vector3(x, y, z));
+        }
+        const stream = new THREE.Mesh(
+          new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 32, 0.048, 12, false),
+          s === -1 ? glassCyan : glassMint
+        );
+        stream.castShadow = true;
+        group.add(stream);
+      }
+
+      // Popping Alveolar Spheres (Decompressing panic)
+      const popPositions = [
+        [-1.1, 1.95, 0.2, 0.15, clayLilac],
+        [-0.6, 2.2, 0.35, 0.19, clayGold],
+        [0.6, 2.2, 0.35, 0.19, claySage],
+        [1.1, 1.95, 0.2, 0.15, clayTerracotta],
+        [0.0, 2.35, 0.15, 0.22, glassCyan]
+      ];
+
+      popPositions.forEach(p => {
+        const orb = new THREE.Mesh(new THREE.SphereGeometry(p[3], 24, 24), p[4]);
+        orb.position.set(p[0], p[1], p[2]);
+        orb.castShadow = true;
+        group.add(orb);
+
+        const ring = new THREE.Mesh(new THREE.TorusGeometry(p[3] * 1.35, 0.016, 12, 32), clayIvory);
+        ring.position.set(p[0], p[1], p[2]);
+        ring.rotation.x = Math.PI / 3;
+        group.add(ring);
+      });
+
+      // Ground stones
+      const stone1 = new THREE.Mesh(new THREE.SphereGeometry(0.2, 20, 16), claySand);
+      stone1.scale.set(1.2, 0.45, 1.0);
+      stone1.position.set(-1.4, 0.1, 0.9);
+      stone1.castShadow = true;
+      group.add(stone1);
+
+      scene.add(group);
+      renderer.render(scene, camera);
+    }
+
+    // =========================================================================
+    // 4. SCENE: 3D 4-7-8 VAGAL BEDTIME SANCTUARY (STEP 1 PURPOSE - VAGAL)
+    // =========================================================================
+    function buildVagalScene() {
+      setupLights();
+      camera.position.set(2.8, 2.6, 5.4);
+      camera.lookAt(0, 0.95, 0);
+
+      const group = new THREE.Group();
+      group.add(createPedestal(0x2B2D42, clayGold, 1.9));
+
+      const meditator = createMeditator(clayLilac, claySand);
+      group.add(meditator);
+
+      // Gorgeous 3D Glowing Crescent Moon
+      const moonGroup = new THREE.Group();
+      moonGroup.position.set(1.15, 1.6, 0.2);
+      
+      const moonTorus = new THREE.Mesh(
+        new THREE.TorusGeometry(0.42, 0.12, 24, 48, Math.PI * 1.35),
+        clayGold
+      );
+      moonTorus.rotation.z = Math.PI / 4;
+      moonTorus.castShadow = true;
+      moonGroup.add(moonTorus);
+      group.add(moonGroup);
+
+      // Fluffy 3D Clay Clouds
+      const cloudMat = new THREE.MeshStandardMaterial({ color: 0xFDFBF7, roughness: 0.3 });
+      const cloudGroup = new THREE.Group();
+      cloudGroup.position.set(-1.15, 1.55, 0.2);
+
+      const puffs = [
+        [-0.26, 0, 0, 0.24],
+        [0, 0.10, 0.04, 0.30],
+        [0.26, -0.03, 0, 0.22],
+        [-0.10, -0.07, 0.06, 0.20],
+        [0.14, -0.05, 0.06, 0.18]
+      ];
+      puffs.forEach(p => {
+        const puff = new THREE.Mesh(new THREE.SphereGeometry(p[3], 24, 24), cloudMat);
+        puff.position.set(p[0], p[1], p[2]);
+        puff.castShadow = true;
+        cloudGroup.add(puff);
+      });
+      group.add(cloudGroup);
+
+      // Floating gentle stars / prana gems
+      const starCoords = [
+        [-0.4, 2.1, -0.2],
+        [0.5, 2.2, -0.1],
+        [-1.3, 0.7, 0.5],
+        [1.3, 0.8, 0.4]
+      ];
+      starCoords.forEach(pos => {
+        const star = new THREE.Mesh(new THREE.OctahedronGeometry(0.09, 0), clayGold);
+        star.position.set(...pos);
+        star.rotation.set(0.4, 0.6, 0.2);
+        group.add(star);
+      });
+
+      scene.add(group);
+      renderer.render(scene, camera);
+    }
+
+    // =========================================================================
+    // 5. SCENE: 3D SOMATIC MUSCLE RELEASE (STEP 1 PURPOSE - SOMATIC)
+    // =========================================================================
+    function buildSomaticScene() {
+      setupLights();
+      camera.position.set(2.6, 2.5, 5.2);
+      camera.lookAt(0, 0.9, 0);
+
+      const group = new THREE.Group();
+      group.add(createPedestal(0xF8F6F2, clayTerracotta, 1.9));
+
+      const meditator = createMeditator(clayTerracotta, claySand);
+      group.add(meditator);
+
+      // Somatosensory Tension Dissolving Rings
+      const ringTones = [claySage, clayLilac, clayGold];
+      for (let r = 0; r < 3; r++) {
+        const wave = new THREE.Mesh(
+          new THREE.TorusGeometry(0.75 + r * 0.32, 0.03, 16, 48),
+          ringTones[r]
+        );
+        wave.rotation.x = Math.PI / 2.3;
+        wave.position.set(0, 0.75 - r * 0.14, 0);
+        wave.castShadow = true;
+        group.add(wave);
+      }
+
+      // Floating Somatic Energy Orbs
+      const orbs = [
+        [-1.0, 1.45, 0.3, clayRose],
+        [1.0, 1.45, 0.3, clayRose],
+        [-1.3, 0.55, 0.5, claySage],
+        [1.3, 0.55, 0.5, claySage]
+      ];
+      orbs.forEach(o => {
+        const orbMesh = new THREE.Mesh(new THREE.SphereGeometry(0.14, 24, 24), o[3]);
+        orbMesh.position.set(o[0], o[1], o[2]);
+        orbMesh.castShadow = true;
+        group.add(orbMesh);
+      });
+
+      scene.add(group);
+      renderer.render(scene, camera);
+    }
+
+    // =========================================================================
+    // 6. SCENE: 3D 5-4-3-2-1 SENSORY GROUNDING (STEP 1 PURPOSE - GROUNDING)
+    // =========================================================================
+    function buildGroundingScene() {
+      setupLights();
+      camera.position.set(2.8, 2.8, 5.4);
+      camera.lookAt(0, 0.95, 0);
+
+      const group = new THREE.Group();
+      group.add(createPedestal(0xF5EFEB, claySage, 1.9));
+
+      const meditator = createMeditator(claySage, clayDark);
+      group.add(meditator);
+
+      // The 5 Sensory Pillars
+      const prismPositions = [
+        { pos: [-1.2, 0.65, 0.4], geom: new THREE.CylinderGeometry(0.15, 0.18, 0.55, 6), mat: clayGold },
+        { pos: [-0.75, 1.35, -0.3], geom: new THREE.BoxGeometry(0.25, 0.42, 0.25), mat: clayLilac },
+        { pos: [0.75, 1.35, -0.3], geom: new THREE.OctahedronGeometry(0.2, 0), mat: glassCyan },
+        { pos: [1.2, 0.65, 0.4], geom: new THREE.ConeGeometry(0.18, 0.55, 16), mat: clayTerracotta },
+        { pos: [0, 2.05, 0.1], geom: new THREE.SphereGeometry(0.17, 24, 24), mat: claySand }
+      ];
+
+      prismPositions.forEach(p => {
+        const mesh = new THREE.Mesh(p.geom, p.mat);
+        mesh.position.set(...p.pos);
+        mesh.rotation.set(0.3, 0.4, 0.2);
+        mesh.castShadow = true;
+        group.add(mesh);
+      });
+
+      scene.add(group);
+      renderer.render(scene, camera);
+    }
+
+    // =========================================================================
+    // 7. SCENE: 3D HEART-BRAIN COHERENCE (STEP 1 PURPOSE - COHERENCE)
+    // =========================================================================
+    function buildCoherenceScene() {
+      setupLights();
+      camera.position.set(2.6, 2.6, 5.4);
+      camera.lookAt(0, 0.95, 0);
+
+      const group = new THREE.Group();
+      group.add(createPedestal(0xFDFBF7, clayGold, 1.9));
+
+      const meditator = createMeditator(clayIvory, claySage);
+      group.add(meditator);
+
+      // Central Heart Center (Luminous Radiant Heart)
+      const heartMat = new THREE.MeshPhysicalMaterial({
+        color: 0xF28482,
+        roughness: 0.22,
+        clearcoat: 0.35
+      });
+      const heart = new THREE.Mesh(new THREE.SphereGeometry(0.25, 32, 32), heartMat);
+      heart.position.set(0, 0.82, 0.34);
+      heart.scale.set(0.9, 1.1, 0.8);
+      heart.castShadow = true;
+      group.add(heart);
+
+      // 0.1 Hz Resonance Harmonic Waves
+      for (let s = -1; s <= 1; s += 2) {
+        const pts = [];
+        for (let i = 0; i < 30; i++) {
+          const t = i / 29;
+          const x = Math.sin(t * Math.PI * 3) * 0.4 * s;
+          const y = 0.2 + t * 1.6;
+          const z = Math.cos(t * Math.PI * 3) * 0.3 + 0.25;
+          pts.push(new THREE.Vector3(x, y, z));
+        }
+        const helix = new THREE.Mesh(
+          new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 48, 0.035, 12, false),
+          glassCyan
+        );
+        helix.castShadow = true;
+        group.add(helix);
+      }
+
+      // Outer Golden Coherence Ring
+      const ring1 = new THREE.Mesh(new THREE.TorusGeometry(1.05, 0.035, 16, 64), clayGold);
+      ring1.position.set(0, 0.85, 0);
+      ring1.rotation.set(0.3, 0.5, 0);
+      group.add(ring1);
+
+      scene.add(group);
+      renderer.render(scene, camera);
+    }
+
+    // =========================================================================
+    // 8. SCENE: 3D LOVING-KINDNESS METTA (STEP 1 PURPOSE - METTA)
+    // =========================================================================
+    function buildMettaScene() {
+      setupLights();
+      camera.position.set(2.6, 2.6, 5.4);
+      camera.lookAt(0, 0.95, 0);
+
+      const group = new THREE.Group();
+      group.add(createPedestal(0xFDFBF7, clayRose, 1.9));
+
+      const meditator = createMeditator(clayRose, clayLilac);
+      group.add(meditator);
+
+      // Warm Radiant Golden Aura Spheres & Floating Hearts
+      const haloMat = new THREE.MeshStandardMaterial({ color: 0xF6BD60, roughness: 0.2, metalness: 0.2 });
+      const aura = new THREE.Mesh(new THREE.TorusGeometry(0.8, 0.045, 16, 64), haloMat);
+      aura.position.set(0, 1.35, -0.12);
+      aura.rotation.x = Math.PI / 5;
+      group.add(aura);
+
+      // Floating Kind Intention Orbs
+      const kindnessOrbs = [
+        [-1.0, 1.6, 0.25, clayRose, 0.17],
+        [-0.7, 2.1, 0.1, clayGold, 0.14],
+        [0.7, 2.1, 0.1, clayGold, 0.14],
+        [1.0, 1.6, 0.25, clayRose, 0.17],
+        [-1.3, 0.7, 0.5, clayLilac, 0.15],
+        [1.3, 0.7, 0.5, clayLilac, 0.15]
+      ];
+
+      kindnessOrbs.forEach(k => {
+        const orb = new THREE.Mesh(new THREE.SphereGeometry(k[4], 24, 24), k[3]);
+        orb.position.set(k[0], k[1], k[2]);
+        orb.castShadow = true;
+        group.add(orb);
+      });
+
+      scene.add(group);
+      renderer.render(scene, camera);
+    }
+
+    // Router function
+    window.renderAndExport = function(sceneName) {
+      if (sceneName === 'lungs') buildLungsScene();
+      else if (sceneName === 'box') buildBoxBreathingScene();
+      else if (sceneName === 'sigh') buildSighScene();
+      else if (sceneName === 'vagal') buildVagalScene();
+      else if (sceneName === 'somatic') buildSomaticScene();
+      else if (sceneName === 'grounding') buildGroundingScene();
+      else if (sceneName === 'coherence') buildCoherenceScene();
+      else if (sceneName === 'metta') buildMettaScene();
+      else buildLungsScene();
+
+      return canvas.toDataURL('image/png');
+    };
+
+    // Auto-run from URL parameter
+    const params = new URLSearchParams(window.location.search);
+    const sceneParam = params.get('scene') || 'lungs';
+    window.renderAndExport(sceneParam);
+  </script>
+</body>
+</html>

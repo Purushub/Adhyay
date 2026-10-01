@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <linearGradient id="bgWarmGrad192" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#191C22"/>
+      <stop offset="50%" stop-color="#14161A"/>
+      <stop offset="100%" stop-color="#0E1013"/>
+    </linearGradient>
+    <linearGradient id="terracottaGrad192" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F3B58E"/>
+      <stop offset="50%" stop-color="#D97757"/>
+      <stop offset="100%" stop-color="#BA5D3F"/>
+    </linearGradient>
+    <linearGradient id="sageGrad192" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5B8266"/>
+      <stop offset="100%" stop-color="#7CA982"/>
+    </linearGradient>
+    <radialGradient id="warmGlow192" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#D97757" stop-opacity="0.3"/>
+      <stop offset="70%" stop-color="#5B8266" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  
+  <!-- Outer Squircle with warm organic dark background -->
+  <rect width="192" height="192" rx="42" fill="url(#bgWarmGrad192)"/>
+  <circle cx="96" cy="96" r="70" fill="url(#warmGlow192)"/>
+  
+  <!-- Concentric organic clarity rings: chaos resolving into calm -->
+  <circle cx="96" cy="96" r="62" fill="none" stroke="#D97757" stroke-width="2" stroke-dasharray="4 8" opacity="0.35"/>
+  <circle cx="96" cy="96" r="48" fill="none" stroke="url(#sageGrad192)" stroke-width="2.5" stroke-dasharray="8 6" opacity="0.75"/>
+  <circle cx="96" cy="96" r="34" fill="none" stroke="url(#terracottaGrad192)" stroke-width="3" opacity="0.9"/>
+  
+  <!-- Central serenity core -->
+  <circle cx="96" cy="96" r="16" fill="url(#terracottaGrad192)"/>
+  <circle cx="96" cy="96" r="7" fill="#FBF8F3"/>
+  
+  <!-- Sanskrit/Vedic inspired clarity spark -->
+  <path d="M96 46 L98 52 L104 54 L98 56 L96 62 L94 56 L88 54 L94 52 Z" fill="#F3B58E"/>
+</svg>

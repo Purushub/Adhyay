@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+.npm/
+
+# Android build outputs & local config
+android/.gradle/
+android/build/
+android/app/build/
+android/.idea/
+android/*.iml
+android/app/*.iml
+android/local.properties
+android/captures/
+.gradle/
+
+# Scratch emulator screenshots & temporary test logs
+snap_*.png
+emulator_*.png
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Ensure the compiled APK is explicitly tracked and committed as requested
+!Adhyay.apk

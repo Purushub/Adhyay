@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgWarmGrad512" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A1D23"/>
+      <stop offset="45%" stop-color="#14171B"/>
+      <stop offset="100%" stop-color="#0E1013"/>
+    </linearGradient>
+    <linearGradient id="terracottaGrad512" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F3B58E"/>
+      <stop offset="35%" stop-color="#D97757"/>
+      <stop offset="100%" stop-color="#BA5D3F"/>
+    </linearGradient>
+    <linearGradient id="sageGrad512" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5B8266"/>
+      <stop offset="100%" stop-color="#7CA982"/>
+    </linearGradient>
+    <radialGradient id="warmGlow512" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#D97757" stop-opacity="0.35"/>
+      <stop offset="60%" stop-color="#5B8266" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  
+  <!-- Outer squircle -->
+  <rect width="512" height="512" rx="112" fill="url(#bgWarmGrad512)"/>
+  <circle cx="256" cy="256" r="190" fill="url(#warmGlow512)"/>
+  
+  <!-- Concentric clarity rings -->
+  <circle cx="256" cy="256" r="170" fill="none" stroke="#D97757" stroke-width="3" stroke-dasharray="10 18" opacity="0.35"/>
+  <circle cx="256" cy="256" r="135" fill="none" stroke="url(#sageGrad512)" stroke-width="4.5" stroke-dasharray="20 15" opacity="0.75"/>
+  <circle cx="256" cy="256" r="95" fill="none" stroke="url(#terracottaGrad512)" stroke-width="6.5" opacity="0.92"/>
+  
+  <!-- Sacred geometry / Serene core -->
+  <circle cx="256" cy="256" r="65" fill="#1A1D23" stroke="url(#terracottaGrad512)" stroke-width="2.5"/>
+  <path d="M256 165 C286 198 310 228 310 256 C310 286 286 315 256 315 C226 315 202 286 202 256 C202 228 226 198 256 165 Z" 
+        fill="url(#terracottaGrad512)" opacity="0.25"/>
+  <circle cx="256" cy="256" r="40" fill="url(#terracottaGrad512)"/>
+  <circle cx="256" cy="256" r="16" fill="#FBF8F3"/>
+  
+  <!-- North Star clarity spark -->
+  <path d="M256 125 L261 142 L278 147 L261 152 L256 169 L251 152 L234 147 L251 142 Z" fill="#F3B58E"/>
+</svg>

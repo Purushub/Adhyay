@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Adhyay | From Overwhelmed to Clear</title>
+  <meta name="description" content="Adhyay: Active guided reflection, factual relaxation techniques, and root-cause clarity. Dual editions: Organic Zen & Private Club Noir.">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icon-192.svg">
+  <meta name="theme-color" content="#111316" id="meta-theme-color">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Adhyay">
+
+  <!-- Typography Suite:
+       Edition A: Newsreader (Humanist Warm Serif) + Plus Jakarta Sans
+       Edition B: Cinzel (Roman High-Fashion Serif) + Cormorant Garamond + Plus Jakarta Sans Thin -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css?v=4.8">
+</head>
+<body class="theme-white-ink">
+
+  <!-- Desktop App Container / Device Simulator Switcher -->
+  <div id="device-wrapper" class="device-wrapper mobile-view">
+    
+    <!-- Top Simulator Bar: Features the A/B Style Switcher -->
+    <aside class="desktop-controls" aria-label="Simulator Controls">
+      <div class="brand-tag">
+        <span class="brand-motif" id="desktop-brand-motif">अ</span>
+        <span id="desktop-brand-text">ADHYAY • SANCTUARY</span>
+      </div>
+
+
+
+      <div class="view-toggles">
+        <button id="btn-toggle-frame" class="btn-toggle active" title="Toggle Phone Frame">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          Frame
+        </button>
+        <button id="btn-toggle-sound" class="btn-toggle" title="Toggle Calming Ambient Sound">
+          <svg id="sound-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+          <span id="sound-label">Audio</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Mobile Frame Container -->
+    <main class="mobile-frame theme-white-ink" id="mobile-frame">
+      
+      <!-- ========================================================
+           CLOUD SHIFT TRANSITION OVERLAY (Screen Change Animation)
+           ======================================================== -->
+      <div class="cloud-transition-overlay" id="cloud-transition-overlay" aria-hidden="true">
+        <!-- Rhythmic Breathing Focal Geometric GIF Transition Backdrop -->
+        <div class="cloud-breathing-focal-layer">
+          <img src="assets/breathing_gifs/breath_in_out.gif" alt="Breathing Transition Motion" class="cloud-breathing-focal-gif">
+        </div>
+        <!-- Back atmospheric fog layer -->
+        <div class="cloud-layer cloud-layer-back">
+          <svg viewBox="0 0 1440 900" preserveAspectRatio="none">
+            <path d="M-100,-50 C200,80 400,-30 700,90 C1000,210 1200,80 1540,-20 L1540,950 C1250,860 1000,920 700,840 C400,760 200,880 -100,820 Z" />
+          </svg>
+        </div>
+        <!-- Mid dense billowing cumulus clouds layer -->
+        <div class="cloud-layer cloud-layer-mid">
+          <svg viewBox="0 0 1440 900" preserveAspectRatio="none">
+            <path d="M-80,40 C120,-40 280,120 480,40 C680,-40 840,80 1040,10 C1240,-60 1380,60 1520,30 L1520,870 C1380,820 1240,920 1040,850 C840,780 680,890 480,820 C280,750 120,860 -80,810 Z" />
+          </svg>
+        </div>
+        <!-- Front wispy vapor highlight puffs -->
+        <div class="cloud-layer cloud-layer-front">
+          <svg viewBox="0 0 1440 900" preserveAspectRatio="none">
+            <path d="M-50,150 C150,80 320,200 520,130 C720,60 890,180 1090,110 C1290,40 1420,140 1500,100 L1500,780 C1350,720 1200,820 1000,760 C800,700 650,800 450,730 C250,660 100,770 -50,710 Z" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Native Calm Immersive Frame: Artificial status bar removed -->
+
+      <!-- ========================================================
+           INITIAL ONBOARDING: GENDER THEME & PROFILE DETAILS
+           ======================================================== -->
+      <section id="onboarding-gender-modal" class="onboarding-gender-overlay active" aria-label="Sanctuary Personalization">
+        <div class="onboarding-card-content">
+          <div class="onboarding-brand-badge">
+            <span class="brand-om">अ</span>
+            <span class="onboarding-badge-text">ADHYAY SANCTUARY</span>
+          </div>
+
+          <!-- STEP 1: GENDER & THEME SELECTION -->
+          <div class="onboarding-step-view active" id="onboarding-step-1">
+            <span class="onboarding-step-pill">Step 1 of 2 • Sanctuary Aesthetic</span>
+            <h2 class="onboarding-title">Are you a male or female?</h2>
+            <p class="onboarding-subtitle">Select your aesthetic to personalize your Adhyay</p>
+
+            <div class="gender-selection-grid">
+              <!-- Option 1: Male -->
+              <button type="button" class="gender-card-btn active" id="btn-gender-male" data-gender="male" aria-label="Select Male">
+                <div class="gender-check-badge">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="gender-img-frame">
+                  <img src="assets/gender_male.jpg" alt="Male Meditating Character" class="gender-avatar-img">
+                </div>
+                <span class="gender-name">Male</span>
+                <span class="gender-theme-tag">Male Practitioner</span>
+              </button>
+
+              <!-- Option 2: Female -->
+              <button type="button" class="gender-card-btn" id="btn-gender-female" data-gender="female" aria-label="Select Female">
+                <div class="gender-check-badge">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="gender-img-frame">
+                  <img src="assets/gender_female.jpg" alt="Female Meditating Character" class="gender-avatar-img">
+                </div>
+                <span class="gender-name">Female</span>
+                <span class="gender-theme-tag">Female Practitioner</span>
+              </button>
+            </div>
+
+            <!-- THEME SELECTION OPTION (BELOW GENDER SELECTION) -->
+            <div class="onboarding-theme-selector-section">
+              <label class="onboarding-section-label">Choose Sanctuary Theme</label>
+              <div class="theme-selection-grid" id="onboarding-theme-grid">
+                <button type="button" class="theme-card-btn active" id="btn-theme-edition-a" data-theme="a" aria-label="Edition A: Organic Zen Theme">
+                  <div class="theme-card-icon-wrap theme-icon-zen">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                  </div>
+                  <div class="theme-card-info">
+                    <div class="theme-card-name">Edition A: Organic Zen</div>
+                    <div class="theme-card-desc">Warm ink, humanist serif & serene parchment calm</div>
+                  </div>
+                  <div class="theme-check-badge">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  </div>
+                </button>
+
+                <button type="button" class="theme-card-btn" id="btn-theme-edition-b" data-theme="b" aria-label="Edition B: Private Club Noir Theme">
+                  <div class="theme-card-icon-wrap theme-icon-noir">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                  </div>
+                  <div class="theme-card-info">
+                    <div class="theme-card-name">Edition B: Private Club Noir</div>
+                    <div class="theme-card-desc">Obsidian dark mode, champagne gold & velvet depth</div>
+                  </div>
+                  <div class="theme-check-badge">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <div class="onboarding-action-stack">
+              <button type="button" class="btn-start-primary" id="btn-onboarding-to-step2">
+                <span>Continue to Profile</span>
+                <span class="btn-arrow">→</span>
+              </button>
+              <button type="button" class="btn-onboarding-skip" id="btn-onboarding-skip-1">
+                Skip for now
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 2: PROFILE DETAILS -->
+          <div class="onboarding-step-view hidden" id="onboarding-step-2">
+            <span class="onboarding-step-pill">Step 2 of 2 • Profile Details</span>
+            <h2 class="onboarding-title">Tell us about yourself</h2>
+            <p class="onboarding-subtitle">Personalize your daily mental clarity and reflections</p>
+
+            <div class="profile-input-group">
+              <label for="onboarding-profile-name" class="profile-input-label">What should Adhyay call you?</label>
+              <div class="profile-input-wrapper">
+                <span class="input-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </span>
+                <input type="text" id="onboarding-profile-name" class="profile-input-field" placeholder="Enter your name (e.g. Alex)" maxlength="25">
+              </div>
+            </div>
+
+            <div class="profile-input-group">
+              <label class="profile-input-label">Identity &amp; Practitioner Avatar</label>
+              <div class="profile-gender-inline-selector" id="profile-gender-inline-selector">
+                <button type="button" class="profile-gender-pill active" id="profile-gender-pill-male" data-gender="male">
+                  <span class="gender-pill-avatar-wrap">
+                    <img src="assets/gender_male.jpg" alt="Male" class="gender-pill-avatar-img">
+                  </span>
+                  <span class="gender-pill-text-wrap">
+                    <strong>Male</strong>
+                    <small>Male Practitioner</small>
+                  </span>
+                </button>
+                <button type="button" class="profile-gender-pill" id="profile-gender-pill-female" data-gender="female">
+                  <span class="gender-pill-avatar-wrap">
+                    <img src="assets/gender_female.jpg" alt="Female" class="gender-pill-avatar-img">
+                  </span>
+                  <span class="gender-pill-text-wrap">
+                    <strong>Female</strong>
+                    <small>Female Practitioner</small>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <div class="profile-input-group">
+              <label class="profile-input-label">Primary Clarity Focus</label>
+              <div class="goal-chips-grid" id="onboarding-goals-grid">
+                <button type="button" class="goal-chip active" data-goal="overwhelm">Work Stress & Burnout</button>
+                <button type="button" class="goal-chip" data-goal="overthinking">Overthinking Loops</button>
+                <button type="button" class="goal-chip" data-goal="decision">Decision Paralysis</button>
+                <button type="button" class="goal-chip" data-goal="sleep">Sleep & Racing Thoughts</button>
+                <button type="button" class="goal-chip" data-goal="doubt">Self-Doubt & Inner Critic</button>
+              </div>
+            </div>
+
+            <div class="profile-input-group">
+              <label class="profile-input-label">Daily Reflection Target</label>
+              <div class="time-pills-row" id="onboarding-time-row">
+                <button type="button" class="time-pill active" data-time="2">2 mins (Micro)</button>
+                <button type="button" class="time-pill" data-time="5">5 mins (Daily Arc)</button>
+                <button type="button" class="time-pill" data-time="10">10 mins (Deep)</button>
+              </div>
+            </div>
+
+            <div class="onboarding-action-stack">
+              <button type="button" class="btn-start-primary" id="btn-onboarding-finish">
+                <span>Let's begin your Adhyay</span>
+                <span class="btn-arrow">→</span>
+              </button>
+              <div class="onboarding-nav-subrow">
+                <button type="button" class="btn-onboarding-back" id="btn-onboarding-back-to-step1">← Back</button>
+                <button type="button" class="btn-onboarding-skip" id="btn-onboarding-skip-2">Skip</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SPLASH SCREEN OVERLAY (Dual Edition Adaptive)
+           ======================================================== -->
+      <section id="splash-screen" class="splash-screen active">
+        
+
+
+        <div class="splash-content">
+          
+          <!-- Gated Badge (Shown only in Club Mode) -->
+          <div class="gated-status-bar hidden" id="splash-gated-bar">
+            <span class="gold-seal">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 8 22 9 17 14 18 21 12 17.5 6 21 7 14 2 9 9 8 12 2"/></svg>
+            </span>
+            <span>MEMBERSHIP STATUS: VETTED & APPROVED • NO. 0482</span>
+          </div>
+
+          <!-- ILLUSTRATIVE MEDITATION HERO ARTWORK (FROM PDF HERO) -->
+          <div class="splash-hero-art-container" id="splash-hero-art">
+            <div class="hero-art-glow-ring"></div>
+            <img class="splash-hero-img" id="splash-hero-img" src="assets/pdf_hero_forest_meditation.jpg" alt="Adhyay Meditation Sanctuary">
+          </div>
+
+          <div class="splash-titles">
+            <span class="splash-sub-heading" id="splash-sub-heading">अध्याय</span>
+            <h1 class="splash-brand-title" id="splash-brand-title">Adhyay</h1>
+            <p class="splash-tagline" id="splash-tagline">From Overwhelmed → To Clear</p>
+          </div>
+
+          <!-- Waitlist & Vetting Stats (Club Mode) -->
+          <div class="gated-stats-card hidden" id="splash-gated-stats">
+            <div class="gated-stat-col">
+              <span class="stat-num">98.4%</span>
+              <span class="stat-lbl">Clarity Index</span>
+            </div>
+            <div class="gated-divider"></div>
+            <div class="gated-stat-col">
+              <span class="stat-num">Tier 1</span>
+              <span class="stat-lbl">Priority Access</span>
+            </div>
+            <div class="gated-divider"></div>
+            <div class="gated-stat-col">
+              <span class="stat-num">0482</span>
+              <span class="stat-lbl">Member Key</span>
+            </div>
+          </div>
+
+          <!-- Philosophy Quote -->
+          <div class="splash-philosophy" id="splash-zen-philosophy">
+            <p>"People can think on their own, but they cannot always guide their thoughts effectively. Adhyay provides that guidance."</p>
+          </div>
+
+          <div class="splash-actions">
+            <button class="btn-start-primary" id="btn-splash-start">
+              <span id="splash-start-text">Let's begin your Adhyay</span>
+              <span class="btn-arrow">→</span>
+            </button>
+            <button class="btn-ghost-outline" id="btn-splash-explore">
+              <span id="splash-explore-text">Explore Clinical Protocols</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="splash-footer">
+          <span id="splash-footer-text">Active Guided Reflection • Factual Physiology</span>
+        </div>
+      </section>
+
+      <!-- APP HEADER -->
+      <header class="app-header" id="app-header">
+        <div class="header-left">
+          <button class="logo-mark" id="btn-header-home" title="Home">
+            <svg width="24" height="24" viewBox="0 0 192 192">
+              <circle cx="96" cy="96" r="78" fill="none" stroke="currentColor" stroke-width="5" opacity="0.35" stroke-dasharray="6 8"/>
+              <circle cx="96" cy="96" r="50" fill="none" stroke="currentColor" stroke-width="7" opacity="0.85"/>
+              <circle cx="96" cy="96" r="20" fill="currentColor"/>
+              <circle cx="96" cy="96" r="8" fill="#FFFFFF"/>
+            </svg>
+          </button>
+          <div class="header-titles">
+            <span class="app-title" id="header-brand-title">Adhyay</span>
+            <span class="app-tagline" id="header-brand-tagline">Guided Reflection</span>
+          </div>
+        </div>
+
+
+
+        <div class="header-right">
+          <button type="button" class="header-profile-btn" id="btn-header-profile" title="Your Adhyay Profile">
+            <div class="header-profile-avatar" id="header-avatar-frame">
+              <img src="assets/gender_male.jpg" alt="Profile" id="header-avatar-img">
+            </div>
+            <span class="header-profile-name" id="header-profile-name-text">Profile</span>
+          </button>
+          <div class="streak-badge" id="header-streak-badge" title="Daily Clarity Streak">
+            <svg class="streak-svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8.5 14.5A3.5 3.5 0 0 0 12 18a3.5 3.5 0 0 0 3.5-3.5A3.5 3.5 0 0 0 12 11a3.5 3.5 0 0 0-3.5 3.5zm3.5-12.5C7.5 7.5 4 11 4 15a8 8 0 0 0 16 0c0-4-3.5-7.5-8-13z"/>
+            </svg>
+            <span id="streak-count">4</span> <small id="streak-suffix">days</small>
+          </div>
+        </div>
+      </header>
+
+      <!-- SCREENS CONTAINER -->
+      <div class="screens-container" id="screens-container">
+
+        <!-- ==============================================
+             SCREEN 1: HOME / TODAY
+             ============================================== -->
+        <section id="screen-home" class="screen-view active">
+          
+          <!-- Edition B: Executive Safari/Member Pass (Inspired by Namibia Safari UI) -->
+          <div class="member-dossier-card hidden" id="club-member-dossier">
+            <div class="dossier-ticket-stub">
+              <div class="stub-notch notch-left"></div>
+              <div class="stub-notch notch-right"></div>
+              <div class="dossier-header">
+                <div class="dossier-avatar-wrap">
+                  <div class="dossier-photo-bw">
+                    <svg viewBox="0 0 100 100" class="dossier-svg-yogi">
+                      <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4" opacity="0.4"/>
+                      <circle cx="50" cy="34" r="10" fill="currentColor"/>
+                      <path d="M48,46 L52,46 L60,55 L68,74 L58,74 L50,62 L42,74 L32,74 L40,55 Z" fill="currentColor"/>
+                      <path d="M28,78 C32,68 45,70 50,72 C55,70 68,68 72,78 C76,86 64,90 50,90 C36,90 24,86 28,78 Z" fill="currentColor"/>
+                    </svg>
+                  </div>
+                  <div class="verified-dot-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+                </div>
+                <div class="dossier-meta">
+                  <span class="dossier-prestige-tag">FOUNDING FELLOW • COHORT I</span>
+                  <h3 class="dossier-name">Executive Member Pass</h3>
+                  <span class="dossier-id">KEY #ADH-0482 • VERIFIED TIER 1</span>
+                </div>
+              </div>
+
+              <!-- Structured Data Blocks -->
+              <div class="structured-data-grid">
+                <div class="data-block">
+                  <span class="data-label">COGNITIVE BANDWIDTH</span>
+                  <strong class="data-value">78% Optimal</strong>
+                  <span class="data-sub">Single-threaded</span>
+                </div>
+                <div class="data-block">
+                  <span class="data-label">DECISION LATENCY</span>
+                  <strong class="data-value">&lt; 180s</strong>
+                  <span class="data-sub">Zero paralysis</span>
+                </div>
+                <div class="data-block">
+                  <span class="data-label">AUTONOMIC BRAKE</span>
+                  <strong class="data-value">Vagal Active</strong>
+                  <span class="data-sub">Stanford protocol</span>
+                </div>
+                <div class="data-block">
+                  <span class="data-label">MENTAL ASSETS</span>
+                  <strong class="data-value">Restored</strong>
+                  <span class="data-sub">Executive clarity</span>
+                </div>
+              </div>
+
+              <!-- Ticket Barcode Footer -->
+              <div class="ticket-barcode-row">
+                <div class="barcode-lines">
+                  <span>|| | ||| | || |||| | ||| || ||| | || ||</span>
+                </div>
+                <span class="ticket-seal">VERIFIED COHORT</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Greeting Row (Inspired by Meditation App Design.jpe) -->
+          <div class="greeting-row" id="zen-hero-card">
+            <div class="greeting-avatar">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <span class="avatar-online-dot"></span>
+            </div>
+            <div class="greeting-text">
+              <h2 class="greeting-user" id="hero-greeting-name">Good morning, Emma</h2>
+              <p class="greeting-sub" id="hero-subtext-text">Ready for today's clarity session?</p>
+            </div>
+            <div class="greeting-badge" id="hero-status-pill">
+              <span class="pulsing-leaf" id="hero-leaf">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"/></svg>
+              </span>
+              <span id="hero-time-greeting">Calm</span>
+            </div>
+          </div>
+
+          <!-- Mood Check-in Bar: "How are you feeling today?" (From Meditation App Design.jpe) -->
+          <div class="mood-checkin-container">
+            <div class="mood-checkin-header">
+              <span class="checkin-label" id="emotions-title">How are you feeling today?</span>
+              <span class="checkin-sublabel">Select mood</span>
+            </div>
+            <div class="mood-pills-row" id="mood-pills-row">
+              <button class="mood-circle-btn active" data-emotion="peaceful" title="Peaceful">
+                <div class="mood-circle-icon"><img src="assets/emotion_peaceful.jpg" class="mood-thumb-img" alt="Peaceful"></div>
+                <span class="mood-circle-label">Peaceful</span>
+              </button>
+              <button class="mood-circle-btn" data-emotion="overwhelmed" title="Overwhelmed">
+                <div class="mood-circle-icon"><img src="assets/emotion_overwhelmed.jpg" class="mood-thumb-img" alt="Overwhelmed"></div>
+                <span class="mood-circle-label">Anxious</span>
+              </button>
+              <button class="mood-circle-btn" data-emotion="overthinking" title="Overthinking">
+                <div class="mood-circle-icon"><img src="assets/emotion_overthinking.jpg" class="mood-thumb-img" alt="Overthinking"></div>
+                <span class="mood-circle-label">Stressed</span>
+              </button>
+              <button class="mood-circle-btn" data-emotion="selfdoubt" title="Self-Doubt">
+                <div class="mood-circle-icon"><img src="assets/emotion_selfdoubt.jpg" class="mood-thumb-img" alt="Self-Doubt"></div>
+                <span class="mood-circle-label">Doubt</span>
+              </button>
+              <button class="mood-circle-btn" data-emotion="decisionfreeze" title="Decision Freeze">
+                <div class="mood-circle-icon"><img src="assets/emotion_freeze.jpg" class="mood-thumb-img" alt="Decision Freeze"></div>
+                <span class="mood-circle-label">Freeze</span>
+              </button>
+              <button class="mood-circle-btn" data-emotion="heaviness" title="Emotional Heaviness">
+                <div class="mood-circle-icon"><img src="assets/emotion_heavy.jpg" class="mood-thumb-img" alt="Emotional Heaviness"></div>
+                <span class="mood-circle-label">Heavy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Continue Your Journey Hero Card (From Meditation App Design.jpe) -->
+          <div class="journey-card" id="home-journey-card">
+            <div class="journey-art-bg">
+              <svg viewBox="0 0 360 130" preserveAspectRatio="xMidYMid slice" class="journey-lake-svg">
+                <defs>
+                  <linearGradient id="lakeSkyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#4E2A1E"/>
+                    <stop offset="50%" stop-color="#2D1A14"/>
+                    <stop offset="100%" stop-color="#141419"/>
+                  </linearGradient>
+                </defs>
+                <rect width="360" height="130" fill="url(#lakeSkyGrad)"/>
+                <!-- Misty mountains -->
+                <path d="M0,130 L45,88 L100,108 L170,78 L230,98 L290,72 L360,94 L360,130 Z" fill="rgba(217, 119, 87, 0.22)"/>
+                <path d="M0,130 L70,102 L150,114 L220,92 L300,108 L360,96 L360,130 Z" fill="rgba(0, 0, 0, 0.45)"/>
+                <!-- Glowing Sunrise Sun -->
+                <circle cx="230" cy="58" r="28" fill="#F7B267" opacity="0.3" filter="blur(3px)"/>
+                <circle cx="230" cy="58" r="14" fill="#F7B267" opacity="0.85"/>
+                <!-- Meditating silhouette -->
+                <circle cx="70" cy="72" r="6" fill="#F7F4EE" opacity="0.88"/>
+                <path d="M65,81 L75,81 L81,90 L77,102 L70,95 L63,102 L59,90 Z" fill="#F7F4EE" opacity="0.88"/>
+                <path d="M54,104 C58,98 65,100 70,101 C75,100 82,98 86,104 C88,109 78,112 70,112 C62,112 52,109 54,104 Z" fill="#F7F4EE" opacity="0.88"/>
+              </svg>
+            </div>
+            <div class="journey-content-overlay">
+              <div class="journey-text">
+                <span class="journey-kicker" id="banner-sub-text">CONTINUE YOUR ADHYAY</span>
+                <h3 class="journey-heading" id="banner-main-title">Daily Autonomic Reset</h3>
+                <span class="journey-protocol-tag">10 min • Stanford Huberman Protocol</span>
+              </div>
+              <button class="journey-circle-play" id="btn-home-start-diagnostic" title="Start Daily Practice">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Mindful Companion Card with Mascot Character -->
+          <div class="companion-mascot-card" id="home-companion-mascot-card">
+            <div class="companion-mascot-avatar-wrap">
+              <img src="assets/ai_mascot_character.png" alt="Adhyay Mindful Mascot" class="companion-mascot-avatar">
+              <span class="companion-online-indicator"></span>
+            </div>
+            <div class="companion-mascot-text">
+              <span class="companion-kicker">ADHYAY AI MASCOT</span>
+              <h4 class="companion-headline">Meet your mindful companion</h4>
+              <p class="companion-sub">Ask for personalized neuro-breathing, calm reflection, or soothing books anytime.</p>
+            </div>
+            <button type="button" class="btn-companion-chat" id="btn-home-chat-with-mascot" title="Ask Mascot">
+              <span>Talk</span>
+              <span>→</span>
+            </button>
+          </div>
+
+          <!-- Explore 3-Column Soft Cards (From Meditation App Design.jpe) -->
+          <div class="explore-container">
+            <div class="section-headline-row">
+              <h3 class="headline-title">Explore</h3>
+              <button class="headline-link" id="btn-see-all-explore">See all</button>
+            </div>
+            <div class="explore-3col-grid">
+              <div class="explore-card card-meditation" id="exp-card-meditation">
+                <div class="explore-card-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M12 3c-2 4-2 7 0 9 2-2 2-5 0-9z"/>
+                    <path d="M12 12c-3.5-1-6.5.5-8 3.5 3 0 6-1 8-3.5z"/>
+                    <path d="M12 12c3.5-1 6.5.5 8 3.5-3 0-6-1-8-3.5z"/>
+                    <path d="M6 18c3-1 6-1.5 6-1.5s3 .5 6 1.5c-3 1.5-9 1.5-12 0z"/>
+                  </svg>
+                </div>
+                <h4 class="exp-card-title">Meditation</h4>
+                <span class="exp-card-count">32 Sessions</span>
+              </div>
+              <div class="explore-card card-sleep" id="exp-card-sleep">
+                <div class="explore-card-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                  </svg>
+                </div>
+                <h4 class="exp-card-title">Sleep</h4>
+                <span class="exp-card-count">18 Sessions</span>
+              </div>
+              <div class="explore-card card-breathing" id="exp-card-breathing">
+                <div class="explore-card-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/>
+                  </svg>
+                </div>
+                <h4 class="exp-card-title">Breathing</h4>
+                <span class="exp-card-count">12 Sessions</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- The Mental Overload Crisis: Extracted from PDF "From Overwhelmed to Clear" -->
+          <div class="pdf-crisis-banner" id="pdf-crisis-card">
+            <div class="pdf-crisis-img-col">
+              <img src="assets/pdf_crisis_face.jpg?v=2" alt="The Mental Overload Crisis" class="pdf-crisis-img">
+            </div>
+            <div class="pdf-crisis-body">
+              <span class="pdf-crisis-badge">CLINICAL CONTEXT • ADHYAY RESEARCH</span>
+              <h4 class="pdf-crisis-title">The Mental Overload Crisis</h4>
+              <p class="pdf-crisis-desc">When competing tasks pile up, the sympathetic nervous system triggers cognitive paralysis. Adhyay systematically breaks the spiral.</p>
+              <button type="button" class="btn-crisis-read" id="btn-read-crisis-protocol">Explore Physiology Protocol →</button>
+            </div>
+          </div>
+
+          <!-- Recommended For You Protocols List (From Meditation App Design.jpe) -->
+          <div class="recommended-container">
+            <div class="section-headline-row">
+              <h3 class="headline-title">Recommended for you</h3>
+              <button class="headline-link" id="btn-see-all-recommended">See all</button>
+            </div>
+            <div class="recommended-cards-stack">
+              <div class="rec-row-card" id="rec-sigh" data-tech="sigh">
+                <div class="rec-thumb-wrap">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 3v8m0 0l-3 4m3-4l3 4"/>
+                    <path d="M9 11c-2.5.5-4 2.5-4 5.5 0 2.5 1.5 4.5 4 4.5 1.5 0 2.5-1 2.5-2.5V11"/>
+                    <path d="M15 11c2.5.5 4 2.5 4 5.5 0 2.5-1.5 4.5-4 4.5-1.5 0-2.5-1-2.5-2.5V11"/>
+                  </svg>
+                </div>
+                <div class="rec-details">
+                  <h4 class="rec-title">Calm Mind (Physiological Sigh)</h4>
+                  <span class="rec-meta">8 min • Autonomic Reset</span>
+                </div>
+                <button class="rec-play-pill" title="Start Session">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+                </button>
+              </div>
+
+              <div class="rec-row-card" id="rec-box" data-tech="box">
+                <div class="rec-thumb-wrap">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="4"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                </div>
+                <div class="rec-details">
+                  <h4 class="rec-title">Deep Equilibrium (Box Breathing)</h4>
+                  <span class="rec-meta">10 min • Navy SEALs</span>
+                </div>
+                <button class="rec-play-pill" title="Start Session">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+                </button>
+              </div>
+
+              <div class="rec-row-card" id="rec-vagal" data-tech="vagal">
+                <div class="rec-thumb-wrap">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                  </svg>
+                </div>
+                <div class="rec-details">
+                  <h4 class="rec-title">Breathing Basics (4-7-8 Vagal)</h4>
+                  <span class="rec-meta">5 min • Dr. Weil Reset</span>
+                </div>
+                <button class="rec-play-pill" title="Start Session">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Thought Decoder Friction Cards Section -->
+          <div class="section-headline-row" style="margin-top: 20px;">
+            <h3 class="headline-title">Target Root Cause</h3>
+            <span class="headline-badge">Active Diagnostic</span>
+          </div>
+
+          <div class="emotion-cards-grid" id="emotion-grid">
+            <button class="emotion-card" data-emotion="peaceful">
+              <div class="emotion-icon-wrap img-wrap">
+                <img src="assets/emotion_peaceful.jpg" class="card-thumb-img" alt="Peaceful">
+              </div>
+              <div class="emotion-info">
+                <h4>Peaceful</h4>
+                <p>Centering calm & serene equilibrium</p>
+              </div>
+              <span class="card-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </span>
+            </button>
+
+            <button class="emotion-card" data-emotion="overwhelmed">
+              <div class="emotion-icon-wrap img-wrap">
+                <img src="assets/emotion_overwhelmed.jpg" class="card-thumb-img" alt="Overwhelmed">
+              </div>
+              <div class="emotion-info">
+                <h4>Overwhelmed</h4>
+                <p>Task saturation & mental pressure</p>
+              </div>
+              <span class="card-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </span>
+            </button>
+
+            <button class="emotion-card" data-emotion="overthinking">
+              <div class="emotion-icon-wrap img-wrap">
+                <img src="assets/emotion_overthinking.jpg" class="card-thumb-img" alt="Overthinking">
+              </div>
+              <div class="emotion-info">
+                <h4>Overthinking</h4>
+                <p>Repetitive loops & what-if spirals</p>
+              </div>
+              <span class="card-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </span>
+            </button>
+
+            <button class="emotion-card" data-emotion="selfdoubt">
+              <div class="emotion-icon-wrap img-wrap">
+                <img src="assets/emotion_selfdoubt.jpg" class="card-thumb-img" alt="Self-Doubt">
+              </div>
+              <div class="emotion-info">
+                <h4>Self-Doubt</h4>
+                <p>Harsh inner critic & imposter feeling</p>
+              </div>
+              <span class="card-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </span>
+            </button>
+
+            <button class="emotion-card" data-emotion="decisionfreeze">
+              <div class="emotion-icon-wrap img-wrap">
+                <img src="assets/emotion_freeze.jpg" class="card-thumb-img" alt="Decision Freeze">
+              </div>
+              <div class="emotion-info">
+                <h4>Decision Freeze</h4>
+                <p>Conflicting choices & fear of error</p>
+              </div>
+              <span class="card-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </span>
+            </button>
+
+            <button class="emotion-card" data-emotion="heaviness">
+              <div class="emotion-icon-wrap img-wrap">
+                <img src="assets/emotion_heavy.jpg" class="card-thumb-img" alt="Emotional Heaviness">
+              </div>
+              <div class="emotion-info">
+                <h4>Emotional Heaviness</h4>
+                <p>Unspoken fatigue & somatic weight</p>
+              </div>
+              <span class="card-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </span>
+            </button>
+          </div>
+
+          <!-- Quick Fast Reset Row -->
+          <div class="quick-reset-row" id="btn-quick-relax">
+            <div class="reset-left">
+              <div class="reset-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 3v8m0 0l-3 4m3-4l3 4"/>
+                  <path d="M9 11c-2.5.5-4 2.5-4 5.5 0 2.5 1.5 4.5 4 4.5 1.5 0 2.5-1 2.5-2.5V11"/>
+                  <path d="M15 11c2.5.5 4 2.5 4 5.5 0 2.5-1.5 4.5-4 4.5-1.5 0-2.5-1-2.5-2.5V11"/>
+                </svg>
+              </div>
+              <div>
+                <strong id="quick-reset-title">Immediate Physiological Reset</strong>
+                <p id="quick-reset-desc">Stanford Physiological Sigh (90 seconds)</p>
+              </div>
+            </div>
+            <span class="reset-badge">Practice →</span>
+          </div>
+
+        </section>
+
+        <!-- ==============================================
+             SCREEN 2: ROOT-CAUSE DIAGNOSTIC (STRICT TEXT LIMIT)
+             ============================================== -->
+        <section id="screen-diagnose" class="screen-view">
+          
+          <div class="step-nav-header">
+            <button id="btn-diag-back" class="btn-icon-back" title="Back">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="step-indicators">
+              <span class="step-dot active" id="dot-step-1"></span>
+              <span class="step-dot" id="dot-step-2"></span>
+              <span class="step-dot" id="dot-step-3"></span>
+            </div>
+            <button id="btn-diag-close" class="btn-icon-close" title="Close">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+
+          <!-- Diagnostic Frame (1 bite-sized prompt per screen) -->
+          <div class="diagnostic-frame" id="diagnostic-frame">
+            <div class="diag-meta-row">
+              <button class="diag-chip diag-chip-interactive" id="btn-change-diag-mood" type="button" title="Switch State">
+                <img id="diag-chip-img" class="diag-chip-img" src="assets/emotion_overwhelmed.jpg" alt="State">
+                <span id="diag-chip-name">Overwhelmed</span>
+                <span class="diag-chip-switch-badge">Switch</span>
+              </button>
+              <span class="diag-counter" id="diag-step-counter">Step 1 of 2</span>
+            </div>
+
+            <h2 class="diag-question" id="diag-question-text">
+              What is the primary friction right now?
+            </h2>
+
+            <!-- Options Stack -->
+            <div class="diag-options-stack" id="diag-options-stack">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Diagnostic Outcome Card -->
+          <div class="diag-result-card hidden" id="diag-result-card">
+            <div class="result-badge-top">
+              <span id="result-badge-label">ROOT CAUSE IDENTIFIED</span>
+            </div>
+
+            <h3 class="result-title" id="result-title">Executive Cognitive Saturation</h3>
+            
+            <div class="result-breakdown-compact">
+              <div class="breakdown-pill">
+                <span class="lbl">Distortion:</span>
+                <strong id="result-distortion">Catastrophic Compounding</strong>
+              </div>
+              <div class="breakdown-pill">
+                <span class="lbl">Unmet Need:</span>
+                <strong id="result-need">Nervous System Reset</strong>
+              </div>
+            </div>
+
+            <div class="prescribed-preview-box">
+              <div class="prescribed-header">
+                <svg class="spark-icon-svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5Z"/></svg>
+                <span id="prescribed-header-tag">RECOMMENDED PROTOCOL</span>
+              </div>
+              <h4 id="result-module-name">Physiological Sigh</h4>
+              <p id="result-module-pitch">Two quick inhales pop open collapsed alveoli; prolonged exhale drops your heart rate within 2 breath cycles.</p>
+            </div>
+
+            <button class="btn-start-primary" id="btn-start-technique-walkthrough">
+              <span>Explore Technique Step-by-Step</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==============================================
+             SCREEN 3: TECHNIQUE WALKTHROUGH (SCREEN-BY-SCREEN)
+             ============================================== -->
+        <section id="screen-technique-walkthrough" class="screen-view">
+          
+          <div class="step-nav-header">
+            <button id="btn-walkthrough-back" class="btn-icon-back">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="walkthrough-indicators">
+              <span class="walk-dot active" id="wdot-1"></span>
+              <span class="walk-dot" id="wdot-2"></span>
+              <span class="walk-dot" id="wdot-3"></span>
+            </div>
+            <button id="btn-walkthrough-close" class="btn-icon-close" title="Close">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+
+          <!-- SLIDE 1: Purpose & Benefits (With Vecteezy Style Asana Illustration) -->
+          <div class="walkthrough-slide active" id="wslide-1">
+            <span class="slide-badge">STEP 1 • PURPOSE</span>
+            <h2 class="slide-title" id="wslide-tech-name">The Physiological Sigh</h2>
+            
+            <!-- 3D Claymorphic Technique Sanctuary Illustration -->
+            <div class="walkthrough-3d-art-wrap">
+              <img id="wslide-purpose-3d-img" class="walkthrough-3d-img" src="assets/tech_3d_sigh_purpose.png" alt="Technique Purpose 3D Sanctuary">
+            </div>
+
+            <p class="slide-lead" id="wslide-tech-purpose">
+              Designed to discharge acute stress and CO2 build-up in under 90 seconds.
+            </p>
+            <div class="slide-benefits-box">
+              <div class="benefit-item">
+                <span class="benefit-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                <span id="wslide-benefit-1">Halts the fight-or-flight panic feedback</span>
+              </div>
+              <div class="benefit-item">
+                <span class="benefit-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                <span id="wslide-benefit-2">Directly engages the parasympathetic vagal brake</span>
+              </div>
+            </div>
+            <button class="btn-start-primary" id="btn-walkthrough-next-1">
+              <span>Next: How It Works</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
+
+          <!-- SLIDE 2: Physiological Mechanism (With 3D Anatomical Lung & Vagus Reset Model) -->
+          <div class="walkthrough-slide hidden" id="wslide-2">
+            <span class="slide-badge">STEP 2 • PHYSIOLOGY</span>
+            <h2 class="slide-title">How Your Body Resets</h2>
+            
+            <!-- 3D Biological Lungs & Autonomic Vagus Reset -->
+            <div class="walkthrough-3d-art-wrap">
+              <img id="wslide-physiology-3d-img" class="walkthrough-3d-img" src="assets/tech_3d_lungs_reset.png" alt="How Your Body Resets 3D Biological Model">
+            </div>
+
+            <div class="mechanism-steps-stack" id="wslide-mechanism-steps">
+              <div class="mech-step">
+                <span class="mech-num">1</span>
+                <div>
+                  <strong>Deep Nasal Inhale</strong>
+                  <p>Fills the lower lobes of the lungs.</p>
+                </div>
+              </div>
+              <div class="mech-step">
+                <span class="mech-num">2</span>
+                <div>
+                  <strong>Sharp Top-up Sip</strong>
+                  <p>Pops open tiny collapsed alveoli bags.</p>
+                </div>
+              </div>
+              <div class="mech-step">
+                <span class="mech-num">3</span>
+                <div>
+                  <strong>Prolonged Mouth Exhale</strong>
+                  <p>Slows heart contractions via vagus nerve.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="citation-note" id="wslide-citation">
+              Stanford Medicine (Huberman Lab, 2023)
+            </div>
+
+            <button class="btn-start-primary" id="btn-walkthrough-next-2">
+              <span>Next: Practice With Timer</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
+
+          <!-- SLIDE 3: Live Guided Practice & Timer (With Animated Live Breath Pacer Character) -->
+          <div class="walkthrough-slide hidden" id="wslide-3">
+            <span class="slide-badge">STEP 3 • PRACTICE</span>
+            
+            <div class="live-practice-header">
+              <h2 id="live-practice-title">Physiological Sigh</h2>
+              <span class="live-citation-pill" id="live-citation-pill">Huberman, Stanford 2023</span>
+            </div>
+
+            <!-- Visual Focal Breathing Rhythm GIF Backdrop (From DoYou Calm Breathing Guide) -->
+            <div class="live-breath-gif-backdrop-card" id="live-breath-gif-card">
+              <img id="active-focal-gif" class="breath-bg-gif" src="assets/breathing_gifs/breath_in_out.gif" alt="Calm Breathing Rhythm Guide">
+              <div class="breath-gif-focal-label">
+                <span>VISUAL FOCAL RHYTHM • CALM BREATHING GUIDE</span>
+              </div>
+            </div>
+
+            <!-- Breathing Centerpiece -->
+            <div class="orb-timer-container">
+              <svg class="timer-progress-ring" viewBox="0 0 260 260">
+                <circle class="ring-bg" cx="130" cy="130" r="115" />
+                <circle class="ring-fg" id="timer-progress-circle" cx="130" cy="130" r="115" />
+              </svg>
+
+              <div class="breath-orb-wrapper">
+                <div class="breath-orb" id="breath-orb">
+                  <!-- Humane Animating Live Breathing Pacer Image Backdrop -->
+                  <div class="breath-img-backdrop">
+                    <img id="live-breath-img" class="live-breath-img inhaling" src="assets/breathe_inhale.jpg" alt="Live Breathing Guide">
+                  </div>
+                  <div class="orb-overlay-vignette"></div>
+                  <div class="orb-content">
+                    <span class="breath-phase-text" id="breath-phase-text">Ready</span>
+                    <span class="breath-countdown" id="breath-countdown">02:00</span>
+                    <span class="breath-instruction" id="breath-instruction">Tap Begin below</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Visual Focal Rhythm Selector Chips -->
+            <div class="breath-gif-selector-bar">
+              <span class="focal-title">Visual Rhythm Guide:</span>
+              <div class="focal-chips-row" id="focal-chips-row">
+                <button type="button" class="focal-chip active" data-gif="assets/breathing_gifs/breath_in_out.gif">Geometric</button>
+                <button type="button" class="focal-chip" data-gif="assets/breathing_gifs/destress_monday.gif">Fluid Ring</button>
+                <button type="button" class="focal-chip" data-gif="assets/breathing_gifs/breathing_square.gif">Box Square</button>
+                <button type="button" class="focal-chip" data-gif="assets/breathing_gifs/breathing_circle.gif">Lotus Pulse</button>
+                <button type="button" class="focal-chip" data-gif="assets/breathing_gifs/wp_breath_in_out.gif">Organic Flow</button>
+              </div>
+            </div>
+
+            <!-- Duration Chips -->
+            <div class="duration-row-compact">
+              <span>Duration:</span>
+              <div class="duration-chips">
+                <button class="dur-chip" data-seconds="60">1m</button>
+                <button class="dur-chip active" data-seconds="120">2m</button>
+                <button class="dur-chip" data-seconds="300">5m</button>
+              </div>
+            </div>
+
+            <!-- Practice Controls -->
+            <div class="practice-controls-stack">
+              <button class="btn-start-primary" id="btn-timer-toggle">
+                <span id="btn-timer-label">Begin Session</span>
+              </button>
+              <div class="practice-sub-buttons">
+                <button class="btn-ghost" id="btn-timer-reset">Reset</button>
+                <button class="btn-ghost" id="btn-timer-skip">Finish & View Report →</button>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ==============================================
+             SCREEN 4: REPORT SUMMARY (STRICTLY CLUTTER-FREE)
+             ============================================== -->
+        <section id="screen-report" class="screen-view">
+          
+          <div class="report-header">
+            <span class="report-badge" id="report-badge-text">SESSION COMPLETE</span>
+            <h2 id="report-heading-title">Your Clarity Shift</h2>
+            <p class="report-date" id="report-timestamp">Today • 15:45</p>
+          </div>
+
+          <!-- Vecteezy Style Chaos-to-Clarity Transformation Illustration -->
+          <div class="report-illustration-wrap">
+            <svg viewBox="0 0 200 65" width="180" height="58" class="chaos-to-clarity-svg">
+              <!-- Left: Chaotic tangled thought scribble -->
+              <path d="M15,35 Q25,10 35,40 T45,15 T30,55 T55,30 T40,20 T65,35" stroke="var(--text-muted)" stroke-width="1.8" fill="none" opacity="0.6"/>
+              <!-- Unravelling transition thread -->
+              <path d="M65,35 C85,35 95,32 110,32" stroke="var(--accent-primary)" stroke-width="1.8" stroke-dasharray="3 3" fill="none"/>
+              <!-- Right: Harmonious geometric concentric circle with calm yogi dot -->
+              <circle cx="155" cy="32" r="24" fill="var(--accent-soft)"/>
+              <circle cx="155" cy="32" r="18" fill="none" stroke="var(--accent-primary)" stroke-width="1.5"/>
+              <circle cx="155" cy="32" r="11" fill="none" stroke="var(--accent-primary)" stroke-width="1" stroke-dasharray="2 3"/>
+              <circle cx="155" cy="32" r="4" fill="var(--accent-primary)"/>
+            </svg>
+          </div>
+
+          <!-- Clarity Score Card -->
+          <div class="clarity-score-card">
+            <div class="clarity-metric-left">
+              <span class="score-label" id="score-card-label">ADHYAY CLARITY INDEX</span>
+              <div class="score-number-row">
+                <span class="score-big" id="rep-clarity-score">92</span>
+                <span class="score-total">/100</span>
+                <span class="score-change-badge" id="rep-clarity-change">+34 pts</span>
+              </div>
+              <p class="score-state-desc" id="score-state-desc">Internal friction converted into actionable calm</p>
+            </div>
+            <div class="clarity-visual-gauge">
+              <div class="gauge-leaf" id="gauge-emblem">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.2-6.3-4.6-6.3 4.6 2.3-7.2-6-4.6h7.6z"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 Core Parameters (Low Text Density) -->
+          <div class="parameters-grid">
+            <div class="param-card">
+              <div class="param-top">
+                <div class="param-icon-svg">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                </div>
+                <span class="param-delta positive" id="rep-focus-delta">+38%</span>
+              </div>
+              <div class="param-name">Focus Increase</div>
+              <div class="param-bar"><div class="param-fill sage" style="width: 86%;"></div></div>
+            </div>
+
+            <div class="param-card">
+              <div class="param-top">
+                <div class="param-icon-svg">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                </div>
+                <span class="param-delta positive" id="rep-stress-delta">-44%</span>
+              </div>
+              <div class="param-name">Stress Decrease</div>
+              <div class="param-bar"><div class="param-fill clay" style="width: 78%;"></div></div>
+            </div>
+
+            <div class="param-card">
+              <div class="param-top">
+                <div class="param-icon-svg">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </div>
+                <span class="param-delta positive" id="rep-prod-delta">+31%</span>
+              </div>
+              <div class="param-name">Productivity</div>
+              <div class="param-bar"><div class="param-fill ochre" style="width: 82%;"></div></div>
+            </div>
+
+            <div class="param-card">
+              <div class="param-top">
+                <div class="param-icon-svg">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </div>
+                <span class="param-delta positive" id="rep-happy-delta">+52%</span>
+              </div>
+              <div class="param-name">Good-Natured Thoughts</div>
+              <div class="param-bar"><div class="param-fill sand" style="width: 90%;"></div></div>
+            </div>
+          </div>
+
+          <!-- Weekly Clarity Momentum 3D Bar Chart (Inspired by download.jpe & Lilac Design Reference) -->
+          <div class="weekly-clarity-card">
+            <div class="weekly-header-row">
+              <div>
+                <span class="weekly-subtitle">MOMENTUM OVERVIEW</span>
+                <h3 class="weekly-title">7-Day Clarity Trajectory</h3>
+              </div>
+              <span class="weekly-badge">+34% vs last week</span>
+            </div>
+            <div class="weekly-bars-chart">
+              <div class="bar-col">
+                <div class="bar-pill-track"><div class="bar-pill-fill" style="height: 52%;"></div></div>
+                <span class="bar-day">M</span>
+              </div>
+              <div class="bar-col">
+                <div class="bar-pill-track"><div class="bar-pill-fill" style="height: 68%;"></div></div>
+                <span class="bar-day">T</span>
+              </div>
+              <div class="bar-col">
+                <div class="bar-pill-track"><div class="bar-pill-fill" style="height: 60%;"></div></div>
+                <span class="bar-day">W</span>
+              </div>
+              <div class="bar-col">
+                <div class="bar-pill-track"><div class="bar-pill-fill" style="height: 82%;"></div></div>
+                <span class="bar-day">T</span>
+              </div>
+              <div class="bar-col">
+                <div class="bar-pill-track"><div class="bar-pill-fill" style="height: 74%;"></div></div>
+                <span class="bar-day">F</span>
+              </div>
+              <div class="bar-col">
+                <div class="bar-pill-track"><div class="bar-pill-fill" style="height: 64%;"></div></div>
+                <span class="bar-day">S</span>
+              </div>
+              <div class="bar-col active-today">
+                <div class="bar-pill-track"><div class="bar-pill-fill today-highlight" style="height: 92%;"></div></div>
+                <span class="bar-day today-text">Today</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reframed Truth -->
+          <div class="reframe-card">
+            <div class="reframe-item before">
+              <span class="reframe-tag">Previous thought:</span>
+              <p id="rep-before-text">"Everything needs to be done right now or disaster looms."</p>
+            </div>
+            <div class="reframe-item after">
+              <span class="reframe-tag green">Reframed truth:</span>
+              <p id="rep-after-text">"Only 1 priority matters for the next 45 minutes; the rest is ambient noise."</p>
+            </div>
+          </div>
+
+          <!-- 1 Smart Micro-Action -->
+          <div class="micro-action-card">
+            <div class="action-top">
+              <span class="leaf-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </span>
+              <h4>1 Smart Micro-Action To Take Now</h4>
+            </div>
+            <p class="action-body" id="rep-micro-action-text">
+              Write down only your next physical action on a sticky note. Close all other browser tabs.
+            </p>
+            <div class="action-checkbox-wrap">
+              <input type="checkbox" id="chk-micro-action">
+              <label for="chk-micro-action">Mark completed (+10 clarity points)</label>
+            </div>
+          </div>
+
+          <!-- Curated Clarity Desk from PDF: "Clarity begins with curiosity" -->
+          <div class="pdf-journal-card" id="pdf-journal-banner">
+            <div class="pdf-journal-img-frame">
+              <img src="assets/pdf_journal_clarity_desk.jpg" alt="Clarity begins with curiosity" class="pdf-journal-img">
+              <div class="pdf-journal-overlay-tag">
+                <span>"Clarity begins with curiosity"</span>
+              </div>
+            </div>
+            <div class="pdf-journal-footer">
+              <span class="journal-sub">ACTIVE REFLECTION ARCHIVE</span>
+              <p class="journal-note">Today's friction transformed into sustained mental composure.</p>
+            </div>
+          </div>
+
+          <!-- Report Actions -->
+          <div class="report-actions">
+            <button class="btn-start-primary" id="btn-save-journal">Save To Clarity Journal</button>
+            <button class="btn-ghost" id="btn-share-report">Copy Summary</button>
+          </div>
+
+        </section>
+
+        <!-- ==============================================
+             SCREEN 5: SCIENCE & TECHNIQUES TAB
+             ============================================== -->
+        <!-- ==============================================
+             SCREEN 5: ADHYAY LIBRARY, MEDIA & SCIENCE
+             ============================================== -->
+        <section id="screen-science" class="screen-view">
+          
+          <div class="science-header">
+            <h2 id="science-header-title">Adhyay Library & Science</h2>
+            <p id="science-header-desc">Sorted masterclasses, 60s micro-resets, neuroscience articles & clinical protocols</p>
+          </div>
+
+          <!-- Sorted Media & Science Filter Tabs -->
+          <div class="media-tabs-scroll-wrap">
+            <div class="science-tab-toggles" role="tablist">
+              <button class="sci-tab-btn active" id="tab-btn-all" data-tab="all">All</button>
+              <button class="sci-tab-btn" id="tab-btn-books" data-tab="books">Calming Books</button>
+              <button class="sci-tab-btn" id="tab-btn-videos" data-tab="videos">Masterclasses (YT)</button>
+              <button class="sci-tab-btn" id="tab-btn-shorts" data-tab="shorts">Quick Shorts (60s)</button>
+              <button class="sci-tab-btn" id="tab-btn-articles" data-tab="articles">Articles</button>
+              <button class="sci-tab-btn" id="tab-btn-techniques" data-tab="techniques">Protocols</button>
+            </div>
+          </div>
+
+          <!-- CALMING BOOKS SECTION (Famous books to calm down, with Bookmarking & VIP Access) -->
+          <div class="media-catalog-section" id="sec-calming-books">
+            <div class="media-sec-header">
+              <div>
+                <span class="media-sec-tag">CALMING LITERATURE SANCTUARY</span>
+                <span class="media-sec-count" id="count-books">7 Famous Books</span>
+              </div>
+              <!-- Bookmark filter chip -->
+              <div class="book-filter-pills" id="book-filter-pills">
+                <button type="button" class="book-filter-pill active" data-filter="all" id="btn-filter-all-books">All</button>
+                <button type="button" class="book-filter-pill" data-filter="bookmarked" id="btn-filter-bookmarked-books">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                  <span>Bookmarks (<span id="bookmarked-count-badge">0</span>)</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- VIP Premium Gate Banner (Dynamic state based on VIP status) -->
+            <div class="vip-premium-card" id="vip-premium-banner">
+              <div class="vip-badge-row">
+                <span class="vip-crown-badge">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 8 22 9 17 14 18 21 12 17.5 6 21 7 14 2 9 9 8 12 2"/></svg>
+                  VIP EXCLUSIVE SANCTUARY
+                </span>
+                <span class="vip-status-pill" id="vip-status-text">Premium Locked</span>
+              </div>
+              <h3 class="vip-card-title">Curated Calming Books</h3>
+              <p class="vip-card-desc">Deep restorative teachings from world-renowned mindfulness authors to silence anxiety loops and cultivate grounded equanimity.</p>
+              
+              <div class="vip-unlock-box" id="vip-unlock-box">
+                <label for="vip-email-input" class="vip-input-label">Enter VIP Member ID for Instant Access:</label>
+                <div class="vip-input-row">
+                  <input type="email" id="vip-email-input" class="vip-input-field" placeholder="e.g. pm@skillizee.io" autocomplete="off">
+                  <button type="button" class="btn-vip-unlock" id="btn-vip-unlock">Unlock Sanctuary</button>
+                </div>
+                <span class="vip-hint">Complimentary VIP access available for authorized partner ID: <strong>pm@skillizee.io</strong> (no password required).</span>
+              </div>
+            </div>
+
+            <!-- Books Grid Container -->
+            <div class="books-grid" id="books-grid">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- YOUTUBE MASTERCLASSES SECTION -->
+          <div class="media-catalog-section" id="sec-yt-videos">
+            <div class="media-sec-header">
+              <span class="media-sec-tag">VIDEO MASTERCLASSES</span>
+              <span class="media-sec-count" id="count-videos">3 Masterclasses</span>
+            </div>
+            <div class="videos-grid" id="videos-grid">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- 60-SECOND QUICK SHORTS SECTION -->
+          <div class="media-catalog-section" id="sec-quick-shorts">
+            <div class="media-sec-header">
+              <span class="media-sec-tag">QUICK SHORTS (60-SECOND RESETS)</span>
+              <span class="media-sec-count" id="count-shorts">4 Shorts</span>
+            </div>
+            <div class="shorts-grid" id="shorts-grid">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- RESEARCH ARTICLES SECTION -->
+          <div class="media-catalog-section" id="sec-articles">
+            <div class="media-sec-header">
+              <span class="media-sec-tag">PEER-REVIEWED ARTICLES</span>
+              <span class="media-sec-count" id="count-articles">4 Articles</span>
+            </div>
+            <div class="articles-catalog" id="articles-catalog">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- CLINICAL PROTOCOLS SECTION -->
+          <div class="media-catalog-section" id="sec-protocols">
+            <div class="media-sec-header">
+              <span class="media-sec-tag">CLINICAL PROTOCOLS</span>
+              <span class="media-sec-count" id="count-techniques">8 Protocols</span>
+            </div>
+            <div class="techniques-catalog" id="techniques-catalog">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- PDF Curated Methodology: The 7-Step Reflection Journey Architecture (From PDF Page 7) -->
+          <div class="pdf-framework-card" id="pdf-framework-section">
+            <div class="framework-header">
+              <span class="framework-kicker">CORE METHODOLOGY • PUBLISHED CLINICAL ARCHITECTURE</span>
+              <h3 class="framework-title">The 7-Step Reflection Journey</h3>
+              <p class="framework-desc">The official clinical architecture from "From Overwhelmed to Clear", mapping every phase of autonomic regulation.</p>
+            </div>
+            <div class="framework-image-showcase">
+              <img src="assets/pdf_journey_roadmap_green.jpg" alt="7-Step Reflection Journey Architecture" class="framework-diagram-img">
+            </div>
+            <div class="framework-steps-pills">
+              <span class="step-pill">1. Pause</span>
+              <span class="step-pill">2. Identify</span>
+              <span class="step-pill">3. Regulate</span>
+              <span class="step-pill">4. Reframe</span>
+              <span class="step-pill">5. Anchor</span>
+              <span class="step-pill">6. Act</span>
+              <span class="step-pill">7. Integrate</span>
+            </div>
+          </div>
+
+          <!-- Past Session History -->
+          <div class="history-block">
+            <h3>Recent Adhyay Sessions</h3>
+            <div class="session-history-list" id="session-history-list"></div>
+          </div>
+
+        </section>
+
+      </div>
+
+      <!-- FLOATING ADHYAY AI WELLNESS COMPANION BUTTON (FEATURING MASCOT) -->
+      <button class="floating-ai-btn" id="btn-open-chatbot" title="Ask Adhyay Wellness AI">
+        <div class="ai-spark-halo"></div>
+        <div class="ai-mascot-pill-icon">
+          <img src="assets/ai_mascot_character.png" alt="Adhyay AI Mascot" class="ai-mascot-img-thumb">
+        </div>
+        <span>Ask Adhyay AI</span>
+      </button>
+
+      <!-- BOTTOM NAVIGATION BAR (Google Play Store Standard) -->
+      <nav class="app-bottom-nav" id="app-bottom-nav" aria-label="Main Navigation">
+        <button class="nav-tab active" data-target="screen-home" id="nav-btn-home">
+          <div class="nav-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <span id="nav-lbl-home">Today</span>
+        </button>
+
+        <button class="nav-tab" data-target="screen-diagnose" id="nav-btn-diagnose" aria-label="Diagnostic">
+          <div class="nav-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" stroke-width="1.8"/>
+              <path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2.2-2.5 3.5"/>
+              <circle cx="12" cy="16.6" r="0.9" fill="currentColor"/>
+            </svg>
+          </div>
+          <span id="nav-lbl-diag">Diagnostic</span>
+        </button>
+
+        <button class="nav-tab nav-highlight-tab" data-target="screen-technique-walkthrough" id="nav-btn-practice">
+          <div class="nav-highlight-orb">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <span id="nav-lbl-practice">Practice</span>
+        </button>
+
+        <button class="nav-tab" data-target="screen-report" id="nav-btn-report">
+          <div class="nav-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <span id="nav-lbl-report">Report</span>
+        </button>
+
+        <button class="nav-tab" data-target="screen-science" id="nav-btn-science">
+          <div class="nav-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <span id="nav-lbl-science">Library</span>
+        </button>
+      </nav>
+
+      <!-- DIAGNOSTIC CURRENT MOOD SELECTION MODAL -->
+      <div class="diag-mood-modal-backdrop hidden" id="modal-diag-mood-picker">
+        <div class="diag-mood-modal-sheet">
+          <div class="sheet-grabber"></div>
+          
+          <div class="diag-mood-modal-header">
+            <div class="diag-mood-title-wrap">
+              <div class="diag-mood-q-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2.2-2.5 3.5"/>
+                  <circle cx="12" cy="16.6" r="0.9" fill="currentColor"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="diag-mood-modal-title">What is your current state?</h3>
+                <p class="diag-mood-modal-subtitle">Select how you feel right now to initiate your personalized diagnostic and reset protocol.</p>
+              </div>
+            </div>
+            <button class="btn-close-modal" id="btn-close-diag-mood" title="Close">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+
+          <div class="diag-mood-grid">
+            <button class="diag-mood-card" data-emotion="overwhelmed">
+              <div class="diag-mood-card-img-wrap">
+                <img src="assets/emotion_overwhelmed.jpg" alt="Overwhelmed" class="diag-mood-card-img">
+              </div>
+              <div class="diag-mood-card-info">
+                <div class="diag-mood-card-title">Overwhelmed</div>
+                <div class="diag-mood-card-desc">Sensory saturation, cognitive fatigue, too much input</div>
+              </div>
+              <div class="diag-mood-card-arrow">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </button>
+
+            <button class="diag-mood-card" data-emotion="overthinking">
+              <div class="diag-mood-card-img-wrap">
+                <img src="assets/emotion_overthinking.jpg" alt="Anxious / Overthinking" class="diag-mood-card-img">
+              </div>
+              <div class="diag-mood-card-info">
+                <div class="diag-mood-card-title">Anxious / Overthinking</div>
+                <div class="diag-mood-card-desc">Racing mind, looping worry loops, chest or somatic tightness</div>
+              </div>
+              <div class="diag-mood-card-arrow">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </button>
+
+            <button class="diag-mood-card" data-emotion="decisionfreeze">
+              <div class="diag-mood-card-img-wrap">
+                <img src="assets/emotion_freeze.jpg" alt="Decision Freeze" class="diag-mood-card-img">
+              </div>
+              <div class="diag-mood-card-info">
+                <div class="diag-mood-card-title">Decision Freeze</div>
+                <div class="diag-mood-card-desc">Analysis paralysis, task procrastination, mental roadblock</div>
+              </div>
+              <div class="diag-mood-card-arrow">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </button>
+
+            <button class="diag-mood-card" data-emotion="selfdoubt">
+              <div class="diag-mood-card-img-wrap">
+                <img src="assets/emotion_selfdoubt.jpg" alt="Self-Doubt / Imposter" class="diag-mood-card-img">
+              </div>
+              <div class="diag-mood-card-info">
+                <div class="diag-mood-card-title">Self-Doubt / Imposter</div>
+                <div class="diag-mood-card-desc">Inner critic, fear of failure, perfectionist hesitation</div>
+              </div>
+              <div class="diag-mood-card-arrow">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </button>
+
+            <button class="diag-mood-card" data-emotion="heaviness">
+              <div class="diag-mood-card-img-wrap">
+                <img src="assets/emotion_heavy.jpg" alt="Heavy / Depleted" class="diag-mood-card-img">
+              </div>
+              <div class="diag-mood-card-info">
+                <div class="diag-mood-card-title">Heavy / Depleted</div>
+                <div class="diag-mood-card-desc">Physical depletion, emotional flatness, burnout symptoms</div>
+              </div>
+              <div class="diag-mood-card-arrow">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </button>
+
+            <button class="diag-mood-card" data-emotion="peaceful">
+              <div class="diag-mood-card-img-wrap">
+                <img src="assets/emotion_peaceful.jpg" alt="Peaceful / Grounded" class="diag-mood-card-img">
+              </div>
+              <div class="diag-mood-card-info">
+                <div class="diag-mood-card-title">Peaceful / Grounded</div>
+                <div class="diag-mood-card-desc">Somatic stillness, respiratory coherence, deep flow state</div>
+              </div>
+              <div class="diag-mood-card-arrow">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ARTICLE READER MODAL (For reading full science articles) -->
+      <div class="article-modal-backdrop hidden" id="article-modal">
+        <div class="article-modal-sheet">
+          <div class="sheet-grabber"></div>
+          <div class="article-modal-header">
+            <span class="art-tag" id="art-modal-tag">NEUROSCIENCE</span>
+            <button class="btn-close-art" id="btn-close-article" title="Close">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <h2 class="art-modal-title" id="art-modal-title">Article Title</h2>
+          <span class="art-modal-ref" id="art-modal-ref">Author • Institution</span>
+          <div class="art-modal-body" id="art-modal-body"></div>
+          <div class="art-sources-container" id="art-modal-sources-container">
+            <h4 class="art-sources-heading">Verified Research Citations & Original Articles</h4>
+            <div class="art-sources-list" id="art-modal-sources-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- YOUTUBE VIDEO MASTERCLASS MODAL -->
+      <div class="video-modal-backdrop hidden" id="yt-video-modal">
+        <div class="video-modal-sheet">
+          <div class="sheet-grabber"></div>
+          <div class="video-modal-header">
+            <div class="video-channel-pill" id="yt-modal-channel">Stanford Medicine • Huberman Lab</div>
+            <button class="btn-close-modal" id="btn-close-yt-video" title="Close">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <h2 class="video-modal-title" id="yt-modal-title">How the Physiological Sigh Drops Heart Rate</h2>
+          
+          <div class="video-player-container" id="yt-player-container">
+            <!-- Iframe injected or simulated video card -->
+          </div>
+
+          <div class="video-details-scroll">
+            <p class="video-description" id="yt-modal-desc">Summary of physiological mechanisms.</p>
+            
+            <div class="video-takeaways-box">
+              <h4>Key Scientific Takeaways</h4>
+              <div class="takeaways-list" id="yt-modal-takeaways"></div>
+            </div>
+
+            <button class="btn-start-primary" id="btn-yt-practice-action">
+              <span>Let's begin your Adhyay</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 60-SECOND QUICK SHORT MODAL -->
+      <div class="shorts-modal-backdrop hidden" id="shorts-modal">
+        <div class="shorts-modal-sheet">
+          <div class="shorts-top-bar">
+            <div class="shorts-timer-pill">
+              <span class="shorts-live-dot"></span>
+              <span id="shorts-countdown">00:60</span>
+            </div>
+            <button class="btn-close-modal" id="btn-close-shorts" title="Close">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+
+          <div class="shorts-player-body">
+            <div class="shorts-progress-track">
+              <div class="shorts-progress-bar" id="shorts-progress-bar"></div>
+            </div>
+
+            <div class="shorts-visual-card">
+              <div class="shorts-orb" id="shorts-orb">
+                <span class="shorts-phase-badge" id="shorts-phase-badge">Breathe In</span>
+              </div>
+            </div>
+
+            <h3 class="shorts-title" id="shorts-title">60-Second Anxiety Emergency Brake</h3>
+            <p class="shorts-step-cue" id="shorts-step-cue">Inhale deeply through your nose twice.</p>
+
+            <div class="shorts-controls">
+              <button class="btn-shorts-toggle" id="btn-shorts-play-toggle">Pause</button>
+              <button class="btn-shorts-practice" id="btn-shorts-open-practice">Practice Full Adhyay →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CALMING BOOK READER MODAL -->
+      <div class="book-modal-backdrop hidden" id="book-modal">
+        <div class="book-modal-sheet">
+          <div class="sheet-grabber"></div>
+          <div class="book-modal-header">
+            <div class="book-modal-tag-row">
+              <span class="art-tag" id="book-modal-category">CALM LITERATURE</span>
+              <button type="button" class="book-modal-bookmark-btn" id="book-modal-bookmark-toggle" title="Bookmark this book">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                <span id="book-modal-bookmark-text">Bookmark</span>
+              </button>
+            </div>
+            <button class="btn-close-modal" id="btn-close-book" title="Close">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+
+          <div class="book-modal-hero">
+            <div class="book-cover-thumb-wrap">
+              <img id="book-modal-img" src="assets/pdf_hero_forest_meditation.jpg" alt="Book Cover" class="book-modal-cover-img">
+            </div>
+            <div class="book-hero-info">
+              <h2 class="book-modal-title" id="book-modal-title">The Untethered Soul</h2>
+              <span class="book-modal-author" id="book-modal-author">Michael A. Singer</span>
+              <span class="book-modal-readtime" id="book-modal-readtime">5 min calm read</span>
+            </div>
+          </div>
+
+          <div class="book-modal-body" id="book-modal-body">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- ADHYAY WELLNESS AI CHATBOT DRAWER (FEATURING MASCOT) -->
+      <div class="ai-chatbot-backdrop hidden" id="ai-chatbot-modal">
+        <div class="ai-chatbot-sheet">
+          <div class="sheet-grabber"></div>
+          
+          <div class="ai-chatbot-header">
+            <div class="ai-header-left">
+              <div class="ai-mascot-header-wrap">
+                <img src="assets/ai_mascot_character.png" alt="Adhyay AI Mascot" class="ai-avatar-badge">
+                <span class="mascot-online-sparkle"></span>
+              </div>
+              <div>
+                <h3 class="ai-title">Adhyay AI Companion</h3>
+                <span class="ai-status"><span class="status-dot"></span> Online • Mindful Mascot & Physiology</span>
+              </div>
+            </div>
+            <button class="btn-close-modal" id="btn-close-chatbot" title="Close">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+
+          <!-- Messages Container -->
+          <div class="ai-messages-container" id="ai-messages-container">
+            <div class="chat-bubble bot-bubble">
+              <div class="bot-msg-row">
+                <img src="assets/ai_mascot_character.png" alt="Mascot" class="bot-bubble-avatar">
+                <div class="bubble-content">
+                  Namaste! I am your Adhyay Wellness Companion mascot. Ask me anything about down-regulating stress, morning cortisol anxiety, calming books in the library, or personalized breathwork techniques.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Suggested Query Chips -->
+          <div class="ai-prompt-chips" id="ai-prompt-chips">
+            <button class="ai-chip" data-q="How does the physiological sigh drop heart rate?">Physiological Sigh Science</button>
+            <button class="ai-chip" data-q="Why do I feel anxious in the morning?">Morning Cortisol Anxiety</button>
+            <button class="ai-chip" data-q="Best breathing exercise before sleep?">Sleep Breathwork</button>
+            <button class="ai-chip" data-q="How to stop a panic attack in 60s?">Stop Panic Attack</button>
+            <button class="ai-chip" data-q="How to break decision paralysis at work?">Decision Freeze</button>
+          </div>
+
+          <!-- Chat Input Row -->
+          <form class="ai-input-form" id="ai-input-form">
+            <input type="text" id="ai-input-field" placeholder="Ask about health, sleep, focus, or breath..." autocomplete="off">
+            <button type="submit" id="ai-submit-btn" title="Send question">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- TOAST CONTAINER -->
+      <div class="toast-container" id="toast-container"></div>
+
+    </main>
+  </div>
+
+  <script>
+    if ('caches' in window) {
+      caches.keys().then(keys => {
+        keys.forEach(key => {
+          if (key !== 'adhyay-cache-v4') caches.delete(key);
+        });
+      });
+    }
+  </script>
+  <script src="app.js?v=4.8"></script>
+</body>
+</html>
