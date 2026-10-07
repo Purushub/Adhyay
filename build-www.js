@@ -12,6 +12,7 @@ const filesToCopy = [
   'index.html',
   'style.css',
   'app.js',
+  'privacy-policy.html',
   'manifest.json',
   'three.min.js',
   'sw.js',

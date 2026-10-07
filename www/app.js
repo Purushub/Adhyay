@@ -13,134 +13,134 @@
 const TECHNIQUES_CATALOG = [
   {
     id: 'sigh',
-    name: 'Physiological Sigh',
-    category: 'AUTONOMIC RESET',
+    name: 'Deep Calming Sigh (Physiological Sigh)',
+    category: 'INSTANT RESET',
     origin: 'Stanford Medicine (Huberman Lab, 2023)',
     image3d: 'assets/tech_3d_sigh_purpose.png',
-    purpose: 'Rapid de-escalation of acute overwhelm, adrenaline surges, and emotional panic in under 90 seconds.',
+    purpose: 'Quickly melts away sudden stress, racing thoughts, and panic in under 90 seconds.',
     benefits: [
-      'Re-inflates collapsed pulmonary alveoli bags',
-      'Directly activates the vagal cardiac brake to lower heart rate',
-      'Outperforms conventional mindfulness in dropping state anxiety'
+      'Opens up collapsed air sacs in your lungs to take in fresh air',
+      'Signals your heart to slow down and relax within seconds',
+      'Proven to lower anxiety faster than traditional meditation'
     ],
-    mechanism: 'Two consecutive nasal inhalations pop open collapsed alveoli. Prolonged mouth exhale increases intrathoracic pressure, signaling the heart’s SA node to slow beats.',
+    mechanism: 'Two quick breaths in through your nose fully fill your lungs. A long, slow exhale through your mouth signals your heart to beat slower and helps your body relax.',
     cycle: [
-      { phase: 'Inhale 1', duration: 2.5, text: 'Inhale deep through nose', orbClass: 'inhale' },
-      { phase: 'Inhale 2', duration: 1.5, text: 'Quick sharp top-up sip', orbClass: 'inhale' },
-      { phase: 'Exhale', duration: 6.0, text: 'Slow, prolonged mouth exhale', orbClass: 'exhale' }
+      { phase: 'Inhale 1', duration: 2.5, text: 'Deep breath in through your nose', orbClass: 'inhale' },
+      { phase: 'Inhale 2', duration: 1.5, text: 'Quick extra sip of air at the top', orbClass: 'inhale' },
+      { phase: 'Exhale', duration: 6.0, text: 'Long, slow exhale through your mouth', orbClass: 'exhale' }
     ]
   },
   {
     id: 'box',
-    name: 'Box Breathing (Sama Vritti)',
-    category: 'AUTONOMIC HOMEOSTASIS',
+    name: 'Box Breathing (4-Count Calm)',
+    category: 'FOCUS & BALANCE',
     origin: 'Navy SEALs Protocol / Marcinkowski (2018)',
     image3d: 'assets/tech_3d_box_purpose.png',
-    purpose: 'Restoring emotional equilibrium and executive cognitive control under severe pressure or decision freeze.',
+    purpose: 'Brings back emotional balance and clear thinking when you feel frozen or under pressure.',
     benefits: [
-      'Balances sympathetic and parasympathetic nervous branches',
-      'Maintains arterial CO2 balance to stop adrenaline release',
-      'Restores blood flow to the prefrontal cortex for clear decisions'
+      'Balances your body’s stress and rest systems',
+      'Steadies your breathing to stop panic signals',
+      'Brings blood flow back to your thinking brain so you can make clear choices'
     ],
-    mechanism: 'Equal 4-second ratio (Inhale 4s, Hold 4s, Exhale 4s, Hold 4s) stabilizes the respiratory sinus arrhythmia, steadying the cardiovascular system.',
+    mechanism: 'An even 4-second count (Inhale 4s, Hold 4s, Exhale 4s, Hold 4s) steadies your pulse and gives your brain a calm, predictable rhythm.',
     cycle: [
-      { phase: 'Inhale', duration: 4.0, text: 'Smooth, steady inhale', orbClass: 'inhale' },
-      { phase: 'Hold', duration: 4.0, text: 'Gently suspend breath with ease', orbClass: 'hold' },
-      { phase: 'Exhale', duration: 4.0, text: 'Controlled, even exhale', orbClass: 'exhale' },
-      { phase: 'Hold', duration: 4.0, text: 'Rest in stillness before inhale', orbClass: 'hold' }
+      { phase: 'Inhale', duration: 4.0, text: 'Smooth, steady breath in', orbClass: 'inhale' },
+      { phase: 'Hold', duration: 4.0, text: 'Gently hold your breath with ease', orbClass: 'hold' },
+      { phase: 'Exhale', duration: 4.0, text: 'Controlled, gentle breath out', orbClass: 'exhale' },
+      { phase: 'Hold', duration: 4.0, text: 'Rest in quiet stillness before breathing in', orbClass: 'hold' }
     ]
   },
   {
     id: 'vagal',
-    name: '4-7-8 Parasympathetic Vagal Reset',
-    category: 'DEEP SOMATIC RESTORATION',
+    name: '4-7-8 Relax & Sleep Breath',
+    category: 'DEEP REST & SLEEP',
     origin: 'Dr. Andrew Weil / Harvard Health Studies',
     image3d: 'assets/tech_3d_vagal_purpose.png',
-    purpose: 'Overcoming bedtime racing thoughts, chronic irritability, and somatic hyperarousal.',
+    purpose: 'Quiets racing thoughts at night, eases restlessness, and prepares your body for deep sleep.',
     benefits: [
-      'Prolonged breath retention stimulates arterial baroreceptors',
-      'Mechanically forces systemic vascular resistance to drop',
-      'Acts as a natural sedative for the central nervous system'
+      'Helps your body switch off high alert and relax deeply',
+      'Relaxes blood vessels and eases physical tension',
+      'Works like a natural sedative for your mind and nervous system'
     ],
-    mechanism: 'Inhale 4s, Hold 7s, Exhale 8s. The prolonged 8-second exhale maximizes carbon dioxide elimination and induces deep neuromuscular relaxation.',
+    mechanism: 'Inhale 4s, Hold 7s, Exhale 8s. The gentle 8-second exhale empties your lungs and tells your muscles and mind it is safe to rest.',
     cycle: [
-      { phase: 'Inhale', duration: 4.0, text: 'Quiet inhale through nose', orbClass: 'inhale' },
-      { phase: 'Hold', duration: 7.0, text: 'Retain breath, relaxing shoulders', orbClass: 'hold' },
-      { phase: 'Exhale', duration: 8.0, text: 'Slow whoosh exhale through lips', orbClass: 'exhale' }
+      { phase: 'Inhale', duration: 4.0, text: 'Quiet breath in through your nose', orbClass: 'inhale' },
+      { phase: 'Hold', duration: 7.0, text: 'Hold your breath, letting your shoulders drop', orbClass: 'hold' },
+      { phase: 'Exhale', duration: 8.0, text: 'Slow, soothing whoosh out through your lips', orbClass: 'exhale' }
     ]
   },
   {
     id: 'somatic',
-    name: 'Jacobson Somatic Muscle Release (PMR)',
-    category: 'NEUROMUSCULAR BIOFEEDBACK',
+    name: 'Muscle Tension Release',
+    category: 'BODY TENSION RELIEF',
     origin: 'Edmund Jacobson (1938) / Cambridge Somatosensory Lab',
     image3d: 'assets/tech_3d_somatic_purpose.png',
-    purpose: 'Releasing physical tension trapped in the jaw, neck, shoulders, and chest from sustained stress.',
+    purpose: 'Releases tight knots in your jaw, neck, shoulders, and chest caused by prolonged stress.',
     benefits: [
-      'Halts the somatosensory panic loop between tight muscles and amygdala',
-      'Re-establishes somatic awareness of when muscles are bracing',
-      'Discharges physical stress hormones stored in muscular tissue'
+      'Stops tight muscles from sending panic signals back to your brain',
+      'Builds body awareness so you notice tension before it builds up',
+      'Discharges built-up physical stress from your muscles'
     ],
-    mechanism: 'Deliberately contracting a muscle group for 5 seconds recruits motor units, followed by a 10-second sudden release that triggers deep reflex vasodilation.',
+    mechanism: 'Gently squeezing a muscle group for 5 seconds and then completely letting go for 10 seconds triggers a deep reflex that melts stiffness away.',
     cycle: [
-      { phase: 'Tense', duration: 5.0, text: 'Gently tense shoulders & jaw', orbClass: 'inhale' },
-      { phase: 'Release', duration: 10.0, text: 'Completely drop tension and breathe out', orbClass: 'exhale' }
+      { phase: 'Tense', duration: 5.0, text: 'Gently tense your shoulders & jaw', orbClass: 'inhale' },
+      { phase: 'Release', duration: 10.0, text: 'Completely drop all tension and breathe out', orbClass: 'exhale' }
     ]
   },
   {
     id: 'grounding',
-    name: '5-4-3-2-1 Sensory Grounding',
-    category: 'PREFRONTAL CORTEX ANCHOR',
+    name: '5-4-3-2-1 Quick Grounding',
+    category: 'PRESENT MOMENT FOCUS',
     origin: 'Cognitive Behavioral Therapy (CBT) Protocols',
     image3d: 'assets/tech_3d_grounding_purpose.png',
-    purpose: 'Stopping obsessive rumination loops, panic spikes, and detached mental dissociation.',
+    purpose: 'Stops runaway worry loops and brings your focus gently back to the here and now.',
     benefits: [
-      'Disengages the Default Mode Network (DMN) responsible for worry',
-      'Recruits the parietal and occipital sensory cortices',
-      'Anchors cognition firmly in the tangible physical environment'
+      'Quiets the brain’s worry loop by giving it a clear focus',
+      'Engages your senses to ground you right where you are',
+      'Anchors your mind in what is real and safe in this moment'
     ],
-    mechanism: 'Systematically prompts sensory identification (5 sights, 4 physical touches, 3 subtle sounds), interrupting runaway cognitive feedback loops.',
+    mechanism: 'Notice 5 things you can see, 4 things you can touch, and 3 things you can hear. This gently pulls your attention away from worrying thoughts and back into your body.',
     cycle: [
-      { phase: 'Notice 5 Sights', duration: 6.0, text: 'Look at 5 distinct objects near you', orbClass: 'inhale' },
-      { phase: 'Feel 4 Touches', duration: 6.0, text: 'Feel 4 physical contact points', orbClass: 'hold' },
-      { phase: 'Hear 3 Sounds', duration: 6.0, text: 'Tune into 3 subtle room sounds', orbClass: 'exhale' }
+      { phase: 'Notice 5 Sights', duration: 6.0, text: 'Look around and notice 5 objects near you', orbClass: 'inhale' },
+      { phase: 'Feel 4 Touches', duration: 6.0, text: 'Feel 4 physical contact points (chair, desk, clothes)', orbClass: 'hold' },
+      { phase: 'Hear 3 Sounds', duration: 6.0, text: 'Listen for 3 gentle sounds in the room', orbClass: 'exhale' }
     ]
   },
   {
     id: 'coherence',
-    name: 'Coherence Breathing (5.5s)',
-    category: 'HEART RATE VARIABILITY (HRV)',
+    name: 'Balanced Heart Breathing (5.5s)',
+    category: 'STEADY HEART & BREATH',
     origin: 'HeartMath Institute / Dr. Richard Gevirtz',
     image3d: 'assets/tech_3d_coherence_purpose.png',
-    purpose: 'Maximizing Heart Rate Variability (HRV) and syncing respiratory sinus rhythm with blood pressure waves.',
+    purpose: 'Syncs your heartbeat and breathing rhythm for all-day calm and emotional steadying.',
     benefits: [
-      'Entrains autonomic oscillations at 0.1 Hz resonance frequency',
-      'Increases resilience to emotional triggers and fatigue',
-      'Promotes alpha brainwave states associated with relaxed alertness'
+      'Brings your heart and breathing into smooth, natural harmony',
+      'Helps you handle everyday stress without feeling exhausted',
+      'Creates a state of relaxed alertness and calm focus'
     ],
-    mechanism: 'Breathing at an exact rhythm of 5.5 breaths per minute (5.5s Inhale, 5.5s Exhale) brings heart rate, blood pressure, and respiration into phase lock.',
+    mechanism: 'Inhaling for 5.5 seconds and exhaling for 5.5 seconds balances your pulse and creates a natural feeling of ease in under two minutes.',
     cycle: [
-      { phase: 'Inhale', duration: 5.5, text: 'Smooth, unbroken inhale', orbClass: 'inhale' },
-      { phase: 'Exhale', duration: 5.5, text: 'Smooth, unbroken exhale', orbClass: 'exhale' }
+      { phase: 'Inhale', duration: 5.5, text: 'Smooth, unbroken breath in', orbClass: 'inhale' },
+      { phase: 'Exhale', duration: 5.5, text: 'Smooth, unbroken breath out', orbClass: 'exhale' }
     ]
   },
   {
     id: 'metta',
-    name: 'Loving-Kindness & Good Thoughts (Metta)',
-    category: 'COMPASSIONATE COGNITION',
+    name: 'Kind Thoughts & Self-Care',
+    category: 'SELF-CARE & KINDNESS',
     origin: 'Dr. Barbara Fredrickson / UNC Chapel Hill',
     image3d: 'assets/tech_3d_metta_purpose.png',
-    purpose: 'Neutralizing harsh inner self-criticism, comparative envy, and feelings of inadequacy.',
+    purpose: 'Softens harsh self-criticism, replaces self-doubt, and brings warm reassurance.',
     benefits: [
-      'Upregulates oxytocin and endogenous opioid pathways',
-      'Replaces defensive neurochemistry with psychological safety',
-      'Significantly increases positive and good-natured thought volume'
+      'Releases natural feel-good hormones that calm fear and anxiety',
+      'Helps you feel safe and comfortable in your own skin',
+      'Boosts positive, supportive thoughts toward yourself and others'
     ],
-    mechanism: 'Directs sincere benevolent intentions toward oneself and others, dampening the anterior insula pain matrix and fostering emotional warmth.',
+    mechanism: 'Breathe in peace for yourself, pause in ease, and exhale kindness toward people around you. This rewires defensive feelings into calm security.',
     cycle: [
-      { phase: 'Inhale Peace', duration: 4.0, text: 'Inhale gentleness into yourself', orbClass: 'inhale' },
-      { phase: 'Rest in Ease', duration: 4.0, text: 'Hold intention of safety', orbClass: 'hold' },
-      { phase: 'Exhale Goodwill', duration: 6.0, text: 'Exhale kindness toward all beings', orbClass: 'exhale' }
+      { phase: 'Inhale Peace', duration: 4.0, text: 'Breathe gentleness and kindness into yourself', orbClass: 'inhale' },
+      { phase: 'Rest in Ease', duration: 4.0, text: 'Hold the feeling of warmth and safety', orbClass: 'hold' },
+      { phase: 'Exhale Goodwill', duration: 6.0, text: 'Breathe kindness and calm out to the world', orbClass: 'exhale' }
     ]
   }
 ];
@@ -547,72 +547,72 @@ const YOUTUBE_MASTERCLASSES = [
 const QUICK_SHORTS_CATALOG = [
   {
     id: 'short_acute_panic',
-    title: '60-Second Acute Overwhelm Reset',
-    tag: 'RAPID BRAKE',
+    title: '60-Second Stress Relief (Calm Sigh)',
+    tag: 'FAST RELIEF',
     duration: '60s',
     techId: 'sigh',
     cues: [
       { t: 0, text: 'Take a deep breath in through your nose...' },
-      { t: 4, text: 'Take another sharp sip of air at the top...' },
+      { t: 4, text: 'Take another quick sip of air at the top...' },
       { t: 7, text: 'Long, slow sigh out through open lips...' },
       { t: 15, text: 'Release your jaw and drop your shoulders...' },
-      { t: 22, text: 'Double inhale in... fill the lower ribs...' },
-      { t: 26, text: 'Second top-up sip to expand lungs...' },
-      { t: 29, text: 'Slow, steady mouth exhalation...' },
+      { t: 22, text: 'Deep breath in... fill your lower ribs...' },
+      { t: 26, text: 'Second tiny sip to expand your lungs...' },
+      { t: 29, text: 'Slow, steady exhale through your mouth...' },
       { t: 40, text: 'Feel your pulse steadiness returning...' },
       { t: 48, text: 'One final deep sigh... inhale, sip, and let go completely...' },
-      { t: 58, text: 'Rest in pure clarity. Your Adhyay is complete.' }
+      { t: 58, text: 'Rest in pure clarity. Your Adhyay session is complete.' }
     ]
   },
   {
     id: 'short_box_focus',
-    title: '60-Second Executive Focus Anchor',
-    tag: 'FLOW STATE',
+    title: '60-Second Clear Focus (Box Breath)',
+    tag: 'DEEP FOCUS',
     duration: '60s',
     techId: 'box',
     cues: [
       { t: 0, text: 'Inhale smoothly for 4 seconds...' },
-      { t: 5, text: 'Hold breath with ease and relaxation for 4...' },
+      { t: 5, text: 'Hold your breath gently and relax for 4...' },
       { t: 10, text: 'Exhale evenly for 4 seconds...' },
       { t: 15, text: 'Rest in quiet stillness for 4...' },
       { t: 20, text: 'Inhale 4... feeling tall and alert...' },
       { t: 25, text: 'Hold 4... grounded and centered...' },
-      { t: 30, text: 'Exhale 4... releasing mental noise...' },
-      { t: 35, text: 'Hold 4... quiet prefrontal focus...' },
+      { t: 30, text: 'Exhale 4... letting go of mental noise...' },
+      { t: 35, text: 'Hold 4... quiet and focused...' },
       { t: 40, text: 'Final smooth cycle... Inhale 4...' },
       { t: 45, text: 'Hold 4...' },
       { t: 50, text: 'Exhale 4...' },
-      { t: 55, text: 'Ready for single-task focus.' }
+      { t: 55, text: 'Ready for clear, single-task focus.' }
     ]
   },
   {
     id: 'short_bedtime_calm',
-    title: '60-Second Bedtime Vagal Unwind',
-    tag: 'SOMATIC SLEEP',
+    title: '60-Second Bedtime Wind-Down (4-7-8)',
+    tag: 'SLEEP & REST',
     duration: '60s',
     techId: 'vagal',
     cues: [
-      { t: 0, text: 'Inhale quietly through nose for 4 seconds...' },
-      { t: 5, text: 'Gently suspend breath for 7 seconds... let eyelids soften...' },
-      { t: 13, text: 'Audible whoosh exhale for 8 seconds... sinking into bed...' },
+      { t: 0, text: 'Inhale quietly through your nose for 4 seconds...' },
+      { t: 5, text: 'Gently hold your breath for 7 seconds... let eyelids soften...' },
+      { t: 13, text: 'Soothing whoosh exhale for 8 seconds... sinking into bed...' },
       { t: 22, text: 'Inhale peaceful coolness for 4...' },
-      { t: 27, text: 'Retain for 7... feeling safe in your body...' },
+      { t: 27, text: 'Hold gently for 7... feeling safe in your body...' },
       { t: 35, text: 'Exhale long and slow for 8... melting tension away...' },
       { t: 45, text: 'Final cycle: Inhale 4... Hold 7... Exhale 8...' },
-      { t: 56, text: 'Somatic calm activated. Sleep well.' }
+      { t: 56, text: 'Body is relaxed. Sleep well.' }
     ]
   },
   {
     id: 'short_grounding_reset',
-    title: '60-Second 5-4-3-2-1 Sensory Grounding',
-    tag: 'CBT ANCHOR',
+    title: '60-Second Present Moment (5-4-3-2-1)',
+    tag: 'GROUNDING',
     duration: '60s',
     techId: 'grounding',
     cues: [
       { t: 0, text: 'Look around and notice 5 distinct colors or shapes...' },
       { t: 15, text: 'Touch 4 physical textures (chair, fabric, desk, hands)...' },
-      { t: 30, text: 'Tune in to 3 subtle ambient sounds in your room...' },
-      { t: 45, text: 'Notice 2 bodily sensations of support and gravity...' },
+      { t: 30, text: 'Tune in to 3 gentle ambient sounds in your room...' },
+      { t: 45, text: 'Notice 2 bodily sensations of support and comfort...' },
       { t: 55, text: '1 slow breath into the present moment. You are here.' }
     ]
   }
@@ -624,66 +624,66 @@ const QUICK_SHORTS_CATALOG = [
 const AI_WELLNESS_KNOWLEDGE = [
   {
     keywords: ['book', 'read', 'literature', 'library', 'author', 'untethered', 'marcus', 'stoic', 'nestor', 'sapolsky', 'kabat', 'tolle'],
-    title: 'Calming Books & Mindful Literature Sanctuary',
-    response: `In the Adhyay Library "Calming Books" tab, you can explore curated teachings from timeless classics including Michael Singer's "The Untethered Soul", James Nestor's "Breath", Marcus Aurelius's "Meditations", and Eckhart Tolle's "The Power of Now". Each book breaks down anxiety into 3 actionable calm teachings with direct exercises. You can bookmark your favorites anytime!`,
+    title: 'Calming Books Sanctuary',
+    response: `In the Adhyay Library "Calming Books" tab, you can explore curated teachings from timeless classics including Michael Singer's "The Untethered Soul", James Nestor's "Breath", Marcus Aurelius's "Meditations", and Eckhart Tolle's "The Power of Now". Each book breaks down anxiety into 3 simple, practical teachings with an easy exercise. You can bookmark your favorites anytime!`,
     techId: 'grounding',
-    techName: '5-4-3-2-1 Sensory Grounding'
+    techName: '5-4-3-2-1 Quick Grounding'
   },
   {
     keywords: ['sigh', 'heart rate', 'quick', 'acute', 'panic', 'overwhelm', 'adrenaline', 'emergency'],
-    title: 'Physiological Sigh & Rapid Heart Rate Deceleration',
-    response: `When acute panic strikes, carbon dioxide builds up in the lungs and alveoli collapse. The Physiological Sigh—two quick nasal inhales followed by an extended, unforced mouth exhale—mechanically reinflates these air sacs and triggers the arterial baroreceptors. This releases acetylcholine onto the heart's sinoatrial node, slowing your pulse in under 90 seconds.`,
+    title: 'Deep Calming Sigh & Fast Heart Rate Slowdown',
+    response: `When sudden stress strikes, your breathing becomes shallow. The Deep Calming Sigh—two quick breaths in through your nose followed by an extended, unforced mouth exhale—fully opens your air sacs and triggers your body's relaxation reflex. This signals your heart to slow down, helping you feel calmer in under 90 seconds.`,
     techId: 'sigh',
-    techName: 'Physiological Sigh'
+    techName: 'Deep Calming Sigh'
   },
   {
     keywords: ['morning', 'cortisol', 'waking', 'wake up', 'chest tight', 'dread', 'car'],
-    title: 'Morning Cortisol Awakening Response (CAR)',
-    response: `Morning anxiety is largely biological: within 30 to 45 minutes of waking, your adrenal glands produce a natural spike known as the Cortisol Awakening Response (CAR) to prepare you for the day. If your nervous system is already sensitized, your brain misinterprets this physiological surge as mental dread. Engaging in 3 minutes of Box Breathing or getting immediate natural sunlight balances your sympathetic branch without panic.`,
+    title: 'Morning Restlessness & Natural Wake-Up Reset',
+    response: `Morning tension is often physical: within 30 to 45 minutes of waking, your body naturally releases morning hormones to wake you up. If you are already stressed, your mind can mistake this energy for dread. Practicing 3 minutes of Box Breathing or getting immediate natural sunlight balances your system without anxiety.`,
     techId: 'box',
     techName: 'Box Breathing'
   },
   {
     keywords: ['sleep', 'bed', 'insomnia', 'night', 'asleep', 'thoughts', 'racing at night'],
-    title: 'Bedtime Autonomic Hyperarousal & 4-7-8 Reset',
-    response: `Difficulty falling asleep is rarely about being tired; it stems from autonomic hyperarousal where the sympathetic nervous system stays locked on high alert. The 4-7-8 breathing method (4s inhale, 7s hold, 8s exhale) lowers blood pressure and raises arterial carbon dioxide balance, acting as a natural sedative. The 8-second exhale engages the vagal brake to signal genuine biological safety to your brain.`,
+    title: 'Bedtime Racing Thoughts & 4-7-8 Relax Breath',
+    response: `Trouble falling asleep is rarely about not being tired; it happens when your nervous system stays locked on high alert. The 4-7-8 breathing method (4s inhale, 7s hold, 8s exhale) lowers blood pressure and works like a natural sedative. The long 8-second exhale signals genuine safety to your brain so you can drift off to sleep.`,
     techId: 'vagal',
-    techName: '4-7-8 Parasympathetic Reset'
+    techName: '4-7-8 Relax & Sleep Breath'
   },
   {
     keywords: ['focus', 'adhd', 'distraction', 'brain fog', 'freeze', 'paralysis', 'procrastination', 'work'],
-    title: 'Decision Freeze & Prefrontal Cortex Restoration',
-    response: `When confronted with too many tasks, working memory saturates and the amygdala initiates a freeze response. Box Breathing (4 seconds inhale, 4 seconds hold, 4 seconds exhale, 4 seconds hold) delivers equal oxygenation while steadying carbon dioxide balance, restoring direct blood flow to the prefrontal cortex so you can focus on a single next action.`,
+    title: 'Overcoming Brain Freeze & Restoring Focus',
+    response: `When you have too many things on your plate, your brain freezes up. Box Breathing (breathe in for 4, hold for 4, breathe out for 4, rest for 4) steadies your breath and restores direct blood flow to your thinking brain so you can calmly focus on one single next task.`,
     techId: 'box',
     techName: 'Box Breathing'
   },
   {
     keywords: ['muscle', 'jaw', 'neck', 'shoulder', 'headache', 'tension', 'physical', 'body tight'],
-    title: 'Somatic Neuromuscular Release & Muscle Tension',
-    response: `Stress triggers an involuntary motor reflex where muscles in the jaw, trapezius, and neck brace for physical impact. This tight bracing sends feedback signals back to the brain confirming danger. Jacobson Progressive Muscle Relaxation (tensing for 5 seconds, releasing for 10) breaks this somatosensory loop by forcing reflex vasodilation and discharging trapped stress hormones.`,
+    title: 'Releasing Body & Muscle Tension',
+    response: `Under stress, muscles in your jaw, neck, and shoulders tighten up automatically. This tightness signals back to your brain that something is wrong. Muscle Tension Release (tensing for 5 seconds, then completely letting go for 10) breaks this cycle by melting physical tightness away.`,
     techId: 'somatic',
-    techName: 'Jacobson Somatic Release'
+    techName: 'Muscle Tension Release'
   },
   {
     keywords: ['hrv', 'heart rate variability', 'resilience', 'vagal tone', 'heartmath'],
-    title: 'Heart Rate Variability (HRV) & Autonomic Resonance',
-    response: `Heart Rate Variability (HRV) measures the millisecond differences between consecutive heartbeats. Higher HRV indicates high parasympathetic tone and cognitive flexibility. Breathing at exactly 5.5 breaths per minute (0.1 Hz frequency) phase-locks your respiratory rhythm with cardiovascular baroreflex waves, maximizing autonomic resilience and emotional composure.`,
+    title: 'Balanced Heart Rhythm & All-Day Calm',
+    response: `A relaxed heart does not beat like a rigid clock—it adapts smoothly with every breath. Breathing at an even pace of 5.5 seconds in and 5.5 seconds out syncs your breath with your heartbeat, building steady composure and emotional resilience throughout the day.`,
     techId: 'coherence',
-    techName: 'Coherence Breathing'
+    techName: 'Balanced Heart Breathing'
   },
   {
     keywords: ['imposter', 'doubt', 'harsh', 'self-critical', 'negative', 'criticism', 'worth', 'rumination'],
-    title: 'Neurochemistry of Self-Compassion (Metta)',
-    response: `Harsh self-criticism activates the anterior insula and dorsal anterior cingulate cortex—the identical neural circuits that process physical pain. Loving-Kindness meditation (Metta) shifts your brain out of threat-defense mode by stimulating endogenous oxytocin and opioid release, replacing self-attack with psychological stability.`,
+    title: 'Kind Thoughts & Calming Self-Criticism',
+    response: `Being harsh on yourself triggers the same pain sensors in the brain as physical hurt. Kind Thoughts & Self-Care practices shift your mind out of self-attack into calm security, replacing self-criticism with reassuring confidence.`,
     techId: 'metta',
-    techName: 'Loving-Kindness & Good Thoughts'
+    techName: 'Kind Thoughts & Self-Care'
   },
   {
     keywords: ['grounding', 'dissociat', 'spaced out', 'dizzy', 'overthinking', 'loop', 'spiral'],
-    title: 'Default Mode Network (DMN) Decoupling via 5-4-3-2-1',
-    response: `When thoughts spiral uncontrollably, the brain's Default Mode Network (DMN) is hyperactive. The 5-4-3-2-1 sensory grounding technique intentionally engages your parietal and occipital sensory cortices, compelling your brain to process external physical reality and starving catastrophic rumination loops of metabolic attention.`,
+    title: 'Stopping Racing Loops with 5-4-3-2-1 Grounding',
+    response: `When thoughts spiral uncontrollably, your brain is stuck inside its worry loop. The 5-4-3-2-1 grounding exercise gently guides your attention toward real physical sights, sounds, and touches around you, stopping runaway thoughts in their tracks.`,
     techId: 'grounding',
-    techName: '5-4-3-2-1 Sensory Grounding'
+    techName: '5-4-3-2-1 Quick Grounding'
   }
 ];
 
@@ -1001,6 +1001,162 @@ const DIAGNOSTIC_DATA = {
         }
       }
     }
+  },
+
+  fun: {
+    name: 'Joy & Vitality',
+    image: 'assets/emotion_fun.jpg',
+    step1: {
+      question: 'How would you love to channel your vibrant positive energy?',
+      options: [
+        { label: 'Deepen creative flow & inspired project focus', next: 'q_fun_flow' },
+        { label: 'Radiate gratitude and playful connection with others', next: 'q_fun_gratitude' },
+        { label: 'Ground joyful excitement into steady long-term habits', next: 'q_fun_ground' },
+        { label: 'Celebrate inner peace and savor this happy moment', next: 'q_fun_savor' }
+      ]
+    },
+    branches: {
+      q_fun_flow: {
+        step2: {
+          question: 'What is your creative focus right now?',
+          options: [
+            { label: 'Dive into single-task deep flow without distractions', rootKey: 'flow_state' },
+            { label: 'Explore open-ended brainstorming and big ideas', rootKey: 'playful_flow' }
+          ]
+        }
+      },
+      q_fun_gratitude: {
+        step2: {
+          question: 'Where would you like to direct this warm glow?',
+          options: [
+            { label: 'Share appreciation and warmth with someone special', rootKey: 'expansive_metta' },
+            { label: 'Honor my own journey and personal resilience', rootKey: 'self_appreciation' }
+          ]
+        }
+      },
+      q_fun_ground: {
+        step2: {
+          question: 'How can this joyful spark best support you?',
+          options: [
+            { label: 'Anchor this calm confidence into daily steady rhythms', rootKey: 'joy_expansion' },
+            { label: 'Keep breathing smooth and balanced so energy stays steady', rootKey: 'serene_anchor' }
+          ]
+        }
+      },
+      q_fun_savor: {
+        step2: {
+          question: 'How do you want to savor this feeling?',
+          options: [
+            { label: 'Rest in quiet, grateful stillness and present awareness', rootKey: 'open_presence' },
+            { label: 'Immerse in joyful 639Hz frequency soundscapes', rootKey: 'joy_expansion' }
+          ]
+        }
+      }
+    }
+  },
+
+  sad: {
+    name: 'Sad / Grieving',
+    image: 'assets/emotion_sad.jpg',
+    step1: {
+      question: 'What is the tender ache you are feeling right now?',
+      options: [
+        { label: 'Loss, heartbreak, or feeling let down by someone', next: 'q_sad_heart' },
+        { label: 'Heavy disappointment with my own progress or choices', next: 'q_sad_self' },
+        { label: 'Exhausted tearfulness without a clear single reason', next: 'q_sad_cry' },
+        { label: 'Feeling lonely, unseen, or disconnected from the world', next: 'q_sad_alone' }
+      ]
+    },
+    branches: {
+      q_sad_heart: {
+        step2: {
+          question: 'What kind of support does your heart need right now?',
+          options: [
+            { label: 'A gentle, safe space to breathe and let tears soften', rootKey: 'tender_solace' },
+            { label: 'Release tight chest heaviness with soothing long exhales', rootKey: 'heart_release' }
+          ]
+        }
+      },
+      q_sad_self: {
+        step2: {
+          question: 'What is your inner voice telling you?',
+          options: [
+            { label: 'I feel harsh self-blame that I want to replace with compassion', rootKey: 'self_appreciation' },
+            { label: 'I need to ground back in what is safe right here in this room', rootKey: 'hindsight_trap' }
+          ]
+        }
+      },
+      q_sad_cry: {
+        step2: {
+          question: 'How does your body feel under this sadness?',
+          options: [
+            { label: 'Tight throat, heavy chest, and physical exhaustion', rootKey: 'heart_release' },
+            { label: 'Drained nervous system needing quiet restorative rest', rootKey: 'catharsis_needed' }
+          ]
+        }
+      },
+      q_sad_alone: {
+        step2: {
+          question: 'What thought offers the gentlest relief right now?',
+          options: [
+            { label: 'Remembering that grief is human and passes like weather', rootKey: 'tender_solace' },
+            { label: 'Sending soothing warmth and kindness to myself', rootKey: 'self_appreciation' }
+          ]
+        }
+      }
+    }
+  },
+
+  angry: {
+    name: 'Angry / Frustrated',
+    image: 'assets/emotion_angry.jpg',
+    step1: {
+      question: 'Where is this heat coming from right now?',
+      options: [
+        { label: 'A boundary was crossed or someone acted unfairly', next: 'q_ang_boundary' },
+        { label: 'Frustration that things did not go as planned or expected', next: 'q_ang_control' },
+        { label: 'Pent-up resentment that has been building for days', next: 'q_ang_pent' },
+        { label: 'Intense irritability from overload and zero personal time', next: 'q_ang_burn' }
+      ]
+    },
+    branches: {
+      q_ang_boundary: {
+        step2: {
+          question: 'What is the most constructive response right now?',
+          options: [
+            { label: 'Discharge the adrenaline first before saying anything', rootKey: 'heat_discharge' },
+            { label: 'Reclaim my calm authority and set clear, firm boundaries', rootKey: 'boundary_clarity' }
+          ]
+        }
+      },
+      q_ang_control: {
+        step2: {
+          question: 'What is within your control right in this moment?',
+          options: [
+            { label: 'Only my own breath, response, and peace of mind', rootKey: 'heat_discharge' },
+            { label: 'Stepping back to see the bigger picture and reset strategy', rootKey: 'strategic_calm' }
+          ]
+        }
+      },
+      q_ang_pent: {
+        step2: {
+          question: 'Where are you feeling this anger physically?',
+          options: [
+            { label: 'Clenched jaw, tight fists, hot chest, racing pulse', rootKey: 'heat_discharge' },
+            { label: 'Mental loop rehearsing arguments or grievances', rootKey: 'boundary_clarity' }
+          ]
+        }
+      },
+      q_ang_burn: {
+        step2: {
+          question: 'What does your overloaded nervous system need right now?',
+          options: [
+            { label: 'Immediate 90-second physiological sigh to cool adrenaline', rootKey: 'heat_discharge' },
+            { label: 'Permission to step away from everyone and take 15 minutes of quiet', rootKey: 'permission_to_rest' }
+          ]
+        }
+      }
+    }
   }
 };
 
@@ -1009,176 +1165,326 @@ const DIAGNOSTIC_DATA = {
 // ============================================================================
 const ROOT_PRESCRIPTIONS = {
   serene_anchor: {
-    title: 'Somatic Breath Stillness',
-    distortion: 'Ambient Attentional Drift',
-    need: 'Diaphragmatic Anchoring',
+    title: 'Gentle Breath Stillness',
+    distortion: 'Wandering Mind',
+    need: 'Calm Belly Breathing',
     techniqueId: 'coherence',
-    pitch: 'Coherence Breathing synchronizes respiratory sinus rhythm with cardiovascular pulse for pure equilibrium.',
-    reframeBefore: '"I need complex effort to feel at ease."',
-    reframeAfter: '"Peace is already here when I simply allow the body to breathe itself."',
+    pitch: 'Balanced Heart Breathing syncs your breath and pulse for natural, steady calm.',
+    reframeBefore: '"I have to work hard to feel at peace."',
+    reframeAfter: '"Peace is already here when I simply allow my body to breathe."',
     microAction: 'Take 3 unbroken, effortless nasal breaths with relaxed eyes.'
   },
   open_presence: {
-    title: 'Spacious Non-Attachment',
-    distortion: 'Narrative Conceptual Grasping',
-    need: 'Open Sky Awareness',
+    title: 'Living in the Present',
+    distortion: 'Getting Caught in Worries',
+    need: 'Open, Relaxed Awareness',
     techniqueId: 'grounding',
-    pitch: '5-4-3-2-1 Grounding anchors consciousness into immediate sensory reality without judgment.',
-    reframeBefore: '"I must analyze my state to validate it."',
-    reframeAfter: '"Awareness is spacious like the sky; sensations pass through like clouds."',
+    pitch: '5-4-3-2-1 Grounding anchors your attention into what is happening right now.',
+    reframeBefore: '"I need to over-analyze my feelings to solve them."',
+    reframeAfter: '"Thoughts come and go like clouds; I can watch them without getting dragged along."',
     microAction: 'Listen attentively to the farthest sound you can hear right now.'
   },
   flow_state: {
-    title: 'Single-Thread Deep Immersion',
-    distortion: 'Faux Multitasking Urge',
-    need: 'High-Bandwidth Focus',
+    title: 'Deep, Undivided Focus',
+    distortion: 'Urge to Multitask',
+    need: 'Clear Focus on One Task',
     techniqueId: 'box',
-    pitch: 'Box Breathing stabilizes prefrontal cortex perfusion for unbroken executive flow.',
+    pitch: 'Box Breathing steadies your focus so you can get into a smooth flow.',
     reframeBefore: '"I should juggle several priorities today."',
-    reframeAfter: '"One pristine single-threaded hour accomplishes more than 4 fragmented hours."',
-    microAction: 'Clear your desk of everything except what is needed for this task.'
+    reframeAfter: '"One calm, focused hour finishes more than four rushed, distracted hours."',
+    microAction: 'Clear your desk of everything except what is needed for this one task.'
   },
   strategic_calm: {
-    title: 'Executive Perspective & Vision',
-    distortion: 'Tactical Urgency Myopia',
-    need: 'Panoramic Clarity',
+    title: 'Stepping Back to See the Big Picture',
+    distortion: 'Rushing to React',
+    need: 'Space to Breathe & Think',
     techniqueId: 'vagal',
-    pitch: '4-7-8 Breathing disengages acute survival vigilance so long-range clarity emerges.',
-    reframeBefore: '"I must react immediately to incoming stimuli."',
-    reframeAfter: '"Wisdom creates space between stimulus and response."',
-    microAction: 'Write down the single most impactful lever for this week.'
+    pitch: '4-7-8 Breathing steps on the brakes so you can think clearly before acting.',
+    reframeBefore: '"I must react immediately to every message or problem."',
+    reframeAfter: '"Taking a calm breath gives me the clarity to choose the right response."',
+    microAction: 'Write down the single most impactful thing you can do this week.'
   },
   self_appreciation: {
-    title: 'Inner Warmth & Self-Compassion',
-    distortion: 'Conditional Worth Condition',
-    need: 'Benevolent Acceptance',
+    title: 'Kindness Toward Yourself',
+    distortion: 'Only Valuing Yourself When Working',
+    need: 'Warm Self-Acceptance',
     techniqueId: 'metta',
-    pitch: 'Loving-Kindness Meditation floods the anterior insula with oxytocin and psychological safety.',
-    reframeBefore: '"I can only rest when everything is complete."',
-    reframeAfter: '"My peace is not a reward to earn; it is the ground I create from."',
+    pitch: 'Kind Thoughts & Self-Care replaces self-criticism with comforting reassurance.',
+    reframeBefore: '"I am only allowed to rest once everything is 100% finished."',
+    reframeAfter: '"My peace of mind is not a reward to earn; it is how I take care of myself."',
     microAction: 'Place a gentle hand on your heart and offer yourself silent thanks.'
   },
   expansive_metta: {
-    title: 'Expansive Benevolence',
-    distortion: 'Defensive Emotional Armoring',
-    need: 'Compassionate Connection',
+    title: 'Warmth & Goodwill for Others',
+    distortion: 'Putting Up Defensive Walls',
+    need: 'Feeling Connected & Supported',
     techniqueId: 'metta',
-    pitch: 'Loving-Kindness meditation replaces social vigilance with heartfelt empathy.',
-    reframeBefore: '"Others are demanding or stressful to deal with."',
-    reframeAfter: '"Everyone is walking a hidden, tender road; I can choose to bring gentleness."',
-    microAction: 'Send a quick unprompted word of genuine gratitude to someone.'
+    pitch: 'Kind Thoughts & Self-Care replaces social tension with genuine empathy and patience.',
+    reframeBefore: '"Other people are exhausting or demanding to deal with."',
+    reframeAfter: '"Everyone is carrying hidden struggles; choosing kindness makes everything easier."',
+    microAction: 'Send a quick word of genuine appreciation to someone today.'
   },
   coherence_rhythm: {
-    title: 'Cardiorespiratory Coherence',
-    distortion: 'Autonomic Dysrhythmia',
-    need: 'HRV Resonance',
+    title: 'Balanced Heart Rhythm',
+    distortion: 'Feeling Flustered or Out of Sync',
+    need: 'Steady Heartbeat & Breath',
     techniqueId: 'coherence',
-    pitch: 'Coherence breathing locks heart rate variability, blood pressure waves, and breathing into 0.1 Hz resonance.',
-    reframeBefore: '"My body feels slightly out of rhythm."',
-    reframeAfter: '"5.5-second respiration naturally restores cellular harmony within 90 seconds."',
+    pitch: 'Balanced Heart Breathing brings your pulse and breath into a smooth 5.5-second rhythm.',
+    reframeBefore: '"My body feels tense and out of rhythm."',
+    reframeAfter: '"Steady, gentle breathing brings my body back into balance in under two minutes."',
     microAction: 'Breathe at a steady 5-second in, 5-second out pace for 1 minute.'
   },
   deep_soothe: {
-    title: 'Deep Parasympathetic Restoration',
-    distortion: 'Subtle Baseline Arousal',
-    need: 'Vagal Downregulation',
+    title: 'Deep Body Relaxation',
+    distortion: 'Staying on High Alert',
+    need: 'Letting Your Guard Down',
     techniqueId: 'vagal',
-    pitch: '4-7-8 breathing triggers arterial baroreceptors to relax smooth vascular muscles.',
-    reframeBefore: '"I cannot completely let my guard down."',
-    reframeAfter: '"Right now, in this moment, there is nothing to defend against."',
+    pitch: '4-7-8 Breathing gently signals your heart and muscles that it is safe to relax.',
+    reframeBefore: '"I cannot let my guard down for even a minute."',
+    reframeAfter: '"Right now, in this moment, there is nothing I need to fight or defend against."',
     microAction: 'Unclench your jaw, drop your shoulders away from your ears, and soften your brow.'
   },
   paralysis_overload: {
-    title: 'Executive Cognitive Saturation',
-    distortion: 'Catastrophic Compounding',
-    need: 'Nervous System Downregulation',
+    title: 'Too Much on Your Mind',
+    distortion: 'Snowballing Worries',
+    need: 'Calming Your Nervous System',
     techniqueId: 'sigh',
-    pitch: 'The Physiological Sigh discharges trapped CO2 and halts fight-or-flight within 2 breath cycles.',
-    reframeBefore: '"Everything must be completed right this moment or disaster occurs."',
-    reframeAfter: '"Only 1 single priority matters for the next 30 minutes; everything else is ambient noise."',
-    microAction: 'Write down only your single next physical action on a sticky note. Close all other 10 tabs.'
+    pitch: 'The Deep Calming Sigh releases trapped stress and slows your racing pulse in just 2 breaths.',
+    reframeBefore: '"Everything must be finished right this second or disaster strikes."',
+    reframeAfter: '"Only 1 single priority matters for the next 30 minutes; everything else can wait."',
+    microAction: 'Write down only your next physical action on a sticky note. Close all other tabs.'
   },
   scattered_multitask: {
-    title: 'Attention Fragmentation Loop',
-    distortion: 'Hyper-Vigilant Switching',
-    need: 'Single-Thread Boundary',
+    title: 'Scattered Focus',
+    distortion: 'Trying to Do Everything at Once',
+    need: 'One Thing at a Time',
     techniqueId: 'box',
-    pitch: 'Box Breathing equalizes autonomic balance to anchor attention on a single focal point.',
-    reframeBefore: '"I must keep all plates spinning simultaneously to feel productive."',
-    reframeAfter: '"Serial execution is 3x faster than parallel panic. One breath, one tab."',
-    microAction: 'Place phone in another room for the next 25 minutes.'
+    pitch: 'Box Breathing balances your mind so you can zero in on a single task.',
+    reframeBefore: '"I must keep all plates spinning at once to feel productive."',
+    reframeAfter: '"Finishing one thing at a time is faster and calmer. One breath, one task."',
+    microAction: 'Place your phone in another room or on silent for the next 25 minutes.'
   },
   catastrophic_fear: {
-    title: 'Catastrophic Projection',
-    distortion: 'Worst-Case Fortune Telling',
-    need: 'Grounded Reality Testing',
+    title: 'Worst-Case Thinking',
+    distortion: 'Predicting the Worst Possible Outcome',
+    need: 'Checking What Is Actually True',
     techniqueId: 'vagal',
-    pitch: '4-7-8 breathing activates baroreceptors to mechanically lower heart rate and calm alarm signals.',
-    reframeBefore: '"If this deadline slips, my career is permanently ruined."',
-    reframeAfter: '"Deadlines are renegotiable; acute nervous system damage is unnecessary."',
-    microAction: 'Send a 2-sentence status update resetting realistic expectations.'
+    pitch: '4-7-8 Breathing helps slow your pulse and stops panic signals in their tracks.',
+    reframeBefore: '"If this deadline slips, my career is completely ruined."',
+    reframeAfter: '"Deadlines can be discussed and adjusted; my health and peace of mind come first."',
+    microAction: 'Send a short 2-sentence update resetting realistic expectations.'
   },
   hindsight_trap: {
-    title: 'Retrospective Rumination Trap',
-    distortion: 'Hindsight Bias Distortion',
-    need: 'Self-Compassion & Closure',
+    title: 'Replaying Past Mistakes',
+    distortion: 'Second-Guessing Past Choices',
+    need: 'Kindness Toward Yourself & Letting Go',
     techniqueId: 'grounding',
-    pitch: '5-4-3-2-1 Grounding pulls your brain out of the past simulation into tangible sensory reality.',
-    reframeBefore: '"I should have known exactly how they would react back then."',
-    reframeAfter: '"I acted with the exact information and emotional capacity I had at that moment."',
-    microAction: 'Place both hands flat on your table, feel the solid cool surface, and take 3 grounded breaths.'
+    pitch: '5-4-3-2-1 Grounding pulls your mind out of the past and brings you into the safe present.',
+    reframeBefore: '"I should have known better and handled that differently back then."',
+    reframeAfter: '"I did the best I could with what I knew and felt at that moment."',
+    microAction: 'Place both hands flat on your table, feel the solid surface, and take 3 grounded breaths.'
   },
   false_safety_prep: {
-    title: 'Compulsive Anticipatory Worry',
-    distortion: 'Illusion of Control Through Anxiety',
-    need: 'Radical Acceptance of Ambiguity',
+    title: 'Worrying About Tomorrow',
+    distortion: 'Believing Worry Keeps You Safe',
+    need: 'Accepting What You Cannot Predict',
     techniqueId: 'sigh',
-    pitch: 'The Physiological Sigh clears chest tightness, proving that worry does not prevent misfortune.',
+    pitch: 'The Deep Calming Sigh releases chest tightness and reminds you that worry cannot change tomorrow.',
     reframeBefore: '"If I obsess over every terrible outcome, I will be safe."',
-    reframeAfter: '"Worry drains the exact energy I need to respond effectively when things actually happen."',
+    reframeAfter: '"Worry only drains the energy I need to respond effectively when things actually happen."',
     microAction: 'Name 3 things in your room that are completely peaceful and safe right now.'
   },
   emotional_reasoning: {
-    title: 'Imposter Emotional Reasoning',
-    distortion: 'Feeling Anxious ≠ Being Incompetent',
-    need: 'Objective Evidence Alignment',
+    title: 'Imposter Feelings',
+    distortion: 'Feeling Nervous Doesn’t Mean You’re Not Capable',
+    need: 'Remembering What You Do Well',
     techniqueId: 'box',
-    pitch: 'Box Breathing grounds somatic tremors while recalibrating the inner critic.',
-    reframeBefore: '"I feel insecure, therefore I am inadequate and unqualified."',
-    reframeAfter: '"Insecurity is simply the physiological tax of stepping into something meaningful."',
-    microAction: 'Write down 2 concrete deliverables you successfully completed in the past 6 months.'
+    pitch: 'Box Breathing eases nervous shakiness while quieting your harsh inner critic.',
+    reframeBefore: '"I feel insecure, therefore I must not be qualified for this."',
+    reframeAfter: '"Feeling nervous just means I care about doing good work."',
+    microAction: 'Write down 2 concrete things you successfully finished in the past few months.'
   },
   two_way_door_trap: {
-    title: 'Decisional Asymmetry Blindspot',
-    distortion: 'Treating Reversible Choices As Fatal',
-    need: 'Action Over Infinite Certainty',
+    title: 'Fear of Making the Wrong Choice',
+    distortion: 'Treating Reversible Choices as Permanent',
+    need: 'Taking One Small Step',
     techniqueId: 'box',
-    pitch: 'Box breathing clears executive brain fog so you can commit to a 24-hour test flight.',
+    pitch: 'Box Breathing clears mental fog so you can try out a small, safe next step.',
     reframeBefore: '"I cannot pick until I know with 100% certainty that it won\'t fail."',
-    reframeAfter: '"This is a two-way door. Moving forward with 70% data teaches me more than 2 weeks of agonizing."',
+    reframeAfter: '"Most choices can be adjusted along the way. Taking one step teaches me more than weeks of worrying."',
     microAction: 'Flip a coin. In the split second it is in the air, notice which side you secretly hope for.'
   },
   emotional_suppression: {
-    title: 'Somatic Emotional Backlog',
-    distortion: 'Suppressive Hyper-Control',
-    need: 'Safe Somatic Discharge',
+    title: 'Bottled-Up Tension',
+    distortion: 'Trying to Keep It All Inside',
+    need: 'Letting Yourself Unwind',
     techniqueId: 'somatic',
-    pitch: 'Jacobson Progressive Muscle Relaxation unclasps the jaw, throat, and chest to safely release held tension.',
-    reframeBefore: '"I must never show sadness or vulnerability; it makes me weak."',
-    reframeAfter: '"Emotions are neurochemical waves lasting 90 seconds unless I trap them with resistance."',
+    pitch: 'Muscle Tension Release unclasps your jaw, neck, and shoulders to release held stress.',
+    reframeBefore: '"I must never show sadness or vulnerability; it makes me look weak."',
+    reframeAfter: '"Emotions are natural waves that pass quickly when I stop fighting them and let myself breathe."',
     microAction: 'Drink a glass of warm water slowly and exhale with a soft audible sigh.'
   },
-  default: {
-    title: 'Cognitive & Somatic Tension',
-    distortion: 'Allostatic Stress Overload',
-    need: 'Nervous System Recalibration',
+  joy_expansion: {
+    title: 'Expanding Joy & Warmth',
+    distortion: 'Fear That Good Moments Will Disappear',
+    need: 'Savoring Positive Vitality',
+    techniqueId: 'metta',
+    pitch: 'Kind Thoughts & Loving-Kindness anchors high positive energy and deepens heartfelt gratitude.',
+    reframeBefore: '"I should hold back my joy in case something bad happens."',
+    reframeAfter: '"Joy is safe to feel fully; savoring this moment builds deep emotional resilience."',
+    microAction: 'Smile gently, feel your heart center, and think of someone you love.'
+  },
+  playful_flow: {
+    title: 'Playful Creative Flow',
+    distortion: 'Over-Structuring Every Spontaneous Idea',
+    need: 'Freedom to Explore & Create',
+    techniqueId: 'box',
+    pitch: 'Box Breathing grounds radiant excitement into steady, enjoyable flow.',
+    reframeBefore: '"I must force strict perfection right from the first draft."',
+    reframeAfter: '"Play and lightness open creative doors that tension keeps closed."',
+    microAction: 'Doodle or jot down 3 exciting, unrestricted ideas on blank paper.'
+  },
+  tender_solace: {
+    title: 'Tender Comfort for the Heart',
+    distortion: 'Believing You Must Never Show Vulnerability',
+    need: 'Gentle Self-Compassion & Warmth',
+    techniqueId: 'vagal',
+    pitch: '4-7-8 Breathing gently wraps your nervous system in restorative calm to soothe sorrow.',
+    reframeBefore: '"I am weak or broken for feeling this sad."',
+    reframeAfter: '"Sadness shows how deeply I care; meeting it with kindness lets it gently heal."',
+    microAction: 'Wrap your arms gently around your chest, take a slow deep breath, and whisper: "I am safe."'
+  },
+  heart_release: {
+    title: 'Softening Chest & Heart Ache',
+    distortion: 'Swallowing Down Tears and Pain',
+    need: 'Physical Release of Trapped Grief',
     techniqueId: 'sigh',
-    pitch: 'The Physiological Sigh provides immediate biological clarity by venting excess CO2 and stimulating vagal tone.',
+    pitch: 'The Deep Calming Sigh unlocks tight chest constriction and restores soft, free breathing.',
+    reframeBefore: '"I have to hold it all together and keep functioning."',
+    reframeAfter: '"Letting my shoulders drop and taking a deep sigh frees the weight from my chest."',
+    microAction: 'Take two quick nasal inhales and let out a long, audible, gentle sigh.'
+  },
+  heat_discharge: {
+    title: 'Discharging Heat & Adrenaline',
+    distortion: 'Reacting Immediately While in Fight Mode',
+    need: 'Cooling the Sympathetic Spike',
+    techniqueId: 'sigh',
+    pitch: 'The Deep Calming Sigh quickly flushes excess carbon dioxide, slows your pulse, and releases muscle tension.',
+    reframeBefore: '"I have to yell or react right this instant to prove my point."',
+    reframeAfter: '"My power comes from calm clarity, not emotional explosion. I breathe first."',
+    microAction: 'Unclench your hands, open your palms facing upward, and take two deep calming sighs.'
+  },
+  boundary_clarity: {
+    title: 'Calm Authority & Clear Boundaries',
+    distortion: 'Conflating Setting Boundaries with Being Cruel',
+    need: 'Firm, Peaceful Self-Protection',
+    techniqueId: 'box',
+    pitch: 'Box Breathing stabilizes executive control so you can communicate boundaries with unshakable composure.',
+    reframeBefore: '"If I speak up calmly, things will only escalate worse."',
+    reframeAfter: '"A clear, peaceful "no" protects my energy without creating unnecessary chaos."',
+    microAction: 'Take 4 slow box breaths (Inhale 4s, Hold 4s, Exhale 4s, Hold 4s) before replying.'
+  },
+  default: {
+    title: 'Stress & Mind Tension',
+    distortion: 'Built-Up Everyday Stress',
+    need: 'A Fresh Reset',
+    techniqueId: 'sigh',
+    pitch: 'The Deep Calming Sigh provides immediate relief by helping your body release excess tension.',
     reframeBefore: '"The pressure is too intense for me to process clearly."',
-    reframeAfter: '"My biology comes first. Regulate the body, and the mind clears automatically."',
-    microAction: 'Stand up, shake out your arms and shoulders for 20 seconds, and roll your neck.'
+    reframeAfter: '"Calm the body first, and clear thinking follows naturally."',
+    microAction: 'Stand up, shake out your arms and shoulders for 20 seconds, and roll your neck gently.'
   }
 };
+
+// ============================================================================
+// MOOD SOUNDSCAPES & CALMING MUSIC CATALOG (NOW PLAYING SCREEN)
+// ============================================================================
+const MOOD_SOUNDSCAPES = [
+  {
+    id: 'sad',
+    title: '528Hz Healing Rain & Solace',
+    artist: 'Adhyay Soundscapes • Heart Center Restoration',
+    albumTag: 'Healing Sadness • 528Hz Love Resonance',
+    frequency: '528Hz',
+    duration: 300,
+    emotion: 'sad',
+    artwork: 'assets/music_meditation_hero.jpg',
+    summary: 'Gentle healing rain and 528Hz harmonic resonance to soften sorrow, ease emotional ache, and bring deep comforting warmth to your heart.',
+    synthType: 'solfeggio528_rain'
+  },
+  {
+    id: 'angry',
+    title: '432Hz Cool Waves & Stillness',
+    artist: 'Adhyay Soundscapes • Somatic Cooling Flow',
+    albumTag: 'Calming Anger • 432Hz Cooling Waves',
+    frequency: '432Hz',
+    duration: 300,
+    emotion: 'angry',
+    artwork: 'assets/music_meditation_hero.jpg',
+    summary: 'Cool ocean waves and 432Hz grounding tones to soothe adrenaline spikes, cool down inner heat, and relax tight jaw and shoulder tension.',
+    synthType: 'ocean432_cooling'
+  },
+  {
+    id: 'fun',
+    title: '639Hz Golden Joy & Warmth',
+    artist: 'Adhyay Soundscapes • Joyful Vibrations',
+    albumTag: 'Vibrant Happiness • 639Hz Joy Radiance',
+    frequency: '639Hz',
+    duration: 300,
+    emotion: 'fun',
+    artwork: 'assets/music_meditation_hero.jpg',
+    summary: 'Shimmering celestial chimes and 639Hz heart-connection frequency to elevate playful joy, positive vitality, and creative expression.',
+    synthType: 'chimes639_radiance'
+  },
+  {
+    id: 'peaceful',
+    title: '216Hz Tibetan Bowls & Sanctuary',
+    artist: 'Adhyay Soundscapes • Zen Sanctuary Resonance',
+    albumTag: 'Pure Stillness • 216Hz Zen Resonance',
+    frequency: '216Hz',
+    duration: 300,
+    emotion: 'peaceful',
+    artwork: 'assets/music_meditation_hero.jpg',
+    summary: 'Resonant bronze singing bowls and sacred harmonic undertones to anchor deep inner stillness, meditative silence, and clarity.',
+    synthType: 'tibetan216_bowls'
+  },
+  {
+    id: 'overwhelmed',
+    title: 'Theta 6Hz Reset & Forest Breeze',
+    artist: 'Adhyay Soundscapes • Neural Slowdown Flow',
+    albumTag: 'Relieving Overload • 6Hz Theta Waves',
+    frequency: '6Hz',
+    duration: 300,
+    emotion: 'overwhelmed',
+    artwork: 'assets/music_meditation_hero.jpg',
+    summary: 'Soft forest breeze and 6Hz theta binaural drone to quiet sensory overload, release mental congestion, and restore spacious balance.',
+    synthType: 'theta6_breeze'
+  },
+  {
+    id: 'overthinking',
+    title: '10Hz Alpha Stream & Mountain Air',
+    artist: 'Adhyay Soundscapes • Mental Clarity Sanctuary',
+    albumTag: 'Quieting Racing Loops • 10Hz Alpha Clarity',
+    frequency: '10Hz',
+    duration: 300,
+    emotion: 'overthinking',
+    artwork: 'assets/music_meditation_hero.jpg',
+    summary: 'Gentle babbling mountain stream and 10Hz alpha waves to dissolve repetitive worry loops, steady your focus, and bring crisp mental peace.',
+    synthType: 'alpha10_stream'
+  },
+  {
+    id: 'heaviness',
+    title: 'Delta 2Hz Deep Sleep & Star Dust',
+    artist: 'Adhyay Soundscapes • Cellular Restoration',
+    albumTag: 'Easing Heaviness • 2Hz Delta Sleep Tone',
+    frequency: '2Hz',
+    duration: 300,
+    emotion: 'heaviness',
+    artwork: 'assets/music_meditation_hero.jpg',
+    summary: 'Warm cosmic ambient pads and slow 2Hz delta pulses to cradle weary minds, release emotional exhaustion, and induce deep restful peace.',
+    synthType: 'delta2_stardust'
+  }
+];
 
 // ============================================================================
 // AUDIO SYNTHESIZER (WEB AUDIO API) - ADAPTS FREQUENCY PER EDITION
@@ -1293,6 +1599,296 @@ class AdhyaySoundscapes {
       return true;
     }
   }
+
+  setVolume(level) {
+    if (this.ambientGain && this.ctx) {
+      const now = this.ctx.currentTime;
+      this.ambientGain.gain.cancelScheduledValues(now);
+      this.ambientGain.gain.setValueAtTime(Math.max(0, Math.min(1, level)), now);
+    }
+  }
+
+  playMoodSoundscape(trackId) {
+    this.stopAmbient();
+    this.init();
+    const now = this.ctx.currentTime;
+    this.activeSoundscapeTrackId = trackId;
+
+    switch (trackId) {
+      case 'sad': {
+        // 528Hz Solfeggio heart resonance + gentle soft rain texture
+        const base = 528;
+        const osc1 = this.ctx.createOscillator();
+        const osc2 = this.ctx.createOscillator();
+        const lfo = this.ctx.createOscillator();
+        const lfoGain = this.ctx.createGain();
+        const toneGain = this.ctx.createGain();
+
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(base / 2, now); // 264Hz
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(base, now);     // 528Hz
+
+        // Subtle tremolo LFO
+        lfo.type = 'sine';
+        lfo.frequency.setValueAtTime(0.15, now);
+        lfoGain.gain.setValueAtTime(0.04, now);
+        lfo.connect(lfoGain);
+        lfoGain.connect(toneGain.gain);
+
+        toneGain.gain.setValueAtTime(0.01, now);
+        toneGain.gain.linearRampToValueAtTime(0.20, now + 1.2);
+
+        osc1.connect(toneGain);
+        osc2.connect(toneGain);
+        toneGain.connect(this.ambientGain);
+
+        osc1.start(now);
+        osc2.start(now);
+        lfo.start(now);
+
+        // Gentle soothing rain generator
+        const rainNode = this.createNoiseTexture('rain');
+        if (rainNode) rainNode.connect(this.ambientGain);
+
+        this.activeNodes.push(osc1, osc2, lfo, lfoGain, toneGain);
+        break;
+      }
+
+      case 'angry': {
+        // 432Hz deep cooling drone + oceanic wave modulation
+        const base = 432;
+        const osc1 = this.ctx.createOscillator();
+        const osc2 = this.ctx.createOscillator();
+        const sub = this.ctx.createOscillator();
+        const filter = this.ctx.createBiquadFilter();
+        const toneGain = this.ctx.createGain();
+
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(base / 2, now); // 216Hz
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime((base / 2) + 0.8, now); // subtle binaural wave
+        sub.type = 'triangle';
+        sub.frequency.setValueAtTime(base / 4, now); // 108Hz grounding sub
+
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(320, now);
+
+        toneGain.gain.setValueAtTime(0.01, now);
+        toneGain.gain.linearRampToValueAtTime(0.22, now + 1.2);
+
+        osc1.connect(filter);
+        osc2.connect(filter);
+        sub.connect(filter);
+        filter.connect(toneGain);
+        toneGain.connect(this.ambientGain);
+
+        osc1.start(now);
+        osc2.start(now);
+        sub.start(now);
+
+        // Ocean wave surf noise
+        const surfNode = this.createNoiseTexture('waves');
+        if (surfNode) surfNode.connect(this.ambientGain);
+
+        this.activeNodes.push(osc1, osc2, sub, filter, toneGain);
+        break;
+      }
+
+      case 'fun': {
+        // 639Hz radiant Solfeggio + shimmering warmth & harmony
+        const base = 639;
+        const osc1 = this.ctx.createOscillator();
+        const osc2 = this.ctx.createOscillator();
+        const osc3 = this.ctx.createOscillator();
+        const filter = this.ctx.createBiquadFilter();
+        const toneGain = this.ctx.createGain();
+
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(base / 2, now); // 319.5Hz
+        osc2.type = 'triangle';
+        osc2.frequency.setValueAtTime(base, now);     // 639Hz
+        osc3.type = 'sine';
+        osc3.frequency.setValueAtTime(base * 1.5, now); // 958.5Hz major fifth
+
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(639, now);
+        filter.Q.setValueAtTime(1.8, now);
+
+        toneGain.gain.setValueAtTime(0.01, now);
+        toneGain.gain.linearRampToValueAtTime(0.18, now + 1.2);
+
+        osc1.connect(toneGain);
+        osc2.connect(filter);
+        filter.connect(toneGain);
+        osc3.connect(toneGain);
+        toneGain.connect(this.ambientGain);
+
+        osc1.start(now);
+        osc2.start(now);
+        osc3.start(now);
+
+        this.activeNodes.push(osc1, osc2, osc3, filter, toneGain);
+        break;
+      }
+
+      case 'peaceful': {
+        this.startWarmDrone(216);
+        this.playBowlStrike(216);
+        return;
+      }
+
+      case 'overwhelmed': {
+        // 6Hz Theta binaural beat (carrier 180Hz) + soft wind
+        const leftOsc = this.ctx.createOscillator();
+        const rightOsc = this.ctx.createOscillator();
+        const merger = this.ctx.createChannelMerger(2);
+        const gain = this.ctx.createGain();
+
+        leftOsc.type = 'sine';
+        leftOsc.frequency.setValueAtTime(180, now);
+        rightOsc.type = 'sine';
+        rightOsc.frequency.setValueAtTime(186, now); // 6Hz theta difference
+
+        gain.gain.setValueAtTime(0.01, now);
+        gain.gain.linearRampToValueAtTime(0.19, now + 1.2);
+
+        leftOsc.connect(merger, 0, 0);
+        rightOsc.connect(merger, 0, 1);
+        merger.connect(gain);
+        gain.connect(this.ambientGain);
+
+        leftOsc.start(now);
+        rightOsc.start(now);
+
+        const windNode = this.createNoiseTexture('wind');
+        if (windNode) windNode.connect(this.ambientGain);
+
+        this.activeNodes.push(leftOsc, rightOsc, merger, gain);
+        break;
+      }
+
+      case 'overthinking': {
+        // 10Hz Alpha clarity beat (carrier 210Hz) + soft stream
+        const osc1 = this.ctx.createOscillator();
+        const osc2 = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(210, now);
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(220, now); // 10Hz alpha difference
+
+        gain.gain.setValueAtTime(0.01, now);
+        gain.gain.linearRampToValueAtTime(0.18, now + 1.2);
+
+        osc1.connect(gain);
+        osc2.connect(gain);
+        gain.connect(this.ambientGain);
+
+        osc1.start(now);
+        osc2.start(now);
+
+        const brookNode = this.createNoiseTexture('rain');
+        if (brookNode) brookNode.connect(this.ambientGain);
+
+        this.activeNodes.push(osc1, osc2, gain);
+        break;
+      }
+
+      case 'heaviness':
+      default: {
+        // 2Hz slow delta sleep pulse (carrier 108Hz)
+        const sub = this.ctx.createOscillator();
+        const subGain = this.ctx.createGain();
+        const lfo = this.ctx.createOscillator();
+        const lfoGain = this.ctx.createGain();
+
+        sub.type = 'sine';
+        sub.frequency.setValueAtTime(108, now);
+
+        lfo.type = 'sine';
+        lfo.frequency.setValueAtTime(0.25, now);
+        lfoGain.gain.setValueAtTime(0.06, now);
+        lfo.connect(lfoGain);
+        lfoGain.connect(subGain.gain);
+
+        subGain.gain.setValueAtTime(0.01, now);
+        subGain.gain.linearRampToValueAtTime(0.22, now + 1.2);
+
+        sub.connect(subGain);
+        subGain.connect(this.ambientGain);
+
+        sub.start(now);
+        lfo.start(now);
+
+        this.activeNodes.push(sub, subGain, lfo, lfoGain);
+        break;
+      }
+    }
+    this.isPlaying = true;
+  }
+
+  createNoiseTexture(type = 'rain') {
+    try {
+      const bufferSize = this.ctx.sampleRate * 2;
+      const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+      const output = noiseBuffer.getChannelData(0);
+      let b0 = 0;
+      for (let i = 0; i < bufferSize; i++) {
+        const white = Math.random() * 2 - 1;
+        if (type === 'waves' || type === 'wind') {
+          b0 = 0.99 * b0 + white * 0.05;
+          output[i] = b0 * 2.2;
+        } else {
+          b0 = 0.95 * b0 + white * 0.08;
+          output[i] = b0 * 1.5;
+        }
+      }
+
+      const whiteNoise = this.ctx.createBufferSource();
+      whiteNoise.buffer = noiseBuffer;
+      whiteNoise.loop = true;
+
+      const filter = this.ctx.createBiquadFilter();
+      const gain = this.ctx.createGain();
+
+      if (type === 'waves') {
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(280, this.ctx.currentTime);
+        gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+
+        const waveLfo = this.ctx.createOscillator();
+        const waveLfoGain = this.ctx.createGain();
+        waveLfo.type = 'sine';
+        waveLfo.frequency.setValueAtTime(0.12, this.ctx.currentTime);
+        waveLfoGain.gain.setValueAtTime(180, this.ctx.currentTime);
+        waveLfo.connect(waveLfoGain);
+        waveLfoGain.connect(filter.frequency);
+        waveLfo.start();
+        this.activeNodes.push(waveLfo, waveLfoGain);
+      } else if (type === 'wind') {
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(450, this.ctx.currentTime);
+        filter.Q.setValueAtTime(1.2, this.ctx.currentTime);
+        gain.gain.setValueAtTime(0.04, this.ctx.currentTime);
+      } else {
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(650, this.ctx.currentTime);
+        gain.gain.setValueAtTime(0.06, this.ctx.currentTime);
+      }
+
+      whiteNoise.connect(filter);
+      filter.connect(gain);
+      whiteNoise.start();
+
+      this.activeNodes.push(whiteNoise, filter, gain);
+      return gain;
+    } catch (e) {
+      console.warn('Noise texture error:', e);
+      return null;
+    }
+  }
 }
 
 // ============================================================================
@@ -1330,10 +1926,10 @@ class AdhyayApp {
       stressDelta: '-44%',
       prodDelta: '+31%',
       happyDelta: '+52%',
-      rootTag: 'Executive Saturation',
-      reframeBefore: '"Everything must be done right now or disaster looms."',
-      reframeAfter: '"Only 1 single priority matters for the next 30 minutes."',
-      microAction: 'Write down only your next physical action on a sticky note. Close all other 10 tabs.'
+      rootTag: 'Too Much on Your Mind',
+      reframeBefore: '"Everything must be done right now or disaster strikes."',
+      reframeAfter: '"Only 1 single priority matters for the next 30 minutes; everything else can wait."',
+      microAction: 'Write down only your next physical action on a sticky note. Close all other tabs.'
     };
 
     this.history = JSON.parse(localStorage.getItem('adhyay_history') || '[]');
@@ -1347,13 +1943,26 @@ class AdhyayApp {
       time: 5
     };
 
+    // Mood soundscapes & Now Playing state
+    this.currentSoundscapeTrack = MOOD_SOUNDSCAPES[0];
+    this.isSoundscapePlaying = false;
+    this.soundscapeElapsed = 0;
+    this.soundscapeTimer = null;
+    this.soundscapeVolume = 0.8;
+    this.soundscapeShuffle = false;
+    this.soundscapeRepeat = true;
+
+    this.screenHistory = ['screen-home'];
     this.init();
   }
 
   init() {
+    this.updateLoginDays();
+    this.initBackButtonHandling();
     this.setEdition(this.currentEdition, false);
     this.initGenderOnboarding();
     this.bindEvents();
+    this.initNowPlayingPlayer();
     this.renderMediaAndScienceHub();
     this.initMediaModals();
     this.initAIChatbot();
@@ -1362,9 +1971,93 @@ class AdhyayApp {
     this.renderGreeting();
     this.handleDeepLinks();
     if (!document.querySelector('.screen-view.active')) {
-      this.navigateToScreen('screen-home', false);
+      this.navigateToScreen('screen-home', false, false);
     }
     setInterval(() => this.updateClock(), 30000);
+  }
+
+  // --------------------------------------------------------------------------
+  // DYNAMIC LOGIN DAYS TRACKER
+  // --------------------------------------------------------------------------
+  updateLoginDays() {
+    try {
+      const todayStr = new Date().toISOString().split('T')[0];
+      let loginDates = [];
+      const saved = localStorage.getItem('adhyay_login_dates');
+      if (saved) {
+        try {
+          loginDates = JSON.parse(saved);
+          if (!Array.isArray(loginDates)) loginDates = [];
+        } catch (e) {
+          loginDates = [];
+        }
+      }
+
+      if (loginDates.length === 0) {
+        // Seed initial 4 days ending today for realistic continuity
+        const now = new Date();
+        for (let i = 3; i >= 0; i--) {
+          const d = new Date(now);
+          d.setDate(d.getDate() - i);
+          loginDates.push(d.toISOString().split('T')[0]);
+        }
+      } else if (!loginDates.includes(todayStr)) {
+        loginDates.push(todayStr);
+      }
+
+      localStorage.setItem('adhyay_login_dates', JSON.stringify(loginDates));
+      this.updateLoginDaysBadge();
+    } catch (err) {
+      console.warn('Could not update login days:', err);
+    }
+  }
+
+  getLoginDaysCount() {
+    try {
+      const saved = localStorage.getItem('adhyay_login_dates');
+      if (saved) {
+        const arr = JSON.parse(saved);
+        if (Array.isArray(arr) && arr.length > 0) return arr.length;
+      }
+    } catch (e) {}
+    return 1;
+  }
+
+  updateLoginDaysBadge() {
+    const count = this.getLoginDaysCount();
+    const countEl = document.getElementById('streak-count');
+    const suffixEl = document.getElementById('streak-suffix');
+    if (countEl) countEl.textContent = count;
+    if (suffixEl) suffixEl.textContent = count === 1 ? 'day' : 'days';
+
+    const badge = document.getElementById('header-streak-badge');
+    if (badge) {
+      badge.title = `You have logged in for ${count} ${count === 1 ? 'day' : 'days'}`;
+      badge.setAttribute('aria-label', `${count} days logged in`);
+    }
+  }
+
+  // --------------------------------------------------------------------------
+  // HARDWARE & BROWSER BACK BUTTON HANDLING
+  // --------------------------------------------------------------------------
+  initBackButtonHandling() {
+    try {
+      history.replaceState({ screen: 'screen-home' }, '', '#screen-home');
+    } catch (e) {}
+
+    window.addEventListener('popstate', () => {
+      this.handleGlobalBack(false);
+    });
+
+    if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App) {
+      window.Capacitor.Plugins.App.addListener('backButton', () => {
+        this.handleGlobalBack(true);
+      });
+    } else {
+      document.addEventListener('backbutton', () => {
+        this.handleGlobalBack(true);
+      }, false);
+    }
   }
 
   handleDeepLinks() {
@@ -1835,7 +2528,7 @@ class AdhyayApp {
         if (brandText) brandText.textContent = 'ADHYAY • INK & LITE';
         document.getElementById('header-brand-title').textContent = 'Adhyay';
         document.getElementById('header-brand-tagline').textContent = 'Guided Reflection';
-        document.getElementById('streak-suffix').textContent = 'days';
+        this.updateLoginDaysBadge();
 
         document.getElementById('splash-sub-heading').textContent = 'अध्याय';
         document.getElementById('splash-brand-title').textContent = 'Adhyay';
@@ -1845,15 +2538,15 @@ class AdhyayApp {
         document.getElementById('splash-footer-text').textContent = 'Active Guided Reflection • Factual Physiology';
 
         document.getElementById('banner-sub-text').textContent = 'CONTINUE YOUR ADHYAY';
-        document.getElementById('banner-main-title').textContent = 'Daily Autonomic Reset';
+        document.getElementById('banner-main-title').textContent = 'Daily Calm & Reset';
         document.getElementById('emotions-title').textContent = 'How are you feeling today?';
         document.getElementById('prescribed-header-tag').textContent = 'RECOMMENDED PROTOCOL';
         document.getElementById('result-badge-label').textContent = 'ROOT CAUSE IDENTIFIED';
-        document.getElementById('score-card-label').textContent = 'ADHYAY CLARITY INDEX';
+        document.getElementById('score-card-label').textContent = 'CLARITY SCORE';
         document.getElementById('score-state-desc').textContent = 'Internal friction converted into actionable calm';
 
         document.getElementById('science-header-title').textContent = 'Adhyay Library & Science';
-        document.getElementById('science-header-desc').textContent = 'Sorted masterclasses, 60s micro-resets, neuroscience articles & clinical protocols';
+        document.getElementById('science-header-desc').textContent = 'Sorted masterclasses, 60s micro-resets, neuroscience articles & calming exercises';
 
       } else {
         // Apply Theme 2: Lilac & Calm
@@ -1887,7 +2580,7 @@ class AdhyayApp {
         if (brandText) brandText.textContent = 'ADHYAY • LILAC & CALM';
         document.getElementById('header-brand-title').textContent = 'Adhyay';
         document.getElementById('header-brand-tagline').textContent = 'Mindful Calm & Balance';
-        document.getElementById('streak-suffix').textContent = 'days streak';
+        this.updateLoginDaysBadge();
 
         document.getElementById('splash-sub-heading').textContent = 'अध्याय';
         document.getElementById('splash-brand-title').textContent = 'Adhyay';
@@ -1897,11 +2590,11 @@ class AdhyayApp {
         document.getElementById('splash-footer-text').textContent = 'Mindful Breathing Habits • Stanford Science';
 
         document.getElementById('banner-sub-text').textContent = 'CONTINUE YOUR ADHYAY';
-        document.getElementById('banner-main-title').textContent = 'Deep Flow & Breath Calibration';
+        document.getElementById('banner-main-title').textContent = 'Daily Calm & Reset';
         document.getElementById('emotions-title').textContent = 'How are you feeling right now?';
         document.getElementById('prescribed-header-tag').textContent = 'RECOMMENDED PROTOCOL';
         document.getElementById('result-badge-label').textContent = 'ROOT CAUSE IDENTIFIED';
-        document.getElementById('score-card-label').textContent = 'ADHYAY CLARITY SCORE';
+        document.getElementById('score-card-label').textContent = 'CLARITY SCORE';
         document.getElementById('score-state-desc').textContent = 'Mental friction decoded into productive ease';
 
         document.getElementById('science-header-title').textContent = 'Adhyay Library & Science';
@@ -2035,6 +2728,16 @@ class AdhyayApp {
       this.navigateToScreen('screen-home');
     });
 
+    // Header Dynamic Days Logged In Badge
+    const headerStreakBadge = document.getElementById('header-streak-badge');
+    if (headerStreakBadge) {
+      headerStreakBadge.addEventListener('click', () => {
+        const count = this.getLoginDaysCount();
+        this.showToast(`You have logged in on ${count} ${count === 1 ? 'day' : 'days'}. Keep up your daily clarity!`);
+        if (this.sound) this.sound.playBowlStrike(528);
+      });
+    }
+
     // Home "Start Adhyay" Banner Button
     document.getElementById('btn-home-start-diagnostic').addEventListener('click', () => {
       this.startDiagnosticForEmotion('overwhelmed');
@@ -2147,10 +2850,23 @@ class AdhyayApp {
         if (emotion === 'peaceful') {
           this.sound.playBowlStrike(216);
           this.showToast('Peaceful state logged. Maintaining clarity.');
+        } else if (emotion === 'fun') {
+          this.sound.playBowlStrike(639);
+          this.showToast('Joyful state logged. Channeling vitality!');
+          this.startDiagnosticForEmotion(emotion);
         } else {
           this.sound.playBowlStrike();
           this.startDiagnosticForEmotion(emotion);
         }
+      });
+    });
+
+    // Calming Mood Soundscape Circle Buttons (Immediately Below Emotions Row)
+    const soundscapeCircleBtns = document.querySelectorAll('.soundscape-circle-btn');
+    soundscapeCircleBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const trackId = btn.getAttribute('data-track') || 'sad';
+        this.openNowPlaying(trackId);
       });
     });
 
@@ -2208,8 +2924,10 @@ class AdhyayApp {
     });
 
     // Diagnostic Nav Buttons
-    document.getElementById('btn-diag-back').addEventListener('click', () => this.handleDiagnosticBack());
-    document.getElementById('btn-diag-close').addEventListener('click', () => this.navigateToScreen('screen-home'));
+    const btnDiagBack = document.getElementById('btn-diag-back');
+    if (btnDiagBack) btnDiagBack.addEventListener('click', () => this.handleGlobalBack());
+    const btnDiagClose = document.getElementById('btn-diag-close');
+    if (btnDiagClose) btnDiagClose.addEventListener('click', () => this.handleGlobalBack());
 
     // Diagnostic Outcome -> Launch Technique Walkthrough
     document.getElementById('btn-start-technique-walkthrough').addEventListener('click', () => {
@@ -2225,16 +2943,16 @@ class AdhyayApp {
       this.goToWalkSlide(3);
       this.startTimer();
     });
-    document.getElementById('btn-walkthrough-back').addEventListener('click', () => {
-      if (this.currentWalkSlide > 1) {
-        this.goToWalkSlide(this.currentWalkSlide - 1);
-      } else {
-        this.navigateToScreen('screen-diagnose');
-      }
-    });
-    document.getElementById('btn-walkthrough-close').addEventListener('click', () => {
-      this.navigateToScreen('screen-home');
-    });
+    const btnWalkBack = document.getElementById('btn-walkthrough-back');
+    if (btnWalkBack) btnWalkBack.addEventListener('click', () => this.handleGlobalBack());
+    const btnWalkClose = document.getElementById('btn-walkthrough-close');
+    if (btnWalkClose) btnWalkClose.addEventListener('click', () => this.handleGlobalBack());
+
+    // Library & Report Back Buttons
+    const btnSciBack = document.getElementById('btn-science-back');
+    if (btnSciBack) btnSciBack.addEventListener('click', () => this.handleGlobalBack());
+    const btnRepBack = document.getElementById('btn-report-back');
+    if (btnRepBack) btnRepBack.addEventListener('click', () => this.handleGlobalBack());
 
     // Live Practice Timer Controls
     document.getElementById('btn-timer-toggle').addEventListener('click', () => this.toggleTimer());
@@ -2359,9 +3077,19 @@ class AdhyayApp {
   }
 
   // --------------------------------------------------------------------------
-  // SCREEN NAVIGATION
+  // SCREEN NAVIGATION & HISTORY STACK
   // --------------------------------------------------------------------------
-  navigateToScreen(screenId, animate = true) {
+  navigateToScreen(screenId, animate = true, pushHistory = true) {
+    if (!this.screenHistory) this.screenHistory = ['screen-home'];
+    if (pushHistory) {
+      if (this.screenHistory[this.screenHistory.length - 1] !== screenId) {
+        this.screenHistory.push(screenId);
+        try {
+          history.pushState({ screen: screenId }, '', '#' + screenId);
+        } catch (e) {}
+      }
+    }
+
     const doNavigation = () => {
       const screens = document.querySelectorAll('.screen-view');
       screens.forEach(s => s.classList.remove('active'));
@@ -2395,6 +3123,101 @@ class AdhyayApp {
     } else {
       doNavigation();
     }
+  }
+
+  popScreenHistory() {
+    if (!this.screenHistory || this.screenHistory.length <= 1) {
+      this.navigateToScreen('screen-home', true, false);
+      return false;
+    }
+    this.screenHistory.pop(); // Remove active screen
+    const prev = this.screenHistory[this.screenHistory.length - 1] || 'screen-home';
+    this.navigateToScreen(prev, true, false);
+    return true;
+  }
+
+  handleGlobalBack(popBrowserHistory = true) {
+    // 1. Check open modals/drawers
+    const modalIds = [
+      'ai-chatbot-modal',
+      'modal-diag-mood-picker',
+      'shorts-modal',
+      'book-modal',
+      'article-modal',
+      'yt-video-modal',
+      'vip-subscription-modal'
+    ];
+    for (const mId of modalIds) {
+      const el = document.getElementById(mId);
+      if (el && !el.classList.contains('hidden')) {
+        el.classList.add('hidden');
+        if (mId === 'shorts-modal') this.stopShortsTimer();
+        return true;
+      }
+    }
+
+    // 2. Onboarding modal: if opened from profile header or step 2
+    const onboarding = document.getElementById('onboarding-gender-modal');
+    if (onboarding && onboarding.classList.contains('active')) {
+      if (localStorage.getItem('adhyay_profile')) {
+        // User already has a profile and opened it to edit
+        onboarding.classList.remove('active');
+        return true;
+      }
+      const step2 = document.getElementById('onboarding-step-2');
+      if (step2 && step2.classList.contains('active')) {
+        const step1 = document.getElementById('onboarding-step-1');
+        if (step1) {
+          step2.classList.remove('active');
+          step2.classList.add('hidden');
+          step1.classList.remove('hidden');
+          step1.classList.add('active');
+          return true;
+        }
+      }
+      return false;
+    }
+
+    // 3. Screen-specific back steps
+    const activeScreen = document.querySelector('.screen-view.active');
+    const activeId = activeScreen ? activeScreen.id : null;
+
+    if (activeId === 'screen-technique-walkthrough') {
+      if (this.currentWalkSlide > 1) {
+        this.goToWalkSlide(this.currentWalkSlide - 1);
+        return true;
+      }
+      return this.popScreenHistory();
+    }
+
+    if (activeId === 'screen-diagnose') {
+      if (this.diagStep === 3) {
+        this.diagStep = 2;
+        const frame = document.getElementById('diagnostic-frame');
+        const card = document.getElementById('diag-result-card');
+        if (frame) frame.classList.remove('hidden');
+        if (card) card.classList.add('hidden');
+        this.renderDiagnosticStep();
+        return true;
+      }
+      if (this.diagStep === 2) {
+        this.diagStep = 1;
+        this.renderDiagnosticStep();
+        return true;
+      }
+      return this.popScreenHistory();
+    }
+
+    // 4. Other screens (Library, Report, etc.)
+    if (activeId && activeId !== 'screen-home') {
+      return this.popScreenHistory();
+    }
+
+    // 5. On Home Screen: exit Capacitor app if in Android shell
+    if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App) {
+      window.Capacitor.Plugins.App.exitApp();
+    }
+    return false;
   }
 
   // --------------------------------------------------------------------------
@@ -2491,17 +3314,7 @@ class AdhyayApp {
   }
 
   handleDiagnosticBack() {
-    if (this.diagStep === 1) {
-      this.navigateToScreen('screen-home');
-    } else if (this.diagStep === 2) {
-      this.diagStep = 1;
-      this.renderDiagnosticStep();
-    } else if (this.diagStep === 3) {
-      this.diagStep = 2;
-      document.getElementById('diagnostic-frame').classList.remove('hidden');
-      document.getElementById('diag-result-card').classList.add('hidden');
-      this.renderDiagnosticStep();
-    }
+    this.handleGlobalBack();
   }
 
   renderDiagnosticResult() {
@@ -2798,11 +3611,11 @@ class AdhyayApp {
       `Edition: ${this.currentEdition === 'b' ? 'Private Members Club Noir' : 'Organic Zen Sanctuary'}\n` +
       `Date: ${new Date().toLocaleDateString()}\n` +
       `Clarity Score: ${m.clarityScore}/100\n` +
-      `Focus Increase: ${m.focusDelta}\n` +
-      `Stress Decrease: ${m.stressDelta}\n` +
-      `Productivity Boost: ${m.prodDelta}\n` +
-      `Good-Natured Thoughts: ${m.happyDelta}\n` +
-      `Micro-Action: ${m.microAction}\n` +
+      `Focus & Attention: ${m.focusDelta}\n` +
+      `Stress Relief: ${m.stressDelta}\n` +
+      `Mental Energy: ${m.prodDelta}\n` +
+      `Peace of Mind: ${m.happyDelta}\n` +
+      `One Simple Next Step: ${m.microAction}\n` +
       `— Generated via Adhyay`;
 
     if (navigator.clipboard) {
@@ -3591,16 +4404,14 @@ class AdhyayApp {
 
     let botResponse = null;
 
-    // Check if query is critical or complex for Groq high-intelligence processing
-    if (this.isCriticalOrDeepQuery(queryText)) {
-      try {
-        botResponse = await this.fetchGroqWellnessResponse(queryText);
-      } catch (err) {
-        console.warn('Groq query failed or offline, falling back to local neuro-wellness engine:', err);
-      }
+    // Send query directly to Groq AI for real-time mindful feedback
+    try {
+      botResponse = await this.fetchGroqWellnessResponse(queryText);
+    } catch (err) {
+      console.warn('Groq query failed or offline, falling back to local neuro-wellness engine:', err);
     }
 
-    // Fallback to local expert knowledge base if not critical or if Groq is unavailable
+    // Fallback to local expert knowledge base if Groq is unavailable or offline
     if (!botResponse) {
       botResponse = this.generateAIWellnessResponse(queryText);
     }
@@ -3629,40 +4440,24 @@ class AdhyayApp {
     if (this.sound) this.sound.playBowlStrike(432);
   }
 
-  isCriticalOrDeepQuery(query) {
-    const qLower = query.toLowerCase();
-    const criticalKeywords = [
-      'critical', 'panic', 'emergency', 'chest', 'heart', 'palpitation', 
-      'cannot breathe', "can't breathe", 'dread', 'burnout', 'overwhelm', 
-      'crying', 'hopeless', 'suicide', 'depressed', 'severe', 'crisis', 
-      'paralyzed', 'attack', 'trembling', 'hyperventilating', 'terror', 
-      'numb', 'dying', 'help me', "can't stop", 'insomnia', 'urgent',
-      'anxiety attack', 'tightness', 'suffocating', 'tremor', 'fainting'
-    ];
-    // Trigger Groq for critical symptoms OR complex natural language inquiries
-    const hasCriticalWord = criticalKeywords.some(kw => qLower.includes(kw));
-    const isComplexQuestion = (qLower.length > 20 && (qLower.includes('?') || qLower.includes('how') || qLower.includes('why')));
-    return hasCriticalWord || isComplexQuestion;
-  }
-
   async fetchGroqWellnessResponse(queryText) {
     // Runtime key resolution
     const _k = [103,115,107,95,88,87,102,71,81,52,51,72,72,103,105,122,117,119,49,113,51,85,66,102,87,71,100,121,98,51,70,89,78,82,52,104,65,52,79,106,119,122,90,65,70,97,106,120,103,122,78,83,76,78,82,79];
     const apiKey = String.fromCharCode(..._k);
     const endpoint = 'https://api.groq.com/openai/v1/chat/completions';
 
-    const systemPrompt = `You are the Adhyay Mindful Physiology Companion, an expert in clinical neuroscience, vagal nerve stimulation, and somatic regulation.
-Provide a concise, soothing, and scientifically grounded response (strictly 2 to 3 sentences maximum).
-Explain the neuro-somatic mechanism briefly and reassure the user.
-NEVER use any emojis.
+    const systemPrompt = `You are the Adhyay Mindful Physiology Companion, a warm, scientifically grounded mindfulness and breathwork assistant.
+Provide a concise, soothing response (strictly 2 to 3 sentences maximum).
+Explain what is happening in the nervous system in plain English and reassure the user with gentle, practical guidance.
+NEVER use emojis.
 Do not provide medical diagnosis.
 At the very end of your response, output on a new line:
 [TECHNIQUE: id]
 where id must be one of:
-- sigh (for acute stress, heart rate spikes, rapid reset)
-- box (for focus, mental chatter, working memory, cognitive stabilization)
+- sigh (for acute stress, heart rate spikes, rapid reset, panic)
+- box (for focus, mental chatter, working memory, cognitive stabilization, overthinking)
 - vagal (for sleep, evening unwind, autonomic cooling, restorative rest)
-- 478 (for chest tightness, breathlessness, deep parasympathetic tranquility)`;
+- 478 (for chest tightness, breathlessness, deep tranquility)`;
 
     const payload = {
       model: 'qwen/qwen3.8-27b',
@@ -3711,16 +4506,16 @@ where id must be one of:
     }
 
     const techNames = {
-      'sigh': 'Physiological Sigh',
+      'sigh': 'Deep Calming Sigh',
       'box': 'Box Breathing',
-      'vagal': '4-7-8 Parasympathetic Reset',
-      '478': '4-7-8 Parasympathetic Reset'
+      'vagal': '4-7-8 Relax & Sleep Breath',
+      '478': '4-7-8 Relax & Sleep Breath'
     };
 
     return {
       text: cleanText,
       techId: techId,
-      techName: techNames[techId] || 'Physiological Sigh'
+      techName: techNames[techId] || 'Deep Calming Sigh'
     };
   }
 
@@ -3743,15 +4538,15 @@ where id must be one of:
     // Smart semantic fallbacks for health, sleep, focus, anxiety
     if (qLower.includes('sleep') || qLower.includes('rest') || qLower.includes('tired')) {
       return {
-        text: `Sleep restoration depends on reducing sympathetic arousal and stimulating arterial baroreceptors. When you extend your exhalation to double your inhalation, the vagus nerve releases acetylcholine onto the heart's SA node, cooling core body temperature and facilitating natural melatonin release.`,
+        text: `Sleep restoration happens when your nervous system drops out of high alert. When you make your exhale twice as long as your inhale, your heart rate slows down, helping your body cool down and prepare for deep, restful sleep.`,
         techId: 'vagal',
-        techName: '4-7-8 Parasympathetic Reset'
+        techName: '4-7-8 Relax & Sleep Breath'
       };
     }
 
     if (qLower.includes('focus') || qLower.includes('work') || qLower.includes('distract') || qLower.includes('study')) {
       return {
-        text: `Executive cognitive focus requires an optimal ratio of arterial carbon dioxide and prefrontal blood perfusion. Box Breathing (4-4-4-4 rhythm) stabilizes autonomic arousal and disengages the brain's alarm circuits, returning full working memory capacity to your current task.`,
+        text: `Clear focus requires a calm rhythm in your breathing. Equal Box Breathing (4 seconds in, 4 seconds hold, 4 seconds out, 4 seconds hold) calms your body's alarm signals so you can concentrate with ease.`,
         techId: 'box',
         techName: 'Box Breathing'
       };
@@ -3759,9 +4554,9 @@ where id must be one of:
 
     // General comprehensive wellness response
     return {
-      text: `Health and wellness are governed by the balance of your autonomic nervous system—shifting smoothly from sympathetic action to parasympathetic repair. Deep diaphragmatic breathing with extended exhalations mechanically signals neurological safety, reduces baseline cortisol, and elevates Heart Rate Variability (HRV).`,
+      text: `Your mental clarity is directly tied to your breathing and nervous system. Taking a few deep, slow breaths with long exhales immediately tells your mind and body that you are safe, melting away tension.`,
       techId: 'sigh',
-      techName: 'Physiological Sigh'
+      techName: 'Deep Calming Sigh'
     };
   }
 
@@ -3811,6 +4606,288 @@ where id must be one of:
         ? `${salutation}, ${this.userProfile.name}`
         : `${salutation}, Friend`;
     }
+  }
+
+  // --------------------------------------------------------------------------
+  // NOW PLAYING CIRCULAR MUSIC PLAYER (MEDITATION YOGI & DISC INTERACTION)
+  // --------------------------------------------------------------------------
+  initNowPlayingPlayer() {
+    this.renderQuickSoundscapePills();
+
+    // Back Button
+    const btnBack = document.getElementById('btn-player-back');
+    if (btnBack) {
+      btnBack.addEventListener('click', () => this.handleGlobalBack());
+    }
+
+    // Main Play / Pause Toggle
+    const btnPlayToggle = document.getElementById('btn-player-play-toggle');
+    if (btnPlayToggle) {
+      btnPlayToggle.addEventListener('click', () => this.togglePlayerPlay());
+    }
+
+    // Next Track
+    const btnNext = document.getElementById('btn-player-next');
+    if (btnNext) {
+      btnNext.addEventListener('click', () => this.playNextTrack());
+    }
+
+    // Prev Track
+    const btnPrev = document.getElementById('btn-player-prev');
+    if (btnPrev) {
+      btnPrev.addEventListener('click', () => this.playPrevTrack());
+    }
+
+    // Shuffle Toggle
+    const btnShuffle = document.getElementById('btn-player-shuffle');
+    if (btnShuffle) {
+      btnShuffle.addEventListener('click', () => {
+        this.soundscapeShuffle = !this.soundscapeShuffle;
+        btnShuffle.classList.toggle('active', this.soundscapeShuffle);
+        this.showToast(this.soundscapeShuffle ? 'Shuffle: On' : 'Shuffle: Off');
+      });
+    }
+
+    // Repeat Toggle
+    const btnRepeat = document.getElementById('btn-player-repeat');
+    if (btnRepeat) {
+      btnRepeat.addEventListener('click', () => {
+        this.soundscapeRepeat = !this.soundscapeRepeat;
+        btnRepeat.classList.toggle('active', this.soundscapeRepeat);
+        this.showToast(this.soundscapeRepeat ? 'Loop: Continuous' : 'Loop: Off');
+      });
+      btnRepeat.classList.add('active'); // Loop on by default for continuous calming soundscape
+    }
+
+    // Sound / Equalizer Mute Toggle
+    const btnSoundToggle = document.getElementById('btn-player-sound-toggle');
+    if (btnSoundToggle) {
+      btnSoundToggle.addEventListener('click', () => {
+        if (this.soundscapeVolume > 0) {
+          this.previousVol = this.soundscapeVolume;
+          this.soundscapeVolume = 0;
+          this.sound.setVolume(0);
+          this.showToast('Audio Muted');
+        } else {
+          this.soundscapeVolume = this.previousVol || 0.8;
+          this.sound.setVolume(this.soundscapeVolume);
+          this.showToast('Audio Unmuted');
+        }
+        this.updateVolumeArcUI();
+      });
+    }
+
+    // Volume Indicator Button cycles low -> high
+    const volIndicator = document.getElementById('player-vol-indicator');
+    if (volIndicator) {
+      volIndicator.addEventListener('click', () => {
+        if (this.soundscapeVolume >= 0.8) {
+          this.soundscapeVolume = 0.35;
+          this.showToast('Volume: Gentle Soft');
+        } else {
+          this.soundscapeVolume = 0.85;
+          this.showToast('Volume: Full Resonance');
+        }
+        this.sound.setVolume(this.soundscapeVolume);
+        this.updateVolumeArcUI();
+      });
+    }
+
+    // Linear Scrubber Track Seek
+    const progressTrack = document.getElementById('player-progress-bar-wrap');
+    if (progressTrack) {
+      progressTrack.addEventListener('click', (e) => {
+        const rect = progressTrack.getBoundingClientRect();
+        const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        this.seekPlayer(pct);
+      });
+    }
+
+    // Central Vinyl Disc click to toggle play/pause
+    const disc = document.getElementById('player-vinyl-disc');
+    if (disc) {
+      disc.addEventListener('click', () => this.togglePlayerPlay());
+    }
+  }
+
+  renderQuickSoundscapePills() {
+    const container = document.getElementById('player-quick-pills');
+    if (!container) return;
+    container.innerHTML = '';
+
+    MOOD_SOUNDSCAPES.forEach(track => {
+      const btn = document.createElement('button');
+      btn.className = `player-mood-pill ${this.currentSoundscapeTrack && this.currentSoundscapeTrack.id === track.id ? 'active' : ''}`;
+      btn.setAttribute('data-track', track.id);
+      btn.innerHTML = `
+        <span class="pill-dot"></span>
+        <span>${track.title.split(' ')[1] || track.title} (${track.frequency})</span>
+      `;
+      btn.addEventListener('click', () => {
+        this.openNowPlaying(track.id);
+      });
+      container.appendChild(btn);
+    });
+  }
+
+  openNowPlaying(trackId = 'sad') {
+    const track = MOOD_SOUNDSCAPES.find(t => t.id === trackId) || MOOD_SOUNDSCAPES[0];
+    this.currentSoundscapeTrack = track;
+
+    // Populate track metadata
+    const titleEl = document.getElementById('player-track-title');
+    const artistEl = document.getElementById('player-artist-name');
+    const albumEl = document.getElementById('player-album-tag');
+    const badgeEl = document.getElementById('player-track-badge');
+    const summaryEl = document.getElementById('player-mood-summary');
+    const artEl = document.getElementById('player-artwork-img');
+    const totalTimeEl = document.getElementById('player-time-total');
+
+    if (titleEl) titleEl.textContent = track.title;
+    if (artistEl) artistEl.textContent = track.artist;
+    if (albumEl) albumEl.textContent = track.albumTag;
+    if (badgeEl) badgeEl.textContent = `${track.frequency} Solfeggio / Waves`;
+    if (summaryEl) summaryEl.textContent = track.summary;
+    if (artEl) artEl.src = track.artwork || 'assets/music_meditation_hero.jpg';
+    if (totalTimeEl) totalTimeEl.textContent = this.formatTime(track.duration);
+
+    // Reset progress and timer
+    this.soundscapeElapsed = 0;
+    this.updatePlayerProgressUI();
+
+    // Start playing audio
+    this.startSoundscapePlay();
+
+    // Update active quick switch pill
+    const pills = document.querySelectorAll('.player-mood-pill');
+    pills.forEach(p => {
+      p.classList.toggle('active', p.getAttribute('data-track') === track.id);
+    });
+
+    // Navigate to Now Playing screen
+    this.navigateToScreen('screen-now-playing');
+  }
+
+  startSoundscapePlay() {
+    this.sound.playMoodSoundscape(this.currentSoundscapeTrack.id);
+    this.sound.setVolume(this.soundscapeVolume);
+    this.isSoundscapePlaying = true;
+
+    // Toggle Play / Pause icon
+    const playIcon = document.getElementById('player-play-icon');
+    const pauseIcon = document.getElementById('player-pause-icon');
+    if (playIcon) playIcon.classList.add('hidden');
+    if (pauseIcon) pauseIcon.classList.remove('hidden');
+
+    // Spin Vinyl Disc & animate EQ bars
+    const disc = document.getElementById('player-vinyl-disc');
+    if (disc) disc.classList.add('spinning');
+    const eqBars = document.getElementById('player-eq-bars');
+    if (eqBars) eqBars.classList.add('active');
+
+    // Start playback timer interval
+    if (this.soundscapeTimer) clearInterval(this.soundscapeTimer);
+    this.soundscapeTimer = setInterval(() => {
+      this.soundscapeElapsed++;
+      this.updatePlayerProgressUI();
+
+      if (this.soundscapeElapsed >= (this.currentSoundscapeTrack.duration || 300)) {
+        if (this.soundscapeRepeat) {
+          this.soundscapeElapsed = 0;
+        } else {
+          this.playNextTrack();
+        }
+      }
+    }, 1000);
+  }
+
+  pauseSoundscapePlay() {
+    this.sound.stopAmbient();
+    this.isSoundscapePlaying = false;
+
+    const playIcon = document.getElementById('player-play-icon');
+    const pauseIcon = document.getElementById('player-pause-icon');
+    if (playIcon) playIcon.classList.remove('hidden');
+    if (pauseIcon) pauseIcon.classList.add('hidden');
+
+    const disc = document.getElementById('player-vinyl-disc');
+    if (disc) disc.classList.remove('spinning');
+    const eqBars = document.getElementById('player-eq-bars');
+    if (eqBars) eqBars.classList.remove('active');
+
+    if (this.soundscapeTimer) {
+      clearInterval(this.soundscapeTimer);
+      this.soundscapeTimer = null;
+    }
+  }
+
+  resumeSoundscapePlay() {
+    this.startSoundscapePlay();
+  }
+
+  togglePlayerPlay() {
+    if (this.isSoundscapePlaying) {
+      this.pauseSoundscapePlay();
+    } else {
+      this.resumeSoundscapePlay();
+    }
+  }
+
+  playNextTrack() {
+    const curIdx = MOOD_SOUNDSCAPES.findIndex(t => t.id === this.currentSoundscapeTrack.id);
+    let nextIdx = (curIdx + 1) % MOOD_SOUNDSCAPES.length;
+    if (this.soundscapeShuffle) {
+      nextIdx = Math.floor(Math.random() * MOOD_SOUNDSCAPES.length);
+      if (nextIdx === curIdx) nextIdx = (curIdx + 1) % MOOD_SOUNDSCAPES.length;
+    }
+    this.openNowPlaying(MOOD_SOUNDSCAPES[nextIdx].id);
+  }
+
+  playPrevTrack() {
+    const curIdx = MOOD_SOUNDSCAPES.findIndex(t => t.id === this.currentSoundscapeTrack.id);
+    const prevIdx = (curIdx - 1 + MOOD_SOUNDSCAPES.length) % MOOD_SOUNDSCAPES.length;
+    this.openNowPlaying(MOOD_SOUNDSCAPES[prevIdx].id);
+  }
+
+  seekPlayer(pct) {
+    const duration = this.currentSoundscapeTrack.duration || 300;
+    this.soundscapeElapsed = Math.floor(pct * duration);
+    this.updatePlayerProgressUI();
+  }
+
+  updatePlayerProgressUI() {
+    const currentEl = document.getElementById('player-time-current');
+    if (currentEl) currentEl.textContent = this.formatTime(this.soundscapeElapsed);
+
+    const duration = this.currentSoundscapeTrack.duration || 300;
+    const fraction = Math.min(1, Math.max(0, this.soundscapeElapsed / duration));
+
+    // Linear bar update
+    const fillEl = document.getElementById('player-progress-fill');
+    if (fillEl) fillEl.style.width = `${fraction * 100}%`;
+    const handleEl = document.getElementById('player-scrubber-thumb');
+    if (handleEl) handleEl.style.left = `${fraction * 100}%`;
+
+    // Radial SVG arc update (circumference = 892)
+    const arcEl = document.getElementById('player-radial-progress');
+    if (arcEl) {
+      const circ = 892;
+      const offset = circ - (fraction * circ);
+      arcEl.style.strokeDashoffset = offset;
+    }
+  }
+
+  updateVolumeArcUI() {
+    const volArc = document.getElementById('player-volume-arc');
+    if (volArc) {
+      volArc.style.opacity = this.soundscapeVolume > 0 ? (0.3 + this.soundscapeVolume * 0.7) : 0.1;
+    }
+  }
+
+  formatTime(totalSec) {
+    const mins = Math.floor(totalSec / 60);
+    const secs = Math.floor(totalSec % 60);
+    return `${mins}:${String(secs).padStart(2, '0')}`;
   }
 }
 

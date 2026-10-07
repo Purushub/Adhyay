@@ -581,6 +581,13 @@ html, body {
   font-size: 11px;
   font-weight: 700;
   color: var(--accent-primary);
+  cursor: pointer;
+  user-select: none;
+  transition: transform 150ms ease, opacity 150ms ease;
+}
+
+.streak-badge:active {
+  transform: scale(0.96);
 }
 
 .streak-badge small {
@@ -926,6 +933,28 @@ html, body {
 /* ==========================================================================
    SCREEN 2: ROOT-CAUSE DIAGNOSTIC (STRICT TEXT LIMITS)
    ========================================================================== */
+.screen-title-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.screen-title-bar .btn-icon-back {
+  flex-shrink: 0;
+}
+
+.screen-title-bar .report-header,
+.screen-title-bar .science-header {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.title-bar-spacer {
+  width: 32px;
+  flex-shrink: 0;
+}
+
 .step-nav-header {
   display: flex;
   align-items: center;
@@ -6619,5 +6648,657 @@ html, body {
   transform: translateX(2px);
   color: var(--accent-primary);
 }
+
+/* ==========================================================================
+   MOOD SOUNDSCAPES & CALMING MUSIC SECTION (HOME SCREEN)
+   ========================================================================== */
+.mood-soundscapes-container {
+  margin: 18px 0 14px;
+  padding: 0;
+}
+
+.mood-soundscapes-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 0 2px;
+}
+
+.soundscape-sec-tag {
+  display: block;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--accent-primary);
+  margin-bottom: 2px;
+  text-transform: uppercase;
+}
+
+.soundscape-sec-title {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.soundscape-sec-hint {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.soundscape-circles-row {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 2px 8px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.soundscape-circles-row::-webkit-scrollbar {
+  display: none;
+}
+
+.soundscape-circle-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  width: 66px;
+  text-align: center;
+  transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.soundscape-circle-btn:active {
+  transform: scale(0.93);
+}
+
+.soundscape-circle-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid var(--border-subtle);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  transition: all 200ms ease;
+  background: var(--bg-surface-elevated);
+}
+
+.soundscape-circle-btn:hover .soundscape-circle-icon,
+.soundscape-circle-btn.active .soundscape-circle-icon {
+  border-color: var(--accent-primary);
+  box-shadow: 0 6px 18px rgba(180, 130, 240, 0.3);
+  transform: translateY(-2px);
+}
+
+.soundscape-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.soundscape-play-pill {
+  position: absolute;
+  bottom: 3px;
+  right: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.soundscape-circle-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.soundscape-freq-badge {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--accent-primary);
+  background: var(--accent-soft);
+  padding: 1px 5px;
+  border-radius: 8px;
+  margin-top: 2px;
+}
+
+/* ==========================================================================
+   NOW PLAYING CIRCULAR MUSIC PLAYER SCREEN (INSPIRED BY REFERENCE IMAGES)
+   ========================================================================== */
+.screen-music-player {
+  padding: 18px 16px 85px;
+  background: radial-gradient(circle at 50% 12%, rgba(140, 85, 200, 0.22), transparent 55%),
+              radial-gradient(circle at 85% 85%, rgba(40, 100, 140, 0.15), transparent 50%),
+              #121319 !important;
+  color: #FFFFFF;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+.player-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.player-back-btn,
+.player-eq-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 160ms ease;
+}
+
+.player-back-btn:active,
+.player-eq-btn:active {
+  transform: scale(0.92);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.player-title-col {
+  text-align: center;
+}
+
+.player-heading-top {
+  display: block;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.player-frequency-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #DFC8FF;
+  background: rgba(180, 130, 255, 0.15);
+  padding: 2px 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(180, 130, 255, 0.25);
+  margin-top: 2px;
+}
+
+/* Animated Equalizer Icon */
+.eq-bars-anim {
+  display: flex;
+  align-items: flex-end;
+  gap: 2.5px;
+  height: 14px;
+}
+
+.eq-bars-anim span {
+  width: 2.5px;
+  background: #DFC8FF;
+  border-radius: 1px;
+  height: 4px;
+  transition: height 150ms ease;
+}
+
+.eq-bars-anim.active span:nth-child(1) { animation: eqBar 0.9s ease infinite alternate; }
+.eq-bars-anim.active span:nth-child(2) { animation: eqBar 0.7s ease infinite alternate 0.2s; }
+.eq-bars-anim.active span:nth-child(3) { animation: eqBar 1.1s ease infinite alternate 0.4s; }
+.eq-bars-anim.active span:nth-child(4) { animation: eqBar 0.8s ease infinite alternate 0.1s; }
+
+@keyframes eqBar {
+  0% { height: 3px; }
+  100% { height: 14px; }
+}
+
+/* Track Metadata */
+.player-track-meta {
+  text-align: center;
+  margin: 6px 0 16px;
+}
+
+.player-track-title {
+  font-family: var(--font-heading);
+  font-size: 21px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 4px;
+  letter-spacing: -0.01em;
+}
+
+.player-artist-name {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0 0 4px;
+}
+
+.player-album-tag {
+  display: inline-block;
+  font-size: 10px;
+  color: #CEB7FF;
+  letter-spacing: 0.04em;
+}
+
+/* Circular Disc Viewport & Radial Rings */
+.player-disc-viewport {
+  position: relative;
+  width: 270px;
+  height: 270px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.player-radial-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transform: rotate(-90deg);
+}
+
+.radial-bg-track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 3.5;
+}
+
+.radial-progress-arc {
+  fill: none;
+  stroke: #DFC8FF;
+  stroke-width: 4.5;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.4s linear;
+  filter: drop-shadow(0 0 6px rgba(190, 140, 255, 0.6));
+}
+
+.volume-guide-arc {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 3;
+}
+
+.volume-active-arc {
+  fill: none;
+  stroke: #A5D8FF;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+}
+
+/* Center Vinyl Disc Artwork */
+.player-vinyl-disc {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #252633 0%, #15161f 70%, #0d0d14 100%);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), inset 0 0 0 2px rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: spinVinyl 24s linear infinite;
+  animation-play-state: paused;
+}
+
+.player-vinyl-disc.playing {
+  animation-play-state: running;
+}
+
+@keyframes spinVinyl {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.vinyl-groove-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.vinyl-groove-ring.ring-1 { width: 180px; height: 180px; }
+.vinyl-groove-ring.ring-2 { width: 156px; height: 156px; }
+.vinyl-groove-ring.ring-3 { width: 136px; height: 136px; }
+
+.vinyl-artwork-center {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2.5px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 20px rgba(180, 130, 255, 0.4);
+}
+
+.player-art-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.vinyl-center-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.25) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.vinyl-spindle-hole {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  background: #111218;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+}
+
+.player-vol-indicator {
+  position: absolute;
+  bottom: 6px;
+  right: 18px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: #A5D8FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+}
+
+/* Time & Linear Scrubber */
+.player-time-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.player-time-text {
+  font-size: 11px;
+  font-family: monospace;
+  color: rgba(255, 255, 255, 0.7);
+  width: 32px;
+}
+
+.player-linear-progress-track {
+  flex: 1;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+  position: relative;
+  cursor: pointer;
+}
+
+.player-linear-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #A881FF, #DFC8FF);
+  border-radius: 3px;
+  transition: width 0.3s linear;
+}
+
+.player-scrubber-handle {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  box-shadow: 0 0 8px rgba(180, 130, 255, 0.8);
+  transition: left 0.3s linear;
+}
+
+/* Mood Calming Summary Note */
+.player-mood-summary {
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.75);
+  text-align: center;
+  margin: 0 auto 16px;
+  max-width: 310px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Playback Controls Row */
+.player-controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.player-ctrl-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 160ms ease;
+}
+
+.player-ctrl-btn:hover,
+.player-ctrl-btn:active {
+  color: #FFFFFF;
+  transform: scale(1.12);
+}
+
+.player-main-play-btn {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #A881FF 0%, #8257E5 100%);
+  color: #FFFFFF;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(130, 87, 229, 0.45);
+  transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.player-main-play-btn:active {
+  transform: scale(0.92);
+}
+
+.play-btn-glow {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(223, 200, 255, 0.4);
+  animation: pulse-ring 2.8s infinite;
+  pointer-events: none;
+}
+
+/* Quick Mood Music Switcher Pills */
+.player-quick-soundscapes {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 12px;
+}
+
+.player-quick-label {
+  display: block;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.player-quick-pills {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+
+.player-quick-pills::-webkit-scrollbar {
+  display: none;
+}
+
+.player-mood-pill {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.85);
+  padding: 5px 10px;
+  border-radius: 16px;
+  font-size: 10.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 160ms ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.player-mood-pill:hover,
+.player-mood-pill.active {
+  background: rgba(180, 130, 255, 0.25);
+  border-color: #DFC8FF;
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+/* Privacy Policy Links & Legal Footer Card */
+.onboarding-privacy-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.onboarding-privacy-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 160ms ease;
+  padding: 4px 8px;
+}
+
+.onboarding-privacy-link:hover {
+  color: var(--accent-primary);
+  text-decoration: underline;
+}
+
+.app-legal-footer-card {
+  margin: 24px 0 32px;
+  background: var(--bg-surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--card-radius);
+  padding: 16px 18px;
+  text-align: center;
+}
+
+.legal-brand-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.legal-app-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+
+.legal-version-tag {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent-primary);
+  background: var(--accent-soft);
+  padding: 1px 6px;
+  border-radius: 6px;
+}
+
+.legal-summary-text {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  line-height: 1.45;
+}
+
+.legal-action-links {
+  display: flex;
+  justify-content: center;
+}
+
+.legal-policy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 16px;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: all 160ms ease;
+}
+
+.legal-policy-btn:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  transform: translateY(-1px);
+}
+
 
 
