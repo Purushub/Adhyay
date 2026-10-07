@@ -16,6 +16,9 @@ const filesToCopy = [
   'manifest.json',
   'three.min.js',
   'sw.js',
+  'icon-192.png',
+  'icon-512.png',
+  'play_store_icon_512.png',
   'icon-192.svg',
   'icon-512.svg'
 ];

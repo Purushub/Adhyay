@@ -23,5 +23,7 @@ emulator_*.png
 Thumbs.db
 Desktop.ini
 
-# Ensure the compiled APK is explicitly tracked and committed as requested
+# Ensure the compiled APK and AAB bundle are explicitly tracked
 !Adhyay.apk
+!Adhyay.aab
+!play_store_icon_512.png
