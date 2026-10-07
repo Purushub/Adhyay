@@ -11,7 +11,7 @@ This guide details the complete, end-to-end process for publishing **Adhyay** to
 | **Google Play Developer Account** | Register at [Google Play Console](https://play.google.com/console/signup) ($25 one-time registration fee). | Required |
 | **Java Development Kit (JDK)** | JDK 17+ or Android Studio JBR (already configured on your machine). | Ready |
 | **Android App Bundle (.aab)** | Google Play mandates `.aab` format (not `.apk`) for all new app releases. | Will build |
-| **Privacy Policy URL** | Hosted web page disclosing app data handling (no personal data sold). | Required |
+| **Privacy Policy URL** | `https://purushub.github.io/Adhyay/privacy-policy.html` (100% on-device zero data collection). | Hosted on GitHub |
 | **App Assets** | 512×512 App Icon, 1024×500 Feature Graphic, and phone screenshots. | Ready/Included |
 
 ---
@@ -103,7 +103,9 @@ Navigate to [Google Play Console](https://play.google.com/console):
 
 ### B. Complete Mandatory App Content Tasks
 In the left sidebar, navigate to **Policy and programs** > **App content**:
-1. **Privacy policy**: Provide the public URL to your privacy policy (e.g., hosted on GitHub Pages or your website).
+1. **Privacy policy**: Enter your hosted URL:
+   `https://purushub.github.io/Adhyay/privacy-policy.html`
+   *(Or alternatively: `https://raw.githubusercontent.com/Purushub/Adhyay/main/privacy-policy.html`)*
 2. **App access**: Select *"All functionality is available without special access"* (Adhyay works out-of-the-box offline/locally).
 3. **Ads**: Select *"No, my app does not contain ads"*.
 4. **Content ratings**: Fill in the IARC questionnaire:
