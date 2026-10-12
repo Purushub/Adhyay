@@ -8652,6 +8652,16 @@ html, body {
   display: inline-flex;
 }
 
+.health-tile-icon-amber {
+  color: #f59e0b;
+  display: inline-flex;
+}
+
+.health-tile-icon-indigo {
+  color: #6366f1;
+  display: inline-flex;
+}
+
 .health-tile-value {
   font-size: 22px;
   font-weight: 800;

@@ -5961,6 +5961,12 @@ where id must be one of:
     const elSpo2Sub = document.getElementById('health-current-spo2-sub');
     const elRhr = document.getElementById('health-resting-hr');
     const elSteps = document.getElementById('health-today-steps');
+    const elStepsSub = document.getElementById('health-today-steps-sub');
+    const elCalories = document.getElementById('health-today-calories');
+    const elCaloriesSub = document.getElementById('health-today-calories-sub');
+    const elSleep = document.getElementById('health-last-sleep');
+    const elSleepSub = document.getElementById('health-last-sleep-sub');
+
     const elStatusText = document.getElementById('health-screen-status-text');
     const elStatusDot = document.querySelector('#health-screen-status .biomind-dot');
     const btnConnect = document.getElementById('btn-health-screen-connect');
@@ -5982,46 +5988,69 @@ where id must be one of:
         if (elStatusDot) elStatusDot.className = 'biomind-dot online';
 
         try {
-          const [snapshot, stepsData] = await Promise.all([
-            HC.takeSnapshot({ minutes: 60 }),
-            HC.readSteps().catch(() => ({ steps: 0, available: false }))
-          ]);
+          const snapshot = await HC.takeSnapshot({ minutes: 60 });
+          console.log('BioMind: Health screen snapshot:', snapshot);
 
-          console.log('BioMind: Health screen snapshot:', snapshot, stepsData);
-
-          // Heart Rate
+          // 1. Heart Rate
           if (snapshot.heartRate?.available && snapshot.heartRate.latestBpm > 0) {
             if (elHr) elHr.innerHTML = `${snapshot.heartRate.latestBpm} <span class="unit">bpm</span>`;
             if (elHrSub) {
               const count = snapshot.heartRate.count || 1;
-              elHrSub.textContent = `Live pulse (${count} record${count > 1 ? 's' : ''})`;
+              const timeAgoStr = snapshot.heartRate.timeAgo ? ` • ${snapshot.heartRate.timeAgo}` : '';
+              elHrSub.textContent = `Live pulse (${count} sync${count > 1 ? 's' : ''}${timeAgoStr})`;
             }
           } else {
             if (elHr) elHr.innerHTML = `-- <span class="unit">bpm</span>`;
             if (elHrSub) elHrSub.textContent = 'Awaiting watch sync (Open CMF Watch app)';
           }
 
-          // SpO2
+          // 2. SpO2 (Blood Oxygen)
           if (snapshot.spo2?.available && snapshot.spo2.percentage > 0) {
             if (elSpo2) elSpo2.innerHTML = `${snapshot.spo2.percentage} <span class="unit">%</span>`;
-            if (elSpo2Sub) elSpo2Sub.textContent = 'Blood oxygen saturated';
+            if (elSpo2Sub) {
+              const timeAgoStr = snapshot.spo2.timeAgo ? ` • ${snapshot.spo2.timeAgo}` : '';
+              elSpo2Sub.textContent = `Blood oxygen saturated${timeAgoStr}`;
+            }
           } else {
             if (elSpo2) elSpo2.innerHTML = `-- <span class="unit">%</span>`;
             if (elSpo2Sub) elSpo2Sub.textContent = 'Take SpO₂ measurement on watch';
           }
 
-          // Resting HR
+          // 3. Resting HR
           if (snapshot.restingHR?.available && snapshot.restingHR.bpm > 0) {
             if (elRhr) elRhr.innerHTML = `${snapshot.restingHR.bpm} <span class="unit">bpm</span>`;
           } else {
             if (elRhr) elRhr.innerHTML = `-- <span class="unit">bpm</span>`;
           }
 
-          // Steps
-          if (stepsData && (stepsData.available || stepsData.steps > 0)) {
-            if (elSteps) elSteps.textContent = Number(stepsData.steps).toLocaleString();
+          // 4. Steps (Deduplicated Aggregation)
+          if (snapshot.steps?.available && snapshot.steps.count > 0) {
+            if (elSteps) elSteps.textContent = Number(snapshot.steps.count).toLocaleString();
+            if (elStepsSub) elStepsSub.textContent = 'Deduplicated daily steps';
           } else {
             if (elSteps) elSteps.textContent = '0';
+            if (elStepsSub) elStepsSub.textContent = 'Physical activity';
+          }
+
+          // 5. Calories Burned
+          if (snapshot.calories?.available && snapshot.calories.kcal > 0) {
+            if (elCalories) elCalories.innerHTML = `${Math.round(snapshot.calories.kcal)} <span class="unit">kcal</span>`;
+            if (elCaloriesSub) elCaloriesSub.textContent = 'Active & basal burned today';
+          } else {
+            if (elCalories) elCalories.innerHTML = `0 <span class="unit">kcal</span>`;
+            if (elCaloriesSub) elCaloriesSub.textContent = 'Active & basal energy';
+          }
+
+          // 6. Sleep Session
+          if (snapshot.sleep?.available && snapshot.sleep.totalMinutes > 0) {
+            if (elSleep) elSleep.textContent = snapshot.sleep.formatted;
+            if (elSleepSub) {
+              const timeAgoStr = snapshot.sleep.timeAgo ? ` • ${snapshot.sleep.timeAgo}` : '';
+              elSleepSub.textContent = `Night recovery${timeAgoStr}`;
+            }
+          } else {
+            if (elSleep) elSleep.textContent = `--`;
+            if (elSleepSub) elSleepSub.textContent = 'No recent sleep recorded';
           }
 
         } catch (e) {
@@ -6045,6 +6074,8 @@ where id must be one of:
         if (elSpo2Sub) elSpo2Sub.textContent = 'Grant permissions to view SpO₂';
         if (elRhr) elRhr.innerHTML = `-- <span class="unit">bpm</span>`;
         if (elSteps) elSteps.textContent = '--';
+        if (elCalories) elCalories.innerHTML = `-- <span class="unit">kcal</span>`;
+        if (elSleep) elSleep.textContent = '--';
       }
     } else {
       // Web browser preview / Non-native
@@ -6061,6 +6092,8 @@ where id must be one of:
       if (elSpo2Sub) elSpo2Sub.textContent = 'Install Android APK to sync watch';
       if (elRhr) elRhr.innerHTML = `-- <span class="unit">bpm</span>`;
       if (elSteps) elSteps.textContent = '--';
+      if (elCalories) elCalories.innerHTML = `-- <span class="unit">kcal</span>`;
+      if (elSleep) elSleep.textContent = '--';
     }
 
     // 2. Render recent session history log

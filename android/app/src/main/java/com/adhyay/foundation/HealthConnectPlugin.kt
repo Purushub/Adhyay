@@ -6,11 +6,14 @@ import android.util.Log
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.PermissionController
 import androidx.health.connect.client.permission.HealthPermission
+import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
 import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.OxygenSaturationRecord
 import androidx.health.connect.client.records.RestingHeartRateRecord
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.StepsRecord
+import androidx.health.connect.client.records.TotalCaloriesBurnedRecord
+import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
 import com.getcapacitor.JSArray
@@ -22,15 +25,17 @@ import com.getcapacitor.annotation.CapacitorPlugin
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.Duration
 import java.time.Instant
-import java.time.ZonedDateTime
+import java.time.LocalDate
+import java.time.ZoneId
 import java.time.temporal.ChronoUnit
 
 /**
  * Adhyay BioMind – Health Connect Bridge Plugin (Kotlin)
  *
- * Reads biometric telemetry from Google Health Connect (synced from CMF Watch Pro 2
- * or any Health Connect-compatible wearable) and exposes it to the Capacitor web layer.
+ * Reads dynamic biometric telemetry from Google Health Connect (synced from CMF Watch Pro 2
+ * or any Health Connect-compatible wearable): Heart Rate, SpO2, Resting HR, Steps, Calories & Sleep.
  */
 @CapacitorPlugin(name = "HealthConnect")
 class HealthConnectPlugin : Plugin() {
@@ -44,7 +49,9 @@ class HealthConnectPlugin : Plugin() {
         HealthPermission.getReadPermission(OxygenSaturationRecord::class),
         HealthPermission.getReadPermission(RestingHeartRateRecord::class),
         HealthPermission.getReadPermission(SleepSessionRecord::class),
-        HealthPermission.getReadPermission(StepsRecord::class)
+        HealthPermission.getReadPermission(StepsRecord::class),
+        HealthPermission.getReadPermission(TotalCaloriesBurnedRecord::class),
+        HealthPermission.getReadPermission(ActiveCaloriesBurnedRecord::class)
     )
 
     private fun getClient(): HealthConnectClient? {
@@ -55,6 +62,22 @@ class HealthConnectPlugin : Plugin() {
             }
         }
         return healthClient
+    }
+
+    private fun getTodayStart(): Instant {
+        return LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()
+    }
+
+    private fun formatTimeAgo(time: Instant): String {
+        if (time == Instant.EPOCH) return ""
+        val now = Instant.now()
+        val mins = ChronoUnit.MINUTES.between(time, now)
+        if (mins < 1) return "Just now"
+        if (mins < 60) return "${mins}m ago"
+        val hours = ChronoUnit.HOURS.between(time, now)
+        if (hours < 24) return "${hours}h ago"
+        val days = ChronoUnit.DAYS.between(time, now)
+        return "${days}d ago"
     }
 
     @PluginMethod
@@ -162,6 +185,222 @@ class HealthConnectPlugin : Plugin() {
         }
     }
 
+    private suspend fun queryHeartRate(client: HealthConnectClient, end: Instant, windowMinutes: Int = 60): JSObject {
+        val res = JSObject()
+        try {
+            var start = end.minus(windowMinutes.toLong(), ChronoUnit.MINUTES)
+            var req = ReadRecordsRequest(
+                recordType = HeartRateRecord::class,
+                timeRangeFilter = TimeRangeFilter.between(start, end)
+            )
+            var resp = client.readRecords(req)
+            if (resp.records.isEmpty()) {
+                start = end.minus(24L, ChronoUnit.HOURS)
+                req = ReadRecordsRequest(
+                    recordType = HeartRateRecord::class,
+                    timeRangeFilter = TimeRangeFilter.between(start, end)
+                )
+                resp = client.readRecords(req)
+            }
+            if (resp.records.isEmpty()) {
+                start = end.minus(7L, ChronoUnit.DAYS)
+                req = ReadRecordsRequest(
+                    recordType = HeartRateRecord::class,
+                    timeRangeFilter = TimeRangeFilter.between(start, end)
+                )
+                resp = client.readRecords(req)
+            }
+
+            var latestBpm = 0L
+            var totalBpm = 0L
+            var count = 0
+            var latestTime = Instant.EPOCH
+
+            for (rec in resp.records) {
+                for (s in rec.samples) {
+                    val bpm = s.beatsPerMinute
+                    totalBpm += bpm
+                    count++
+                    if (s.time.isAfter(latestTime)) {
+                        latestTime = s.time
+                        latestBpm = bpm
+                    }
+                }
+            }
+
+            if (count > 0 && latestBpm > 0) {
+                res.put("available", true)
+                res.put("latestBpm", latestBpm)
+                res.put("avgBpm", Math.round(totalBpm.toFloat() / count))
+                res.put("count", count)
+                res.put("latestTime", latestTime.toString())
+                res.put("timeAgo", formatTimeAgo(latestTime))
+                return res
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "HeartRate query error: ${e.message}")
+        }
+        res.put("available", false)
+        res.put("latestBpm", 0)
+        res.put("timeAgo", "")
+        return res
+    }
+
+    private suspend fun querySpO2(client: HealthConnectClient, end: Instant): JSObject {
+        val res = JSObject()
+        try {
+            // Look back across up to 7 days to capture the newest SpO2 reading
+            val start = end.minus(7L, ChronoUnit.DAYS)
+            val req = ReadRecordsRequest(
+                recordType = OxygenSaturationRecord::class,
+                timeRangeFilter = TimeRangeFilter.between(start, end)
+            )
+            val resp = client.readRecords(req)
+            val latest = resp.records.maxByOrNull { it.time }
+            if (latest != null) {
+                val pct = Math.round(latest.percentage.value * 10.0) / 10.0
+                res.put("available", true)
+                res.put("percentage", pct)
+                res.put("time", latest.time.toString())
+                res.put("timeAgo", formatTimeAgo(latest.time))
+                return res
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "SpO2 query error: ${e.message}")
+        }
+        res.put("available", false)
+        res.put("percentage", 0.0)
+        res.put("timeAgo", "")
+        return res
+    }
+
+    private suspend fun queryRestingHeartRate(client: HealthConnectClient, end: Instant): JSObject {
+        val res = JSObject()
+        try {
+            val start = end.minus(7L, ChronoUnit.DAYS)
+            val req = ReadRecordsRequest(
+                recordType = RestingHeartRateRecord::class,
+                timeRangeFilter = TimeRangeFilter.between(start, end)
+            )
+            val resp = client.readRecords(req)
+            val latest = resp.records.maxByOrNull { it.time }
+            if (latest != null) {
+                res.put("available", true)
+                res.put("bpm", latest.beatsPerMinute)
+                res.put("time", latest.time.toString())
+                res.put("timeAgo", formatTimeAgo(latest.time))
+                return res
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "RestingHR query error: ${e.message}")
+        }
+        res.put("available", false)
+        res.put("bpm", 0)
+        res.put("timeAgo", "")
+        return res
+    }
+
+    private suspend fun querySteps(client: HealthConnectClient, start: Instant, end: Instant): Pair<Long, Boolean> {
+        try {
+            val agg = client.aggregate(
+                AggregateRequest(
+                    metrics = setOf(StepsRecord.COUNT_TOTAL),
+                    timeRangeFilter = TimeRangeFilter.between(start, end)
+                )
+            )
+            val count = agg[StepsRecord.COUNT_TOTAL]
+            if (count != null && count > 0) {
+                return Pair(count, true)
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "Steps aggregate error: ${e.message}")
+        }
+        // Fallback to reading raw records if aggregate fails or is unsupported
+        try {
+            val req = ReadRecordsRequest(
+                recordType = StepsRecord::class,
+                timeRangeFilter = TimeRangeFilter.between(start, end)
+            )
+            val resp = client.readRecords(req)
+            var sum = 0L
+            for (r in resp.records) {
+                sum += r.count
+            }
+            return Pair(sum, resp.records.isNotEmpty() || sum > 0)
+        } catch (e2: Exception) {
+            Log.e(TAG, "Steps records read error: ${e2.message}")
+            return Pair(0L, false)
+        }
+    }
+
+    private suspend fun queryCalories(client: HealthConnectClient, start: Instant, end: Instant): Pair<Double, Boolean> {
+        try {
+            val agg = client.aggregate(
+                AggregateRequest(
+                    metrics = setOf(TotalCaloriesBurnedRecord.ENERGY_TOTAL),
+                    timeRangeFilter = TimeRangeFilter.between(start, end)
+                )
+            )
+            val kcal = agg[TotalCaloriesBurnedRecord.ENERGY_TOTAL]?.inKilocalories
+            if (kcal != null && kcal > 0.0) {
+                return Pair(Math.round(kcal * 10.0) / 10.0, true)
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "TotalCalories aggregate error: ${e.message}")
+        }
+        try {
+            val agg2 = client.aggregate(
+                AggregateRequest(
+                    metrics = setOf(ActiveCaloriesBurnedRecord.ACTIVE_CALORIES_TOTAL),
+                    timeRangeFilter = TimeRangeFilter.between(start, end)
+                )
+            )
+            val kcal2 = agg2[ActiveCaloriesBurnedRecord.ACTIVE_CALORIES_TOTAL]?.inKilocalories
+            if (kcal2 != null && kcal2 > 0.0) {
+                return Pair(Math.round(kcal2 * 10.0) / 10.0, true)
+            }
+        } catch (e2: Exception) {
+            Log.w(TAG, "ActiveCalories aggregate error: ${e2.message}")
+        }
+        return Pair(0.0, false)
+    }
+
+    private suspend fun querySleep(client: HealthConnectClient, end: Instant): JSObject {
+        val res = JSObject()
+        try {
+            val start = end.minus(7L, ChronoUnit.DAYS)
+            val req = ReadRecordsRequest(
+                recordType = SleepSessionRecord::class,
+                timeRangeFilter = TimeRangeFilter.between(start, end)
+            )
+            val resp = client.readRecords(req)
+            val latest = resp.records.maxByOrNull { it.endTime }
+            if (latest != null) {
+                val duration = Duration.between(latest.startTime, latest.endTime)
+                val totalMinutes = duration.toMinutes()
+                val hours = totalMinutes / 60
+                val mins = totalMinutes % 60
+                res.put("available", true)
+                res.put("totalMinutes", totalMinutes)
+                res.put("formatted", "${hours}h ${mins}m")
+                res.put("hours", hours)
+                res.put("minutes", mins)
+                res.put("startTime", latest.startTime.toString())
+                res.put("endTime", latest.endTime.toString())
+                res.put("timeAgo", formatTimeAgo(latest.endTime))
+                res.put("stagesCount", latest.stages.size)
+                return res
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Sleep query error: ${e.message}")
+        }
+        res.put("available", false)
+        res.put("totalMinutes", 0)
+        res.put("formatted", "--")
+        res.put("timeAgo", "")
+        return res
+    }
+
     @PluginMethod
     fun readHeartRate(call: PluginCall) {
         val client = getClient()
@@ -169,70 +408,10 @@ class HealthConnectPlugin : Plugin() {
             call.reject("Health Connect not available")
             return
         }
-        val minutes = call.getInt("minutes", 120) ?: 120
+        val minutes = call.getInt("minutes", 60) ?: 60
         scope.launch {
-            try {
-                val end = Instant.now()
-                var start = end.minus(minutes.toLong(), ChronoUnit.MINUTES)
-                var req = ReadRecordsRequest(
-                    recordType = HeartRateRecord::class,
-                    timeRangeFilter = TimeRangeFilter.between(start, end)
-                )
-                var response = client.readRecords(req)
-
-                // If no records in the short window, look back 24 hours to find the latest watch sync
-                if (response.records.isEmpty()) {
-                    start = end.minus(24L, ChronoUnit.HOURS)
-                    req = ReadRecordsRequest(
-                        recordType = HeartRateRecord::class,
-                        timeRangeFilter = TimeRangeFilter.between(start, end)
-                    )
-                    response = client.readRecords(req)
-                }
-
-                val samples = JSArray()
-                var totalBpm = 0L
-                var minBpm = Long.MAX_VALUE
-                var maxBpm = Long.MIN_VALUE
-                var latestBpm = 0L
-                var latestTime = Instant.EPOCH
-                var count = 0
-
-                for (record in response.records) {
-                    for (s in record.samples) {
-                        val bpm = s.beatsPerMinute
-                        val time = s.time
-                        val obj = JSObject().apply {
-                            put("bpm", bpm)
-                            put("time", time.toString())
-                        }
-                        samples.put(obj)
-                        totalBpm += bpm
-                        if (bpm < minBpm) minBpm = bpm
-                        if (bpm > maxBpm) maxBpm = bpm
-                        if (time.isAfter(latestTime)) {
-                            latestTime = time
-                            latestBpm = bpm
-                        }
-                        count++
-                    }
-                }
-
-                val result = JSObject().apply {
-                    put("records", samples)
-                    put("count", count)
-                    put("avgBpm", if (count > 0) Math.round(totalBpm.toFloat() / count) else 0)
-                    put("minBpm", if (count > 0) minBpm else 0)
-                    put("maxBpm", if (count > 0) maxBpm else 0)
-                    put("latestBpm", latestBpm)
-                    put("latestTime", if (latestTime != Instant.EPOCH) latestTime.toString() else "")
-                    put("available", count > 0)
-                }
-                call.resolve(result)
-            } catch (e: Exception) {
-                Log.e(TAG, "readHeartRate failed", e)
-                call.reject("Failed to read heart rate: ${e.message}")
-            }
+            val res = queryHeartRate(client, Instant.now(), minutes)
+            call.resolve(res)
         }
     }
 
@@ -243,51 +422,9 @@ class HealthConnectPlugin : Plugin() {
             call.reject("Health Connect not available")
             return
         }
-        val hours = call.getInt("hours", 24) ?: 24
         scope.launch {
-            try {
-                val end = Instant.now()
-                val start = end.minus(hours.toLong(), ChronoUnit.HOURS)
-                val req = ReadRecordsRequest(
-                    recordType = OxygenSaturationRecord::class,
-                    timeRangeFilter = TimeRangeFilter.between(start, end)
-                )
-                val response = client.readRecords(req)
-                val samples = JSArray()
-                var totalPct = 0.0
-                var latestPct = 0.0
-                var latestTime = Instant.EPOCH
-                var count = 0
-
-                for (rec in response.records) {
-                    val pct = rec.percentage.value
-                    val time = rec.time
-                    val obj = JSObject().apply {
-                        put("percentage", Math.round(pct * 10.0) / 10.0)
-                        put("time", time.toString())
-                    }
-                    samples.put(obj)
-                    totalPct += pct
-                    if (time.isAfter(latestTime)) {
-                        latestTime = time
-                        latestPct = pct
-                    }
-                    count++
-                }
-
-                val result = JSObject().apply {
-                    put("records", samples)
-                    put("count", count)
-                    put("avgSpO2", if (count > 0) Math.round((totalPct / count) * 10.0) / 10.0 else 0.0)
-                    put("latestSpO2", Math.round(latestPct * 10.0) / 10.0)
-                    put("latestTime", if (latestTime != Instant.EPOCH) latestTime.toString() else "")
-                    put("available", count > 0)
-                }
-                call.resolve(result)
-            } catch (e: Exception) {
-                Log.e(TAG, "readSpO2 failed", e)
-                call.reject("Failed to read SpO2: ${e.message}")
-            }
+            val res = querySpO2(client, Instant.now())
+            call.resolve(res)
         }
     }
 
@@ -298,31 +435,9 @@ class HealthConnectPlugin : Plugin() {
             call.reject("Health Connect not available")
             return
         }
-        val hours = call.getInt("hours", 48) ?: 48
         scope.launch {
-            try {
-                val end = Instant.now()
-                val start = end.minus(hours.toLong(), ChronoUnit.HOURS)
-                val req = ReadRecordsRequest(
-                    recordType = RestingHeartRateRecord::class,
-                    timeRangeFilter = TimeRangeFilter.between(start, end)
-                )
-                val response = client.readRecords(req)
-                val result = JSObject()
-                if (response.records.isNotEmpty()) {
-                    val latest = response.records.last()
-                    result.put("restingBpm", latest.beatsPerMinute)
-                    result.put("time", latest.time.toString())
-                    result.put("available", true)
-                } else {
-                    result.put("restingBpm", 0)
-                    result.put("available", false)
-                }
-                call.resolve(result)
-            } catch (e: Exception) {
-                Log.e(TAG, "readRestingHeartRate failed", e)
-                call.reject("Failed to read resting heart rate: ${e.message}")
-            }
+            val res = queryRestingHeartRate(client, Instant.now())
+            call.resolve(res)
         }
     }
 
@@ -334,28 +449,46 @@ class HealthConnectPlugin : Plugin() {
             return
         }
         scope.launch {
-            try {
-                val end = Instant.now()
-                val localMidnight = ZonedDateTime.now().truncatedTo(ChronoUnit.DAYS).toInstant()
-                val req = ReadRecordsRequest(
-                    recordType = StepsRecord::class,
-                    timeRangeFilter = TimeRangeFilter.between(localMidnight, end)
-                )
-                val response = client.readRecords(req)
-                var totalSteps = 0L
-                for (rec in response.records) {
-                    totalSteps += rec.count
-                }
-                val result = JSObject().apply {
-                    put("steps", totalSteps)
-                    put("date", localMidnight.toString())
-                    put("available", response.records.isNotEmpty() || totalSteps > 0)
-                }
-                call.resolve(result)
-            } catch (e: Exception) {
-                Log.e(TAG, "readSteps failed", e)
-                call.reject("Failed to read steps: ${e.message}")
+            val todayStart = getTodayStart()
+            val (steps, available) = querySteps(client, todayStart, Instant.now())
+            val res = JSObject().apply {
+                put("steps", steps)
+                put("available", available)
+                put("date", todayStart.toString())
             }
+            call.resolve(res)
+        }
+    }
+
+    @PluginMethod
+    fun readCalories(call: PluginCall) {
+        val client = getClient()
+        if (client == null) {
+            call.reject("Health Connect not available")
+            return
+        }
+        scope.launch {
+            val todayStart = getTodayStart()
+            val (kcal, available) = queryCalories(client, todayStart, Instant.now())
+            val res = JSObject().apply {
+                put("calories", kcal)
+                put("available", available)
+                put("date", todayStart.toString())
+            }
+            call.resolve(res)
+        }
+    }
+
+    @PluginMethod
+    fun readSleep(call: PluginCall) {
+        val client = getClient()
+        if (client == null) {
+            call.reject("Health Connect not available")
+            return
+        }
+        scope.launch {
+            val res = querySleep(client, Instant.now())
+            call.resolve(res)
         }
     }
 
@@ -369,104 +502,30 @@ class HealthConnectPlugin : Plugin() {
         val minutes = call.getInt("minutes", 60) ?: 60
         scope.launch {
             try {
-                val end = Instant.now()
-                val startRecent = end.minus(minutes.toLong(), ChronoUnit.MINUTES)
-                val startDay = end.minus(24L, ChronoUnit.HOURS)
-                val startTwoDays = end.minus(48L, ChronoUnit.HOURS)
+                val now = Instant.now()
+                val todayStart = getTodayStart()
+
+                val hrObj = queryHeartRate(client, now, minutes)
+                val spo2Obj = querySpO2(client, now)
+                val rhrObj = queryRestingHeartRate(client, now)
+                val (steps, stepsAvail) = querySteps(client, todayStart, now)
+                val (kcal, kcalAvail) = queryCalories(client, todayStart, now)
+                val sleepObj = querySleep(client, now)
 
                 val snapshot = JSObject().apply {
-                    put("timestamp", end.toString())
-                }
-
-                // Heart Rate: try recent window first, fallback to 24h
-                try {
-                    var hrReq = ReadRecordsRequest(
-                        recordType = HeartRateRecord::class,
-                        timeRangeFilter = TimeRangeFilter.between(startRecent, end)
-                    )
-                    var hrResp = client.readRecords(hrReq)
-                    if (hrResp.records.isEmpty()) {
-                        hrReq = ReadRecordsRequest(
-                            recordType = HeartRateRecord::class,
-                            timeRangeFilter = TimeRangeFilter.between(startDay, end)
-                        )
-                        hrResp = client.readRecords(hrReq)
-                    }
-
-                    var latestBpm = 0L
-                    var totalBpm = 0L
-                    var hrCount = 0
-                    var latestHrTime = Instant.EPOCH
-
-                    for (rec in hrResp.records) {
-                        for (s in rec.samples) {
-                            val bpm = s.beatsPerMinute
-                            totalBpm += bpm
-                            hrCount++
-                            if (s.time.isAfter(latestHrTime)) {
-                                latestHrTime = s.time
-                                latestBpm = bpm
-                            }
-                        }
-                    }
-
-                    val hr = JSObject().apply {
-                        put("latestBpm", latestBpm)
-                        put("avgBpm", if (hrCount > 0) Math.round(totalBpm.toFloat() / hrCount) else 0)
-                        put("count", hrCount)
-                        put("available", hrCount > 0)
-                        put("latestTime", if (latestHrTime != Instant.EPOCH) latestHrTime.toString() else "")
-                    }
-                    snapshot.put("heartRate", hr)
-                } catch (e: Exception) {
-                    Log.w(TAG, "Snapshot HR read error: ${e.message}")
-                    snapshot.put("heartRate", JSObject().put("available", false).put("error", e.message))
-                }
-
-                // SpO2: look across past 24h/48h
-                try {
-                    val spo2Req = ReadRecordsRequest(
-                        recordType = OxygenSaturationRecord::class,
-                        timeRangeFilter = TimeRangeFilter.between(startTwoDays, end)
-                    )
-                    val spo2Resp = client.readRecords(spo2Req)
-                    val spo2 = JSObject()
-                    if (spo2Resp.records.isNotEmpty()) {
-                        val latest = spo2Resp.records.last()
-                        spo2.put("percentage", Math.round(latest.percentage.value * 10.0) / 10.0)
-                        spo2.put("time", latest.time.toString())
-                        spo2.put("available", true)
-                    } else {
-                        spo2.put("percentage", 0)
-                        spo2.put("available", false)
-                    }
-                    snapshot.put("spo2", spo2)
-                } catch (e: Exception) {
-                    Log.w(TAG, "Snapshot SpO2 read error: ${e.message}")
-                    snapshot.put("spo2", JSObject().put("available", false))
-                }
-
-                // Resting Heart Rate: look across past 48h
-                try {
-                    val rhrReq = ReadRecordsRequest(
-                        recordType = RestingHeartRateRecord::class,
-                        timeRangeFilter = TimeRangeFilter.between(startTwoDays, end)
-                    )
-                    val rhrResp = client.readRecords(rhrReq)
-                    val rhr = JSObject()
-                    if (rhrResp.records.isNotEmpty()) {
-                        val latest = rhrResp.records.last()
-                        rhr.put("bpm", latest.beatsPerMinute)
-                        rhr.put("time", latest.time.toString())
-                        rhr.put("available", true)
-                    } else {
-                        rhr.put("bpm", 0)
-                        rhr.put("available", false)
-                    }
-                    snapshot.put("restingHR", rhr)
-                } catch (e: Exception) {
-                    Log.w(TAG, "Snapshot RestingHR error: ${e.message}")
-                    snapshot.put("restingHR", JSObject().put("available", false))
+                    put("timestamp", now.toString())
+                    put("heartRate", hrObj)
+                    put("spo2", spo2Obj)
+                    put("restingHR", rhrObj)
+                    put("steps", JSObject().apply {
+                        put("count", steps)
+                        put("available", stepsAvail)
+                    })
+                    put("calories", JSObject().apply {
+                        put("kcal", kcal)
+                        put("available", kcalAvail)
+                    })
+                    put("sleep", sleepObj)
                 }
 
                 call.resolve(snapshot)
