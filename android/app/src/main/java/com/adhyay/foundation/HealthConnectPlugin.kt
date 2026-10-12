@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import androidx.health.connect.client.HealthConnectClient
+import androidx.health.connect.client.PermissionController
 import androidx.health.connect.client.permission.HealthPermission
 import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.OxygenSaturationRecord
@@ -22,6 +23,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.Instant
+import java.time.ZonedDateTime
 import java.time.temporal.ChronoUnit
 
 /**
@@ -87,22 +89,48 @@ class HealthConnectPlugin : Plugin() {
 
     @PluginMethod
     override fun requestPermissions(call: PluginCall) {
+        // Strategy 1: Official Health Connect contract intent
+        try {
+            val contract = PermissionController.createRequestPermissionResultContract()
+            val intent = contract.createIntent(activity, requiredPermissions)
+            activity.startActivity(intent)
+            call.resolve(JSObject().put("opened", true).put("method", "contract"))
+            return
+        } catch (e1: Exception) {
+            Log.w(TAG, "Contract intent failed: ${e1.message}, trying MANAGE_HEALTH_PERMISSIONS")
+        }
+
+        // Strategy 2: System Settings / Manage Health Permissions action
         try {
             val intent = Intent("android.health.connect.action.MANAGE_HEALTH_PERMISSIONS").apply {
                 putExtra(Intent.EXTRA_PACKAGE_NAME, context.packageName)
             }
             activity.startActivity(intent)
-            call.resolve(JSObject().put("opened", true))
-        } catch (e: Exception) {
-            try {
-                val fallback = Intent(Intent.ACTION_VIEW).apply {
-                    data = Uri.parse("market://details?id=com.google.android.apps.healthdata")
-                }
-                activity.startActivity(fallback)
-                call.resolve(JSObject().put("opened", true).put("fallback", true))
-            } catch (e2: Exception) {
-                call.reject("Could not open Health Connect settings: ${e2.message}")
+            call.resolve(JSObject().put("opened", true).put("method", "manage_permissions"))
+            return
+        } catch (e2: Exception) {
+            Log.w(TAG, "Manage permissions intent failed: ${e2.message}, trying ACTION_HEALTH_CONNECT_SETTINGS")
+        }
+
+        // Strategy 3: Health Connect General Settings
+        try {
+            val intent = Intent("androidx.health.ACTION_HEALTH_CONNECT_SETTINGS")
+            activity.startActivity(intent)
+            call.resolve(JSObject().put("opened", true).put("method", "settings"))
+            return
+        } catch (e3: Exception) {
+            Log.w(TAG, "Health settings intent failed: ${e3.message}, falling back to Play Store")
+        }
+
+        // Strategy 4: Fallback to Google Play Store page for Health Connect
+        try {
+            val fallback = Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse("market://details?id=com.google.android.apps.healthdata")
             }
+            activity.startActivity(fallback)
+            call.resolve(JSObject().put("opened", true).put("fallback", true))
+        } catch (e4: Exception) {
+            call.reject("Could not open Health Connect permissions or store: ${e4.message}")
         }
     }
 
@@ -117,8 +145,10 @@ class HealthConnectPlugin : Plugin() {
             try {
                 val granted = client.permissionController.getGrantedPermissions()
                 val allGranted = granted.containsAll(requiredPermissions)
+                val anyGranted = granted.any { requiredPermissions.contains(it) }
                 val res = JSObject()
                 res.put("granted", allGranted)
+                res.put("partial", anyGranted)
                 val arr = JSArray()
                 for (p in granted) {
                     arr.put(p)
@@ -139,16 +169,27 @@ class HealthConnectPlugin : Plugin() {
             call.reject("Health Connect not available")
             return
         }
-        val minutes = call.getInt("minutes", 60) ?: 60
+        val minutes = call.getInt("minutes", 120) ?: 120
         scope.launch {
             try {
                 val end = Instant.now()
-                val start = end.minus(minutes.toLong(), ChronoUnit.MINUTES)
-                val req = ReadRecordsRequest(
+                var start = end.minus(minutes.toLong(), ChronoUnit.MINUTES)
+                var req = ReadRecordsRequest(
                     recordType = HeartRateRecord::class,
                     timeRangeFilter = TimeRangeFilter.between(start, end)
                 )
-                val response = client.readRecords(req)
+                var response = client.readRecords(req)
+
+                // If no records in the short window, look back 24 hours to find the latest watch sync
+                if (response.records.isEmpty()) {
+                    start = end.minus(24L, ChronoUnit.HOURS)
+                    req = ReadRecordsRequest(
+                        recordType = HeartRateRecord::class,
+                        timeRangeFilter = TimeRangeFilter.between(start, end)
+                    )
+                    response = client.readRecords(req)
+                }
+
                 val samples = JSArray()
                 var totalBpm = 0L
                 var minBpm = Long.MAX_VALUE
@@ -184,7 +225,8 @@ class HealthConnectPlugin : Plugin() {
                     put("minBpm", if (count > 0) minBpm else 0)
                     put("maxBpm", if (count > 0) maxBpm else 0)
                     put("latestBpm", latestBpm)
-                    put("latestTime", latestTime.toString())
+                    put("latestTime", if (latestTime != Instant.EPOCH) latestTime.toString() else "")
+                    put("available", count > 0)
                 }
                 call.resolve(result)
             } catch (e: Exception) {
@@ -201,11 +243,11 @@ class HealthConnectPlugin : Plugin() {
             call.reject("Health Connect not available")
             return
         }
-        val minutes = call.getInt("minutes", 120) ?: 120
+        val hours = call.getInt("hours", 24) ?: 24
         scope.launch {
             try {
                 val end = Instant.now()
-                val start = end.minus(minutes.toLong(), ChronoUnit.MINUTES)
+                val start = end.minus(hours.toLong(), ChronoUnit.HOURS)
                 val req = ReadRecordsRequest(
                     recordType = OxygenSaturationRecord::class,
                     timeRangeFilter = TimeRangeFilter.between(start, end)
@@ -238,7 +280,8 @@ class HealthConnectPlugin : Plugin() {
                     put("count", count)
                     put("avgSpO2", if (count > 0) Math.round((totalPct / count) * 10.0) / 10.0 else 0.0)
                     put("latestSpO2", Math.round(latestPct * 10.0) / 10.0)
-                    put("latestTime", latestTime.toString())
+                    put("latestTime", if (latestTime != Instant.EPOCH) latestTime.toString() else "")
+                    put("available", count > 0)
                 }
                 call.resolve(result)
             } catch (e: Exception) {
@@ -255,7 +298,7 @@ class HealthConnectPlugin : Plugin() {
             call.reject("Health Connect not available")
             return
         }
-        val hours = call.getInt("hours", 24) ?: 24
+        val hours = call.getInt("hours", 48) ?: 48
         scope.launch {
             try {
                 val end = Instant.now()
@@ -293,10 +336,10 @@ class HealthConnectPlugin : Plugin() {
         scope.launch {
             try {
                 val end = Instant.now()
-                val start = end.truncatedTo(ChronoUnit.DAYS)
+                val localMidnight = ZonedDateTime.now().truncatedTo(ChronoUnit.DAYS).toInstant()
                 val req = ReadRecordsRequest(
                     recordType = StepsRecord::class,
-                    timeRangeFilter = TimeRangeFilter.between(start, end)
+                    timeRangeFilter = TimeRangeFilter.between(localMidnight, end)
                 )
                 val response = client.readRecords(req)
                 var totalSteps = 0L
@@ -305,7 +348,8 @@ class HealthConnectPlugin : Plugin() {
                 }
                 val result = JSObject().apply {
                     put("steps", totalSteps)
-                    put("date", start.toString())
+                    put("date", localMidnight.toString())
+                    put("available", response.records.isNotEmpty() || totalSteps > 0)
                 }
                 call.resolve(result)
             } catch (e: Exception) {
@@ -322,24 +366,33 @@ class HealthConnectPlugin : Plugin() {
             call.reject("Health Connect not available")
             return
         }
-        val minutes = call.getInt("minutes", 15) ?: 15
+        val minutes = call.getInt("minutes", 60) ?: 60
         scope.launch {
             try {
                 val end = Instant.now()
-                val start = end.minus(minutes.toLong(), ChronoUnit.MINUTES)
-                val dayStart = end.minus(24L, ChronoUnit.HOURS)
+                val startRecent = end.minus(minutes.toLong(), ChronoUnit.MINUTES)
+                val startDay = end.minus(24L, ChronoUnit.HOURS)
+                val startTwoDays = end.minus(48L, ChronoUnit.HOURS)
 
                 val snapshot = JSObject().apply {
                     put("timestamp", end.toString())
                 }
 
-                // Heart Rate
+                // Heart Rate: try recent window first, fallback to 24h
                 try {
-                    val hrReq = ReadRecordsRequest(
+                    var hrReq = ReadRecordsRequest(
                         recordType = HeartRateRecord::class,
-                        timeRangeFilter = TimeRangeFilter.between(start, end)
+                        timeRangeFilter = TimeRangeFilter.between(startRecent, end)
                     )
-                    val hrResp = client.readRecords(hrReq)
+                    var hrResp = client.readRecords(hrReq)
+                    if (hrResp.records.isEmpty()) {
+                        hrReq = ReadRecordsRequest(
+                            recordType = HeartRateRecord::class,
+                            timeRangeFilter = TimeRangeFilter.between(startDay, end)
+                        )
+                        hrResp = client.readRecords(hrReq)
+                    }
+
                     var latestBpm = 0L
                     var totalBpm = 0L
                     var hrCount = 0
@@ -362,23 +415,26 @@ class HealthConnectPlugin : Plugin() {
                         put("avgBpm", if (hrCount > 0) Math.round(totalBpm.toFloat() / hrCount) else 0)
                         put("count", hrCount)
                         put("available", hrCount > 0)
+                        put("latestTime", if (latestHrTime != Instant.EPOCH) latestHrTime.toString() else "")
                     }
                     snapshot.put("heartRate", hr)
                 } catch (e: Exception) {
+                    Log.w(TAG, "Snapshot HR read error: ${e.message}")
                     snapshot.put("heartRate", JSObject().put("available", false).put("error", e.message))
                 }
 
-                // SpO2
+                // SpO2: look across past 24h/48h
                 try {
                     val spo2Req = ReadRecordsRequest(
                         recordType = OxygenSaturationRecord::class,
-                        timeRangeFilter = TimeRangeFilter.between(start, end)
+                        timeRangeFilter = TimeRangeFilter.between(startTwoDays, end)
                     )
                     val spo2Resp = client.readRecords(spo2Req)
                     val spo2 = JSObject()
                     if (spo2Resp.records.isNotEmpty()) {
                         val latest = spo2Resp.records.last()
                         spo2.put("percentage", Math.round(latest.percentage.value * 10.0) / 10.0)
+                        spo2.put("time", latest.time.toString())
                         spo2.put("available", true)
                     } else {
                         spo2.put("percentage", 0)
@@ -386,20 +442,22 @@ class HealthConnectPlugin : Plugin() {
                     }
                     snapshot.put("spo2", spo2)
                 } catch (e: Exception) {
+                    Log.w(TAG, "Snapshot SpO2 read error: ${e.message}")
                     snapshot.put("spo2", JSObject().put("available", false))
                 }
 
-                // Resting Heart Rate
+                // Resting Heart Rate: look across past 48h
                 try {
                     val rhrReq = ReadRecordsRequest(
                         recordType = RestingHeartRateRecord::class,
-                        timeRangeFilter = TimeRangeFilter.between(dayStart, end)
+                        timeRangeFilter = TimeRangeFilter.between(startTwoDays, end)
                     )
                     val rhrResp = client.readRecords(rhrReq)
                     val rhr = JSObject()
                     if (rhrResp.records.isNotEmpty()) {
                         val latest = rhrResp.records.last()
                         rhr.put("bpm", latest.beatsPerMinute)
+                        rhr.put("time", latest.time.toString())
                         rhr.put("available", true)
                     } else {
                         rhr.put("bpm", 0)
@@ -407,6 +465,7 @@ class HealthConnectPlugin : Plugin() {
                     }
                     snapshot.put("restingHR", rhr)
                 } catch (e: Exception) {
+                    Log.w(TAG, "Snapshot RestingHR error: ${e.message}")
                     snapshot.put("restingHR", JSObject().put("available", false))
                 }
 

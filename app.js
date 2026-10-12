@@ -5470,23 +5470,41 @@ where id must be one of:
   // ==========================================================================
 
   /**
+   * Helper to safely retrieve the HealthConnect Capacitor plugin bridge.
+   * Calls Capacitor.registerPlugin if needed to ensure the proxy is available.
+   */
+  getHealthConnectPlugin() {
+    if (window.Capacitor) {
+      if (typeof window.Capacitor.registerPlugin === 'function') {
+        try {
+          return window.Capacitor.registerPlugin('HealthConnect');
+        } catch (e) {
+          return window.Capacitor?.Plugins?.HealthConnect || null;
+        }
+      }
+      return window.Capacitor?.Plugins?.HealthConnect || null;
+    }
+    return null;
+  }
+
+  /**
    * Initialize BioMind — check Health Connect availability and permissions.
-   * Works silently on web (non-native) — just hides the BioMind card.
    */
   async initBioMind() {
     const bioCard = document.getElementById('biomind-card');
     const bioConnectBtn = document.getElementById('btn-biomind-connect');
 
+    const HC = this.getHealthConnectPlugin();
+
     // Check if running inside Capacitor native shell
-    if (!window.Capacitor || !window.Capacitor.Plugins || !window.Capacitor.Plugins.HealthConnect) {
-      console.log('BioMind: Not running in native — Health Connect unavailable');
+    if (!HC) {
+      console.log('BioMind: Not running in native shell — Health Connect unavailable');
       if (bioCard) bioCard.classList.add('biomind-web-mode');
       this.bioMindAvailable = false;
+      this.bioMindPermissionsGranted = false;
       this.renderBioMindStatus();
       return;
     }
-
-    const HC = window.Capacitor.Plugins.HealthConnect;
 
     try {
       const availability = await HC.isAvailable();
@@ -5494,6 +5512,7 @@ where id must be one of:
 
       if (!availability.available) {
         this.bioMindAvailable = false;
+        this.bioMindPermissionsGranted = false;
         this.renderBioMindStatus();
         return;
       }
@@ -5502,14 +5521,16 @@ where id must be one of:
 
       // Check permissions
       const perms = await HC.checkPermissions();
-      this.bioMindPermissionsGranted = perms.granted;
-      console.log('BioMind: Permissions granted:', perms.granted);
+      this.bioMindPermissionsGranted = !!perms.granted;
+      this.bioMindPermissionsPartial = !!perms.partial;
+      console.log('BioMind: Permissions granted:', perms.granted, 'partial:', perms.partial);
 
       this.renderBioMindStatus();
 
     } catch (err) {
       console.warn('BioMind: Init error:', err);
       this.bioMindAvailable = false;
+      this.bioMindPermissionsGranted = false;
       this.renderBioMindStatus();
     }
 
@@ -5528,7 +5549,7 @@ where id must be one of:
     if (btnHealthRefresh) {
       btnHealthRefresh.addEventListener('click', () => {
         this.renderHealthScreen(true);
-        this.showToast('Refreshing Watch Biometrics…');
+        this.showToast('Refreshing CMF Watch telemetry…');
       });
     }
 
@@ -5549,28 +5570,36 @@ where id must be one of:
    * Open Health Connect permissions screen
    */
   async connectBioMind() {
-    if (!window.Capacitor?.Plugins?.HealthConnect) {
+    const HC = this.getHealthConnectPlugin();
+    if (!HC) {
       this.showToast('Health Connect is only available on Android');
       return;
     }
 
     try {
-      await window.Capacitor.Plugins.HealthConnect.requestPermissions();
       this.showToast('Opening Health Connect Permissions…');
+      const res = await HC.requestPermissions();
+      console.log('BioMind: requestPermissions result:', res);
 
-      // Re-check after a delay (user returns from permissions screen)
-      setTimeout(async () => {
+      // Re-check after a short delay and refresh screen
+      const checkAndRefresh = async () => {
         try {
-          const perms = await window.Capacitor.Plugins.HealthConnect.checkPermissions();
-          this.bioMindPermissionsGranted = perms.granted;
+          const perms = await HC.checkPermissions();
+          this.bioMindPermissionsGranted = !!perms.granted;
+          this.bioMindPermissionsPartial = !!perms.partial;
           this.renderBioMindStatus();
+          this.renderHealthScreen(true);
+          this.updatePreSessionBiometrics();
           if (perms.granted) {
             this.showToast('✅ Watch Connected — BioMind Active');
           }
         } catch (e) {
           console.warn('BioMind: Permission recheck failed', e);
         }
-      }, 3000);
+      };
+
+      setTimeout(checkAndRefresh, 1500);
+      setTimeout(checkAndRefresh, 4000);
     } catch (err) {
       console.error('BioMind: Permission request failed:', err);
       this.showToast('Could not open Health Connect settings');
@@ -5581,20 +5610,20 @@ where id must be one of:
    * Capture biometric snapshot BEFORE the meditation session starts.
    */
   async capturePreSessionSnapshot() {
-    if (!this.bioMindAvailable || !this.bioMindPermissionsGranted) {
+    const HC = this.getHealthConnectPlugin();
+    if (!HC || !this.bioMindAvailable || !this.bioMindPermissionsGranted) {
       this.preSessionSnapshot = null;
       return;
     }
 
     try {
-      const HC = window.Capacitor.Plugins.HealthConnect;
-      const snapshot = await HC.takeSnapshot({ minutes: 15 });
+      const snapshot = await HC.takeSnapshot({ minutes: 60 });
       this.preSessionSnapshot = snapshot;
       console.log('BioMind: Pre-session snapshot captured:', snapshot);
 
       // Show live pre-session HR on the practice screen
       const preHrEl = document.getElementById('biomind-pre-hr-live');
-      if (preHrEl && snapshot.heartRate?.available) {
+      if (preHrEl && snapshot.heartRate?.available && snapshot.heartRate.latestBpm > 0) {
         preHrEl.textContent = `♡ ${snapshot.heartRate.latestBpm} bpm`;
         preHrEl.classList.remove('hidden');
       }
@@ -5609,14 +5638,14 @@ where id must be one of:
    * Then compute the deltas and render the BioMind report card.
    */
   async capturePostSessionSnapshot() {
-    if (!this.bioMindAvailable || !this.bioMindPermissionsGranted || !this.preSessionSnapshot) {
+    const HC = this.getHealthConnectPlugin();
+    if (!HC || !this.bioMindAvailable || !this.bioMindPermissionsGranted || !this.preSessionSnapshot) {
       this.renderBioMindReport(null);
       return;
     }
 
     try {
-      const HC = window.Capacitor.Plugins.HealthConnect;
-      const snapshot = await HC.takeSnapshot({ minutes: 5 });
+      const snapshot = await HC.takeSnapshot({ minutes: 30 });
       this.postSessionSnapshot = snapshot;
       console.log('BioMind: Post-session snapshot captured:', snapshot);
 
@@ -5672,7 +5701,6 @@ where id must be one of:
     }
 
     // Compute a simple BioMind score (0-100)
-    // Based on: HR decrease is good, SpO₂ increase is good
     let score = 50; // baseline
     if (report.hrAvailable && report.hrDelta < 0) {
       score += Math.min(30, Math.abs(report.hrDelta) * 2); // up to +30 for HR drop
@@ -5708,7 +5736,7 @@ where id must be one of:
     if (!statusEl) return;
 
     if (!this.bioMindAvailable) {
-      // Web mode or Health Connect not installed
+      // Health Connect not installed or non-native
       statusEl.innerHTML = `
         <span class="biomind-dot offline"></span>
         <span>Watch not connected</span>
@@ -5736,7 +5764,6 @@ where id must be one of:
 
   /**
    * Render the BioMind biometric comparison report card.
-   * This appears in the Clarity Report screen after a session.
    */
   renderBioMindReport(bioReport) {
     const container = document.getElementById('biomind-data-section');
@@ -5860,33 +5887,36 @@ where id must be one of:
     let rhrVal = '-- bpm';
     let statusText = 'Ready';
 
-    if (window.Capacitor?.Plugins?.HealthConnect && this.bioMindAvailable && this.bioMindPermissionsGranted) {
-      try {
-        const HC = window.Capacitor.Plugins.HealthConnect;
-        const snapshot = await HC.takeSnapshot({ minutes: 15 });
-        this.preSessionSnapshot = snapshot;
+    const HC = this.getHealthConnectPlugin();
 
-        if (snapshot.heartRate?.available) {
-          hrVal = `${snapshot.heartRate.latestBpm || snapshot.heartRate.avgBpm} bpm`;
+    if (HC && this.bioMindAvailable) {
+      if (this.bioMindPermissionsGranted) {
+        try {
+          const snapshot = await HC.takeSnapshot({ minutes: 60 });
+          this.preSessionSnapshot = snapshot;
+
+          if (snapshot.heartRate?.available && snapshot.heartRate.latestBpm > 0) {
+            hrVal = `${snapshot.heartRate.latestBpm} bpm`;
+          }
+          if (snapshot.spo2?.available && snapshot.spo2.percentage > 0) {
+            spo2Val = `${snapshot.spo2.percentage}%`;
+          }
+          if (snapshot.restingHR?.available && snapshot.restingHR.bpm > 0) {
+            rhrVal = `${snapshot.restingHR.bpm} bpm`;
+          }
+          statusText = snapshot.heartRate?.available ? 'CMF Watch Synced' : 'Awaiting Watch Sync';
+        } catch (err) {
+          console.warn('Pre-session biometrics query failed', err);
+          statusText = 'Sync Error';
         }
-        if (snapshot.spo2?.available) {
-          spo2Val = `${snapshot.spo2.percentage}%`;
-        }
-        if (snapshot.restingHR?.available) {
-          rhrVal = `${snapshot.restingHR.bpm} bpm`;
-        }
-        statusText = 'CMF Watch Synced';
-      } catch (err) {
-        console.warn('Pre-session biometrics query failed', err);
+      } else {
+        statusText = 'Connect Watch';
       }
-    } else if (this.bioMindAvailable && !this.bioMindPermissionsGranted) {
-      statusText = 'Connect Watch';
     } else {
-      // In web browser preview or demo mode
-      statusText = 'Watch Mode';
-      hrVal = '74 bpm';
-      spo2Val = '98.5%';
-      rhrVal = '66 bpm';
+      statusText = 'Web Mode';
+      hrVal = '-- bpm';
+      spo2Val = '--%';
+      rhrVal = '-- bpm';
     }
 
     // Update on Step 1 Card
@@ -5911,9 +5941,13 @@ where id must be one of:
 
     // Also update live pill
     const preHrEl = document.getElementById('biomind-pre-hr-live');
-    if (preHrEl && hrVal !== '-- bpm') {
-      preHrEl.textContent = `♡ ${hrVal}`;
-      preHrEl.classList.remove('hidden');
+    if (preHrEl) {
+      if (hrVal !== '-- bpm') {
+        preHrEl.textContent = `♡ ${hrVal}`;
+        preHrEl.classList.remove('hidden');
+      } else {
+        preHrEl.classList.add('hidden');
+      }
     }
   }
 
@@ -5922,53 +5956,111 @@ where id must be one of:
    */
   async renderHealthScreen(forceRefresh = false) {
     const elHr = document.getElementById('health-current-hr');
+    const elHrSub = document.getElementById('health-current-hr-sub');
     const elSpo2 = document.getElementById('health-current-spo2');
+    const elSpo2Sub = document.getElementById('health-current-spo2-sub');
     const elRhr = document.getElementById('health-resting-hr');
     const elSteps = document.getElementById('health-today-steps');
     const elStatusText = document.getElementById('health-screen-status-text');
+    const elStatusDot = document.querySelector('#health-screen-status .biomind-dot');
     const btnConnect = document.getElementById('btn-health-screen-connect');
     const historyList = document.getElementById('health-history-list');
     const historyCount = document.getElementById('health-history-count');
 
-    // 1. Fetch live telemetry from Health Connect if in native shell
-    if (window.Capacitor?.Plugins?.HealthConnect && this.bioMindAvailable) {
+    const HC = this.getHealthConnectPlugin();
+
+    if (HC && this.bioMindAvailable) {
+      // Check latest permissions
+      try {
+        const perms = await HC.checkPermissions();
+        this.bioMindPermissionsGranted = !!perms.granted;
+      } catch (e) {}
+
       if (this.bioMindPermissionsGranted) {
         if (btnConnect) btnConnect.classList.add('hidden');
         if (elStatusText) elStatusText.textContent = 'Active & Synced';
+        if (elStatusDot) elStatusDot.className = 'biomind-dot online';
 
         try {
-          const HC = window.Capacitor.Plugins.HealthConnect;
           const [snapshot, stepsData] = await Promise.all([
-            HC.takeSnapshot({ minutes: 30 }),
-            HC.readSteps().catch(() => ({ steps: 0 }))
+            HC.takeSnapshot({ minutes: 60 }),
+            HC.readSteps().catch(() => ({ steps: 0, available: false }))
           ]);
 
-          if (elHr && snapshot.heartRate?.available) {
-            elHr.innerHTML = `${snapshot.heartRate.latestBpm || snapshot.heartRate.avgBpm} <span class="unit">bpm</span>`;
+          console.log('BioMind: Health screen snapshot:', snapshot, stepsData);
+
+          // Heart Rate
+          if (snapshot.heartRate?.available && snapshot.heartRate.latestBpm > 0) {
+            if (elHr) elHr.innerHTML = `${snapshot.heartRate.latestBpm} <span class="unit">bpm</span>`;
+            if (elHrSub) {
+              const count = snapshot.heartRate.count || 1;
+              elHrSub.textContent = `Live pulse (${count} record${count > 1 ? 's' : ''})`;
+            }
+          } else {
+            if (elHr) elHr.innerHTML = `-- <span class="unit">bpm</span>`;
+            if (elHrSub) elHrSub.textContent = 'Awaiting watch sync (Open CMF Watch app)';
           }
-          if (elSpo2 && snapshot.spo2?.available) {
-            elSpo2.innerHTML = `${snapshot.spo2.percentage} <span class="unit">%</span>`;
+
+          // SpO2
+          if (snapshot.spo2?.available && snapshot.spo2.percentage > 0) {
+            if (elSpo2) elSpo2.innerHTML = `${snapshot.spo2.percentage} <span class="unit">%</span>`;
+            if (elSpo2Sub) elSpo2Sub.textContent = 'Blood oxygen saturated';
+          } else {
+            if (elSpo2) elSpo2.innerHTML = `-- <span class="unit">%</span>`;
+            if (elSpo2Sub) elSpo2Sub.textContent = 'Take SpO₂ measurement on watch';
           }
-          if (elRhr && snapshot.restingHR?.available) {
-            elRhr.innerHTML = `${snapshot.restingHR.bpm} <span class="unit">bpm</span>`;
+
+          // Resting HR
+          if (snapshot.restingHR?.available && snapshot.restingHR.bpm > 0) {
+            if (elRhr) elRhr.innerHTML = `${snapshot.restingHR.bpm} <span class="unit">bpm</span>`;
+          } else {
+            if (elRhr) elRhr.innerHTML = `-- <span class="unit">bpm</span>`;
           }
-          if (elSteps && stepsData?.steps) {
-            elSteps.textContent = stepsData.steps.toLocaleString();
+
+          // Steps
+          if (stepsData && (stepsData.available || stepsData.steps > 0)) {
+            if (elSteps) elSteps.textContent = Number(stepsData.steps).toLocaleString();
+          } else {
+            if (elSteps) elSteps.textContent = '0';
           }
+
         } catch (e) {
           console.warn('Health screen telemetry fetch failed', e);
+          if (elStatusText) elStatusText.textContent = 'Sync Error';
         }
       } else {
-        if (btnConnect) btnConnect.classList.remove('hidden');
+        // Permissions not yet granted
+        if (btnConnect) {
+          btnConnect.classList.remove('hidden');
+          btnConnect.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            Connect CMF Watch (Grant Permissions)
+          `;
+        }
         if (elStatusText) elStatusText.textContent = 'Permissions Needed';
+        if (elStatusDot) elStatusDot.className = 'biomind-dot pending';
+        if (elHr) elHr.innerHTML = `-- <span class="unit">bpm</span>`;
+        if (elHrSub) elHrSub.textContent = 'Grant permissions to view live pulse';
+        if (elSpo2) elSpo2.innerHTML = `-- <span class="unit">%</span>`;
+        if (elSpo2Sub) elSpo2Sub.textContent = 'Grant permissions to view SpO₂';
+        if (elRhr) elRhr.innerHTML = `-- <span class="unit">bpm</span>`;
+        if (elSteps) elSteps.textContent = '--';
       }
     } else {
-      // Web preview fallback values
-      if (elHr && elHr.textContent.includes('--')) elHr.innerHTML = `72 <span class="unit">bpm</span>`;
-      if (elSpo2 && elSpo2.textContent.includes('--')) elSpo2.innerHTML = `99 <span class="unit">%</span>`;
-      if (elRhr && elRhr.textContent.includes('--')) elRhr.innerHTML = `65 <span class="unit">bpm</span>`;
-      if (elSteps && elSteps.textContent.includes('--')) elSteps.textContent = '4,280';
-      if (elStatusText) elStatusText.textContent = 'CMF Watch Pro 2 (Demo)';
+      // Web browser preview / Non-native
+      if (btnConnect) {
+        btnConnect.classList.remove('hidden');
+        btnConnect.innerHTML = `<span>Android Native Required</span>`;
+        btnConnect.onclick = () => this.showToast('Open Adhyay on Android to sync your CMF Watch');
+      }
+      if (elStatusText) elStatusText.textContent = 'Web Preview Mode';
+      if (elStatusDot) elStatusDot.className = 'biomind-dot offline';
+      if (elHr) elHr.innerHTML = `-- <span class="unit">bpm</span>`;
+      if (elHrSub) elHrSub.textContent = 'Install Android APK to sync watch';
+      if (elSpo2) elSpo2.innerHTML = `-- <span class="unit">%</span>`;
+      if (elSpo2Sub) elSpo2Sub.textContent = 'Install Android APK to sync watch';
+      if (elRhr) elRhr.innerHTML = `-- <span class="unit">bpm</span>`;
+      if (elSteps) elSteps.textContent = '--';
     }
 
     // 2. Render recent session history log
