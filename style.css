@@ -2052,14 +2052,14 @@ html, body {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 64px;
+  height: 66px;
   background: var(--bg-surface-card);
   backdrop-filter: blur(16px);
   border-top: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 0 8px 6px;
+  padding: 0 2px 6px;
   z-index: 30;
 }
 
@@ -2071,21 +2071,35 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 3px;
+  gap: 2px;
   cursor: pointer;
-  padding: 4px 8px;
-  font-size: 10px;
+  padding: 4px 1px;
+  flex: 1;
+  min-width: 0;
+  font-size: 8.5px;
   font-family: var(--font-body);
   font-weight: 600;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
   transition: color 160ms ease;
 }
 
 .nav-tab:hover { color: var(--text-secondary); }
 .nav-tab.active { color: var(--accent-primary); }
 .nav-tab.active .nav-icon svg { stroke: var(--accent-primary); }
+.nav-tab.active#nav-btn-health .nav-icon svg path {
+  fill: rgba(236, 72, 153, 0.2);
+  stroke: #ec4899;
+}
+.nav-tab#nav-btn-health.active {
+  color: #ec4899;
+}
 
-/* Highlight Practice Orb */
-.nav-highlight-tab { transform: translateY(-8px); }
+/* Highlight Practice Orb - Centered Play Button */
+.nav-highlight-tab {
+  transform: translateY(-8px);
+  flex: 1.15;
+}
 
 .nav-highlight-orb {
   width: 44px;
@@ -2095,7 +2109,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 3px 14px var(--accent-soft);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18), 0 2px 8px var(--accent-soft);
   color: var(--text-inverse);
   transition: all 160ms ease;
 }
@@ -7299,6 +7313,1491 @@ html, body {
   color: var(--accent-primary);
   transform: translateY(-1px);
 }
+
+/* ==========================================================================
+   ADHYAY RESULTS BANNER: TANGLED TO UNTANGLED CLARITY
+   ========================================================================== */
+.report-clarity-banner-card {
+  width: 100%;
+  max-width: 480px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  margin: 6px auto 14px;
+  position: relative;
+  background: #080d19;
+  transition: transform 240ms ease, box-shadow 240ms ease;
+}
+
+.report-clarity-banner-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.38), 0 0 0 1px rgba(255, 255, 255, 0.16);
+}
+
+.report-clarity-banner-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.report-clarity-banner-overlay {
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  pointer-events: none;
+}
+
+.clarity-banner-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(10, 16, 30, 0.78);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #f1f5f9;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 12px;
+  letter-spacing: 0.2px;
+}
+
+.clarity-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: pulseClarityDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseClarityDot {
+  0%, 100% { opacity: 0.6; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+/* ==========================================================================
+   SCREEN: SACRED MANTRAS (HINDU & BUDDHIST CHANTS)
+   ========================================================================== */
+#screen-mantras {
+  padding-bottom: 80px;
+}
+
+.mantras-header {
+  margin-bottom: 12px;
+}
+
+.mantra-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.mantra-sacred-symbol {
+  font-size: 24px;
+  color: var(--accent-primary);
+  line-height: 1;
+  text-shadow: 0 0 12px var(--accent-soft);
+}
+
+.mantras-header h2 {
+  font-family: var(--font-heading);
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.mantras-header p {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Hero Player Card: Sri Rudram */
+.mantra-hero-player-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(30, 24, 48, 0.95), rgba(16, 18, 30, 0.98));
+  border: 1px solid rgba(168, 140, 216, 0.25);
+  border-radius: 20px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  color: #f8fafc;
+}
+
+.theme-club-noir .mantra-hero-player-card {
+  background: linear-gradient(135deg, rgba(22, 20, 28, 0.98), rgba(12, 12, 16, 0.99));
+  border-color: rgba(200, 165, 120, 0.3);
+}
+
+.mantra-hero-glow-aura {
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(168, 140, 216, 0.25) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.mantra-hero-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.mantra-badge-energetic {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(239, 68, 68, 0.16);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 3px 9px;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+
+.mantra-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 6px #ef4444;
+  animation: pulseDot 1.5s infinite;
+}
+
+.mantra-tradition-pill {
+  font-size: 11px;
+  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 3px 9px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mantra-hero-main-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.mantra-hero-symbol-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(168, 140, 216, 0.2), rgba(99, 102, 241, 0.2));
+  border: 1px solid rgba(168, 140, 216, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c4b5fd;
+  flex-shrink: 0;
+}
+
+.mantra-hero-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.mantra-hero-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 2px;
+  line-height: 1.25;
+}
+
+.mantra-hero-subtitle {
+  font-size: 11px;
+  color: #94a3b8;
+  margin: 0 0 4px;
+}
+
+.mantra-devanagari-quote {
+  font-size: 13.5px;
+  color: #fcd34d;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+}
+
+/* Audio Player Component */
+.mantra-audio-player-box {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.mantra-audio-controls-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.mantra-play-circle-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent-grad, linear-gradient(135deg, #a88cd8, #7c3aed));
+  border: none;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
+  flex-shrink: 0;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.mantra-play-circle-btn:active {
+  transform: scale(0.94);
+}
+
+.mantra-timeline-wrap {
+  flex: 1;
+}
+
+.mantra-time-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10.5px;
+  color: #94a3b8;
+  margin-bottom: 4px;
+}
+
+.mantra-playing-status-tag {
+  color: #fcd34d;
+  font-weight: 600;
+  font-size: 10px;
+}
+
+.mantra-seek-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.mantra-seek-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #a88cd8, #fcd34d);
+  border-radius: 3px;
+  transition: width 100ms linear;
+}
+
+.mantra-loop-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #94a3b8;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 160ms ease;
+}
+
+.mantra-loop-btn.active {
+  background: rgba(168, 140, 216, 0.25);
+  border-color: #a88cd8;
+  color: #fcd34d;
+}
+
+/* Japa Mala Counter */
+.mantra-japa-companion {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.japa-label-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.japa-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: #cbd5e1;
+}
+
+.japa-count-display {
+  font-size: 13px;
+  color: #fcd34d;
+}
+
+.japa-count-display strong {
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.japa-max {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.japa-progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.japa-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #fcd34d);
+  border-radius: 2px;
+  transition: width 150ms ease;
+}
+
+.japa-actions-row {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-japa-tap {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 120ms ease;
+}
+
+.btn-japa-tap:active {
+  transform: scale(0.97);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.btn-japa-reset {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: color 140ms ease;
+}
+
+.btn-japa-reset:hover {
+  color: #f87171;
+}
+
+/* Category Filter Chips */
+.mantra-filters-wrap {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  margin-bottom: 14px;
+}
+
+.mantra-filters-wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.mantra-filter-scroll {
+  display: flex;
+  gap: 6px;
+  white-space: nowrap;
+  padding: 2px 0;
+}
+
+.mantra-filter-chip {
+  background: var(--bg-surface-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 160ms ease;
+  flex-shrink: 0;
+}
+
+.mantra-filter-chip.active {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: var(--text-inverse);
+  box-shadow: 0 2px 8px var(--accent-soft);
+}
+
+/* Mantras Cards Grid */
+.mantras-grid-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mantra-card {
+  background: var(--bg-surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+}
+
+.mantra-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent-soft);
+}
+
+.mantra-card-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.mantra-card-tradition {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--accent-primary);
+  background: var(--accent-soft);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.mantra-card-deity {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.mantra-card-title {
+  font-family: var(--font-heading);
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 4px;
+}
+
+.mantra-card-devanagari {
+  font-size: 14px;
+  color: var(--accent-primary);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.mantra-card-essence {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin-bottom: 8px;
+}
+
+.mantra-card-sound-style {
+  font-size: 11px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.mantra-card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-mantra-listen {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--accent-grad);
+  color: var(--text-inverse);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.btn-mantra-listen:active {
+  transform: scale(0.98);
+}
+
+.btn-mantra-explore {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 160ms ease;
+}
+
+.btn-mantra-explore:hover {
+  background: var(--accent-soft);
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+/* Mantra Detail Modal */
+.mantra-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  transition: opacity 240ms ease;
+}
+
+.mantra-modal-backdrop.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mantra-modal-sheet {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 24px 24px 0 0;
+  width: 100%;
+  max-width: 520px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 16px 20px 32px;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.mantra-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.mantra-modal-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent-primary);
+  background: var(--accent-soft);
+  padding: 3px 8px;
+  border-radius: 10px;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.mantra-modal-title {
+  font-family: var(--font-heading);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 2px;
+}
+
+.mantra-modal-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.mantra-devanagari-box {
+  background: var(--bg-surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.mantra-devanagari-full {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--accent-primary);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.mantra-transliteration {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.mantra-section-heading {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-muted);
+  margin: 14px 0 6px;
+}
+
+.mantra-meaning-text {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-primary);
+  margin: 0 0 10px;
+}
+
+.mantra-benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+}
+
+.mantra-benefits-list li {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  padding: 4px 0 4px 18px;
+  position: relative;
+  line-height: 1.45;
+}
+
+.mantra-benefits-list li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: var(--accent-primary);
+  font-size: 11px;
+}
+
+.mantra-modal-action-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+/* ==========================================================================
+   BIOMIND — BIOMETRIC INTELLIGENCE CARD & LIVE WATCH TELEMETRY
+   Integrated with CMF Watch Pro 2 via Google Health Connect
+   ========================================================================== */
+
+.biomind-card {
+  background: var(--bg-surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--card-radius, 20px);
+  padding: 18px 20px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  box-shadow: var(--card-shadow, 0 4px 20px rgba(0, 0, 0, 0.05));
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+.biomind-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ec4899, #8b5cf6, #10b981);
+  opacity: 0.8;
+}
+
+.biomind-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.biomind-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.biomind-icon-wrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--accent-soft, rgba(139, 92, 246, 0.1));
+  color: var(--accent-primary, #8b5cf6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.biomind-title {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.biomind-subtitle {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  display: block;
+}
+
+.biomind-status-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-surface-elevated, rgba(0, 0, 0, 0.04));
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--border-subtle);
+}
+
+.biomind-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.biomind-dot.online {
+  background: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+
+.biomind-dot.pending {
+  background: #f59e0b;
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.5);
+}
+
+.biomind-dot.offline {
+  background: #94a3b8;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.7; }
+}
+
+.btn-biomind-connect {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--accent-grad);
+  color: var(--text-inverse, #fff);
+  border: none;
+  border-radius: var(--button-radius, 12px);
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.btn-biomind-connect:active {
+  transform: scale(0.98);
+}
+
+.biomind-no-data {
+  text-align: center;
+  padding: 12px 14px;
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.5;
+  background: var(--bg-surface-elevated, rgba(0, 0, 0, 0.02));
+  border-radius: 12px;
+}
+
+.biomind-data-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.biomind-metric-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--bg-surface-elevated, rgba(0, 0, 0, 0.03));
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+.biomind-metric-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--accent-soft, rgba(139, 92, 246, 0.1));
+  color: var(--accent-primary, #8b5cf6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.biomind-metric-body {
+  flex: 1;
+}
+
+.biomind-metric-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.biomind-metric-values {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.biomind-val-before {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.biomind-arrow {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.biomind-val-after {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.biomind-delta {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 6px;
+  margin-left: auto;
+}
+
+.biomind-delta.positive {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+.biomind-delta.elevated {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+}
+
+.biomind-delta.neutral {
+  background: rgba(107, 114, 128, 0.15);
+  color: var(--text-secondary);
+}
+
+.biomind-insight {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-top: 6px;
+  font-style: italic;
+}
+
+.biomind-context {
+  opacity: 0.85;
+}
+
+.biomind-score-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(236, 72, 153, 0.06));
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 12px 16px;
+}
+
+.biomind-score-ring {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.biomind-score-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.biomind-score-bg {
+  fill: none;
+  stroke: var(--border-subtle);
+  stroke-width: 3.5;
+}
+
+.biomind-score-fill {
+  fill: none;
+  stroke: var(--accent-primary, #8b5cf6);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.6s ease;
+}
+
+.biomind-score-number {
+  position: absolute;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.biomind-score-text {
+  flex: 1;
+}
+
+.biomind-score-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.biomind-score-desc {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  line-height: 1.35;
+  margin-top: 2px;
+}
+
+.biomind-technique-tag {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  text-align: center;
+  padding-top: 4px;
+}
+
+.biomind-technique-tag strong {
+  color: var(--text-primary);
+}
+
+.biomind-live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(236, 72, 153, 0.12);
+  color: #ec4899;
+  border: 1px solid rgba(236, 72, 153, 0.25);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  margin: 8px auto 0;
+  letter-spacing: 0.02em;
+}
+
+/* ==========================================================================
+   PRE-SESSION BIOMETRIC HEALTH BASELINE CARD
+   Appears on the technique walkthrough before beginning a practice
+   ========================================================================== */
+.pre-session-health-card {
+  background: var(--bg-surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--card-radius, 18px);
+  padding: 14px 16px;
+  margin: 14px 0 16px;
+  box-shadow: var(--card-shadow, 0 4px 16px rgba(0, 0, 0, 0.04));
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.pre-session-health-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2.5px;
+  background: linear-gradient(90deg, #ec4899, #8b5cf6);
+  opacity: 0.85;
+}
+
+.pre-session-health-card.compact {
+  padding: 11px 14px;
+  margin: 10px 0 14px;
+}
+
+.pre-health-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.pre-health-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pre-health-heart-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(236, 72, 153, 0.12);
+  color: #ec4899;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pre-health-title {
+  font-family: var(--font-heading);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.pre-health-sub {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  display: block;
+}
+
+.pre-health-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-surface-elevated, rgba(0, 0, 0, 0.04));
+  padding: 3px 8px;
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+}
+
+.pre-health-metrics-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  background: var(--bg-surface-elevated, rgba(0, 0, 0, 0.03));
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 8px 10px;
+}
+
+.pre-health-metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.pre-metric-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 2px;
+}
+
+.pre-metric-val {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+}
+
+.pre-health-prompt {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin: 8px 0 0;
+  font-style: italic;
+  text-align: center;
+}
+
+/* ==========================================================================
+   SCREEN: BIOMIND HEALTH TAB
+   Full Health Dashboard with Live CMF Watch Telemetry & Physiology Science
+   ========================================================================== */
+#screen-health {
+  padding-bottom: 80px;
+}
+
+.health-watch-banner {
+  background: var(--bg-surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--card-radius, 20px);
+  padding: 16px 18px;
+  margin-bottom: 14px;
+  box-shadow: var(--card-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.health-watch-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #8b5cf6, #ec4899, #10b981);
+}
+
+.health-watch-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.health-watch-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.health-watch-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(139, 92, 246, 0.12);
+  color: #8b5cf6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.health-watch-name {
+  font-family: var(--font-heading);
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.health-watch-sub {
+  font-size: 10.5px;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 2px;
+}
+
+.health-watch-note {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Health Telemetry 4-Grid */
+.health-telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.health-metric-tile {
+  background: var(--bg-surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.18s ease;
+}
+
+.health-metric-tile:hover {
+  transform: translateY(-2px);
+}
+
+.health-tile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.health-tile-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.health-heart-pulse {
+  animation: pulse-heart 1.2s infinite ease-in-out;
+  display: inline-flex;
+}
+
+@keyframes pulse-heart {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.22); }
+}
+
+.health-tile-icon-blue {
+  color: #38bdf8;
+  display: inline-flex;
+}
+
+.health-tile-icon-violet {
+  color: #8b5cf6;
+  display: inline-flex;
+}
+
+.health-tile-icon-emerald {
+  color: #10b981;
+  display: inline-flex;
+}
+
+.health-tile-value {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.1;
+  margin-bottom: 4px;
+  font-family: var(--font-body);
+}
+
+.health-tile-value .unit {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.health-tile-sub {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+/* Physiological Science Card */
+.health-science-card {
+  background: var(--bg-surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--card-radius, 18px);
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: var(--card-shadow);
+}
+
+.health-science-header {
+  margin-bottom: 12px;
+}
+
+.science-pill-mini {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 3px;
+}
+
+.health-science-title {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.health-science-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.health-science-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--bg-surface-elevated, rgba(0, 0, 0, 0.02));
+  border-radius: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-subtle);
+}
+
+.science-bullet-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.health-science-item strong {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.health-science-item p {
+  font-size: 11px;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Recent Sessions History Card */
+.health-history-card {
+  background: var(--bg-surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--card-radius, 18px);
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: var(--card-shadow);
+}
+
+.health-history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.health-history-title {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.history-count-badge {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg-surface-elevated, rgba(0, 0, 0, 0.04));
+  padding: 2px 8px;
+  border-radius: 10px;
+  border: 1px solid var(--border-subtle);
+}
+
+.health-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.health-history-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: var(--bg-surface-elevated, rgba(0, 0, 0, 0.02));
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+}
+
+.history-item-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.history-item-tech {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.history-item-date {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.history-item-metrics {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.history-item-hr {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #10b981;
+}
+
+.history-item-score {
+  font-size: 12px;
+  font-weight: 800;
+  background: rgba(139, 92, 246, 0.12);
+  color: #8b5cf6;
+  padding: 3px 8px;
+  border-radius: 12px;
+}
+
+
 
 
 

@@ -9,6 +9,9 @@ import com.getcapacitor.BridgeActivity;
 public class MainActivity extends BridgeActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        // Register the BioMind Health Connect plugin before super.onCreate
+        registerPlugin(HealthConnectPlugin.class);
+
         super.onCreate(savedInstanceState);
         hideStatusBar();
     }

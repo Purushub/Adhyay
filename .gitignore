@@ -18,6 +18,13 @@ snap_*.png
 emulator_*.png
 *.log
 
+# IDE files
+.vscode/
+
+# Build artifacts (explicitly track Adhyay.apk and Adhyay.aab only)
+Adhyay-debug.apk
+Adhyay-signed.aab
+
 # OS generated files
 .DS_Store
 Thumbs.db

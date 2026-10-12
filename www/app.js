@@ -1952,6 +1952,13 @@ class AdhyayApp {
     this.soundscapeShuffle = false;
     this.soundscapeRepeat = true;
 
+    // BioMind — Health Connect biometric tracking state
+    this.bioMindAvailable = false;
+    this.bioMindPermissionsGranted = false;
+    this.preSessionSnapshot = null;
+    this.postSessionSnapshot = null;
+    this.bioSessionHistory = JSON.parse(localStorage.getItem('adhyay_bio_sessions') || '[]');
+
     this.screenHistory = ['screen-home'];
     this.init();
   }
@@ -1970,6 +1977,8 @@ class AdhyayApp {
     this.updateClock();
     this.renderGreeting();
     this.handleDeepLinks();
+    this.initMantras();
+    this.initBioMind();
     if (!document.querySelector('.screen-view.active')) {
       this.navigateToScreen('screen-home', false, false);
     }
@@ -2948,9 +2957,11 @@ class AdhyayApp {
     const btnWalkClose = document.getElementById('btn-walkthrough-close');
     if (btnWalkClose) btnWalkClose.addEventListener('click', () => this.handleGlobalBack());
 
-    // Library & Report Back Buttons
+    // Library, Mantras & Report Back Buttons
     const btnSciBack = document.getElementById('btn-science-back');
     if (btnSciBack) btnSciBack.addEventListener('click', () => this.handleGlobalBack());
+    const btnMantrasBack = document.getElementById('btn-mantras-back');
+    if (btnMantrasBack) btnMantrasBack.addEventListener('click', () => this.handleGlobalBack());
     const btnRepBack = document.getElementById('btn-report-back');
     if (btnRepBack) btnRepBack.addEventListener('click', () => this.handleGlobalBack());
 
@@ -3116,6 +3127,13 @@ class AdhyayApp {
           tab.classList.remove('active');
         }
       });
+
+      // BioMind Screen Triggers
+      if (screenId === 'screen-health') {
+        this.renderHealthScreen();
+      } else if (screenId === 'screen-technique-walkthrough') {
+        this.updatePreSessionBiometrics();
+      }
     };
 
     if (animate) {
@@ -3448,6 +3466,9 @@ class AdhyayApp {
     document.getElementById('btn-timer-label').textContent = 'Pause Session';
     this.sound.playBowlStrike();
 
+    // BioMind: Capture pre-session biometric snapshot
+    this.capturePreSessionSnapshot();
+
     if (this.remainingSeconds <= 0) {
       this.remainingSeconds = this.sessionDuration;
     }
@@ -3561,6 +3582,9 @@ class AdhyayApp {
     this.renderReport();
     this.navigateToScreen('screen-report');
     this.showToast('Session Completed • Clarity Report Generated');
+
+    // BioMind: Capture post-session biometric snapshot and render bio-report
+    this.capturePostSessionSnapshot();
   }
 
   // --------------------------------------------------------------------------
@@ -4884,10 +4908,1103 @@ where id must be one of:
     }
   }
 
+  // --------------------------------------------------------------------------
+  // SACRED MANTRAS & INVOCATIONS HUB (HINDU & BUDDHIST)
+  // --------------------------------------------------------------------------
+  initMantras() {
+    this.mantrasData = [
+      {
+        id: 'sri-rudram',
+        title: 'Sri Rudram (Namakam & Chamakam)',
+        tradition: 'Hindu • Vedic',
+        association: 'Vedic / Shiva',
+        categories: ['all', 'hindu', 'energetic'],
+        recommendedStyle: 'Traditional Vedic swaras; excellent for learning',
+        listenLink: 'https://www.youtube.com/watch?v=L4yT_UpfJdw',
+        sourceNote: 'Om Swami / traditional Vedic chanters',
+        hasLocalAudio: true,
+        localAudioSrc: 'assets/audio/sri_rudram_invocation.mp3',
+        devanagariSnippet: 'ॐ नमो भगवते रुद्राय नमः',
+        devanagariFull: 'ॐ नमो भगवते रुद्राय नमः॥ नमस्ते रुद्र मन्यव उतो त इषवे नमः। नमस्ते अस्तु धन्वने बाहुभ्यामुत ते नमः॥',
+        transliteration: 'Oṃ namo bhagavate rudrāya namaḥ || Namaste rudra manyava uto ta iṣave namaḥ | Namaste astu dhanvane bāhubhyāmuta te namaḥ ||',
+        essence: 'Supreme Vedic invocation from the Krishna Yajurveda invoking Shiva as cosmic vitality, transforming fear and inner weakness into unshakable strength.',
+        benefits: [
+          'Vibrational recalibration of vagus nerve and cardiac rhythm through Vedic swaras',
+          'Dissolves subconscious fear, chronic dread, and paralysis in stressful moments',
+          'Awakens dormant vital energy (Prana) and mental resilience'
+        ]
+      },
+      {
+        id: 'gayatri-mantra',
+        title: 'Gayatri Mantra',
+        tradition: 'Hindu • Vedic',
+        association: 'Vedic / Savitri-Gayatri',
+        categories: ['all', 'hindu', 'healing'],
+        recommendedStyle: 'Vedic pronunciation & intonation; measured cadence',
+        listenLink: 'https://www.youtube.com/watch?v=29-A4Yaz07c&t=15s',
+        sourceNote: 'Proper Vedic intonation reference',
+        devanagariSnippet: 'ॐ भूर्भुवः स्वः तत्सवितुर्वरेण्यम्...',
+        devanagariFull: 'ॐ भूर्भुवः स्वः। तत्सवितुर्वरेण्यं भर्गो देवस्य धीमहि। धियो यो नः प्रचोदयात्॥',
+        transliteration: 'Oṃ bhūr bhuvaḥ svaḥ | Tat savitur vareṇyaṃ bhargo devasya dhīmahi | Dhiyo yo naḥ pracodayāt ||',
+        essence: 'Universal prayer to the cosmic solar consciousness (Savitr) to illuminate the intellect and disperse clouds of cognitive distortion.',
+        benefits: [
+          'Sharpens analytical focus and dissolves morning mental fog',
+          'Balances brain hemisphere activity through rhythmic Sanskrit phonetic cadence',
+          'Instills serene inner clarity and emotional composure'
+        ]
+      },
+      {
+        id: 'maha-mrityunjaya',
+        title: 'Maha Mrityunjaya Mantra',
+        tradition: 'Hindu • Vedic',
+        association: 'Vedic / Shiva',
+        categories: ['all', 'hindu', 'healing'],
+        recommendedStyle: 'Traditional healing mantra; slow devotional versions',
+        listenLink: 'https://my.yoga-vidya.org/video/om-tryambakam-mantra-for-healing-blessings-mahamrityunjaya-mantra',
+        sourceNote: 'Yoga Vidya / Mo Hari Om',
+        devanagariSnippet: 'ॐ त्र्यम्बकं यजामहे सुगन्धिं पुष्टिवर्धनम्...',
+        devanagariFull: 'ॐ त्र्यम्बकं यजामहे सुगन्धिं पुष्टिवर्धनम्। उर्वारुकमिव बन्धनान्मृत्य pushyate... मुक्षीय मामृतात्॥',
+        transliteration: 'Oṃ tryambakaṃ yajāmahe sugandhiṃ puṣṭivardhanam | Urvārukam iva bandhanān mṛtyor mukṣīya māmṛtāt ||',
+        essence: 'The Great Death-Defying Mantra. An invocation for deep somatic healing, release from existential dread, and emotional rejuvenation.',
+        benefits: [
+          'Down-regulates high sympathetic nervous system arousal and panic states',
+          'Cellular regeneration through resonance of guttural and labial Sanskrit roots',
+          'Promotes emotional peace during bodily tension or health anxiety'
+        ]
+      },
+      {
+        id: 'purusha-sukta',
+        title: 'Purusha Sukta',
+        tradition: 'Hindu • Rig Veda',
+        association: 'Rig Veda / Cosmic Being',
+        categories: ['all', 'hindu'],
+        recommendedStyle: 'Formal Vedic chant with exact swara accents',
+        listenLink: 'https://www.vedamu.org/VedicChanting.aspx',
+        sourceNote: 'Vedamu audio collection',
+        devanagariSnippet: 'ॐ सहस्रशीर्षा पुरुषः सहस्राक्षः सहस्रपात्...',
+        devanagariFull: 'ॐ सहस्रशीर्षा पुरुषः सहस्राक्षः सहस्रपात्। स भूमिं विश्वतो वृत्वात्यतिष्ठद्दशाङ्गुलम्॥ पुरुष एवेदग्ं सर्वं यद्भूतं यच्च भव्यम्...',
+        transliteration: 'Oṃ sahasra-śīrṣā puruṣaḥ sahasrākṣaḥ sahasrapāt | Sa bhūmiṃ viśvato vṛtvātyatiṣṭhad-daśāṅgulam || Puruṣa evedaṃ sarvaṃ yad bhūtaṃ yacca bhavyam...',
+        essence: 'Rig Vedic hymn meditating on the universe as a single interconnected organism, dissolving isolation into expansive cosmic belonging.',
+        benefits: [
+          'Expands narrow obsessive self-focus into vast cosmic awareness',
+          'Reduces psychological feelings of isolation and inadequacy',
+          'Harmonizes alpha brainwave patterns via authentic Vedic meter'
+        ]
+      },
+      {
+        id: 'sri-sukta',
+        title: 'Sri Sukta',
+        tradition: 'Hindu • Vedic',
+        association: 'Vedic / Lakshmi',
+        categories: ['all', 'hindu', 'healing'],
+        recommendedStyle: 'Formal Vedic chant; graceful flowing resonance',
+        listenLink: 'https://www.vedamu.org/VedicChanting.aspx',
+        sourceNote: 'Vedamu audio collection',
+        devanagariSnippet: 'ॐ हिरण्यवर्णां हरिणीं सुवर्णरजतस्रजाम्...',
+        devanagariFull: 'ॐ हिरण्यवर्णां हरिणीं सुवर्णरजतस्रजाम्। चन्द्रां हिरण्मयीं लक्ष्मीं जातवेदो म आवह॥',
+        transliteration: 'Oṃ hiraṇyavarṇāṃ hariṇīṃ suvarṇa-rajata-srajām | Candrāṃ hiraṇmayīṃ lakṣmīṃ jātavedo ma āvaha ||',
+        essence: 'Ancient hymn invoking peace, auspiciousness, inner radiance, and liberation from mental scarcity and self-doubt.',
+        benefits: [
+          'Rewires neural focus toward gratitude, abundance, and optimism',
+          'Soothes acute burnout caused by hyper-achievement anxiety',
+          'Cultivates emotional stability and receptive awareness'
+        ]
+      },
+      {
+        id: 'mantra-pushpam',
+        title: 'Mantra Pushpam',
+        tradition: 'Hindu • Vedic',
+        association: 'Vedic / Cosmic Elements',
+        categories: ['all', 'hindu'],
+        recommendedStyle: 'Formal Vedic chant celebrating water and vital flow',
+        listenLink: 'https://www.vedamu.org/VedicChanting.aspx',
+        sourceNote: 'Vedamu audio collection',
+        devanagariSnippet: 'ॐ योऽपां पुष्पं वेद पुष्पवान् प्रजावान्...',
+        devanagariFull: 'ॐ योऽपां पुष्पं वेद पुष्पवान् प्रजावान् पशुमान् भवति। चन्द्रमा वा अपां पुष्पम् पुष्पवान् प्रजावान् पशुमान् भवति॥',
+        transliteration: 'Oṃ yo\'pāṃ puṣpaṃ veda puṣpavān prajāvān paśumān bhavati | Candramā vā apāṃ puṣpam puṣpavān prajāvān paśumān bhavati ||',
+        essence: 'The Flower of Mantras. A poetic contemplation on water as the essence of life and consciousness.',
+        benefits: [
+          'Fosters somatic fluidity—letting mental turbulence flow effortlessly like water',
+          'Natural breathing entrainment through rhythmic poetic repetitions',
+          'Grounding connection to the natural elements'
+        ]
+      },
+      {
+        id: 'om-mani-padme-hum',
+        title: 'Om Mani Padme Hum',
+        tradition: 'Buddhist • Tibetan',
+        association: 'Tibetan Buddhism / Avalokiteshvara',
+        categories: ['all', 'buddhist', 'healing'],
+        recommendedStyle: 'Deep repetitive meditation chant; throat resonance',
+        listenLink: 'https://www.youtube.com/results?search_query=Om+Mani+Padme+Hum+traditional+Tibetan+chant',
+        sourceNote: 'YouTube search for traditional Tibetan recordings',
+        devanagariSnippet: 'ॐ मणिपद्मे हूँ (Oṃ Maṇi Padme Hūṃ)',
+        devanagariFull: 'ॐ मणिपद्मे हूँ ॥ (Oṃ Maṇi Padme Hūṃ)',
+        transliteration: 'Oṃ Maṇi Padme Hūṃ',
+        essence: 'The Jewel in the Lotus. The six sacred syllables transmute pride, jealousy, desire, ignorance, greed, and anger into boundless compassion.',
+        benefits: [
+          'Instant grounding for emotional turbulence and harsh self-criticism',
+          'Stimulates vagus nerve via prolonged resonant humming of "Hūṃ"',
+          'Cultivates empathetic warmth and emotional resilience'
+        ]
+      },
+      {
+        id: 'green-tara-mantra',
+        title: 'Green Tara Mantra',
+        tradition: 'Buddhist • Tibetan',
+        association: 'Tibetan Buddhism / Green Tara',
+        categories: ['all', 'buddhist', 'healing'],
+        recommendedStyle: 'Om Tare Tuttare Ture Soha; Tibetan-style musical chant',
+        listenLink: 'https://www.youtube.com/watch?v=eBopONbgNpQ',
+        sourceNote: 'Meditative Mind',
+        devanagariSnippet: 'ॐ तारे तुत्तारे तुरे स्वाहा',
+        devanagariFull: 'ॐ तारे तुत्तारे तुरे स्वाहा॥',
+        transliteration: 'Oṃ Tāre Tuttāre Ture Svāhā',
+        essence: 'Mother of swift liberation. Protective chant dispersing internal fears, paralysis, and indecision.',
+        benefits: [
+          'Swift relief from acute worry, panic, and anticipatory anxiety',
+          'Inspires fearless proactive action and compassionate clarity',
+          'Creates a soothing sensation of unconditional protective safety'
+        ]
+      },
+      {
+        id: 'green-tara-traditional',
+        title: 'Green Tara Mantra – Traditional Tibetan',
+        tradition: 'Buddhist • Tibetan',
+        association: 'Tibetan Buddhism / Green Tara',
+        categories: ['all', 'buddhist', 'healing'],
+        recommendedStyle: 'Traditional Tibetan rendition; monastic throat resonance',
+        listenLink: 'https://www.dusumsangtong.com/om-tare-tuttare-ture-soha-green-tara-mantra.html',
+        sourceNote: 'Lama Sonam Wangchuk / Buddhist center recording',
+        devanagariSnippet: 'ཨོཾ་ཏཱ་རེ་ཏུཏྟཱ་རེ་ཏུ་རེ་སྭཱ་ཧཱ། (Monastic)',
+        devanagariFull: 'ཨོཾ་ཏཱ་རེ་ཏུཏྟཱ་རེ་ཏུ་རེ་སྭཱ་ཧཱ། ॐ तारे तुत्तारे तुरे स्वाहा॥',
+        transliteration: 'Om Tare Tuttare Ture Soha',
+        essence: 'Authentic Tibetan monastic chanting focused on dismantling karmic and psychological roadblocks.',
+        benefits: [
+          'Monastic harmonic overtones that quiet frantic cortical thoughts',
+          'Soothes heart-center constriction and chronic stress loops',
+          'Grounding root-level safety for anxious minds'
+        ]
+      },
+      {
+        id: 'shiva-tandava',
+        title: 'Shiva Tandava Stotram',
+        tradition: 'Hindu • Shaiva',
+        association: 'Shaiva / Shiva',
+        categories: ['all', 'hindu', 'energetic'],
+        recommendedStyle: 'Fast, rhythmic, highly energetic stotra',
+        listenLink: 'https://www.youtube.com/results?search_query=Shiva+Tandava+Stotram+Sanskrit+traditional+chant',
+        sourceNote: 'YouTube search for Sanskrit/traditional versions',
+        devanagariSnippet: 'जटाटवीगलज्जलप्रवाहपावितस्थले...',
+        devanagariFull: 'जटाटवीगलज्जलप्रवाहपावितस्थले गलेऽवलम्ब्य लम्बितां भुजङ्गतुङ्गमालिकाम्। डमड्डमड्डमड्डमन्निनादवड्डमर्वयं चकार चण्डताण्डवं तनोतु नः शिवः शिवम्॥',
+        transliteration: 'Jaṭā-ṭavī-gala-j-jala-pravāha-pāvita-sthale gale\'valambya lambitāṃ bhujaṅga-tuṅga-mālikām | Ḍamaḍ-ḍamaḍ-ḍamaḍ-ḍaman-nināda-vaḍ-ḍamarvayaṃ cakāra caṇḍa-tāṇḍavaṃ tanotu naḥ śivaḥ śivam ||',
+        essence: 'Cosmic dance of dissolution and rejuvenation. Unrivaled cadence to break apathy, lethargy, and mental paralysis.',
+        benefits: [
+          'Instant surge of dopamine, willpower, and physical alertness',
+          'Dissolves depressive sluggishness, brain fatigue, and procrastination',
+          'High rhythmic complexity elevates brain coherence'
+        ]
+      },
+      {
+        id: 'rudrashtakam',
+        title: 'Rudrashtakam',
+        tradition: 'Hindu • Shaiva',
+        association: 'Shaiva / Shiva',
+        categories: ['all', 'hindu', 'energetic'],
+        recommendedStyle: 'Devotional Sanskrit stotra; melodic and lyrical',
+        listenLink: 'https://www.youtube.com/results?search_query=Rudrashtakam+Sanskrit+traditional+chant',
+        sourceNote: 'YouTube search for traditional versions',
+        devanagariSnippet: 'नमामीशमीशान निर्वाणरूपं...',
+        devanagariFull: 'नमामीशमीशान निर्वाणरूपं विभुं व्यापकं ब्रह्मवेदस्वरूपम्। निजं निर्गुणं निर्विकल्पं निरीहं चिदाकाशमाकाशवासं भजेऽहम्॥',
+        transliteration: 'Namāmīśam-īśāna nirvāṇa-rūpaṃ vibhuṃ vyāpakaṃ brahma-veda-svarūpam | Nijaṃ nirguṇaṃ nirvikalpaṃ nirīhaṃ cid-ākāśam-ākāśa-vāsaṃ bhaje\'ham ||',
+        essence: 'Goswami Tulsidas\'s lyrical tribute to Shiva as serene, all-pervading consciousness and the silent refuge of the soul.',
+        benefits: [
+          'Induces profound mental stillness and deep emotional surrender',
+          'Melodic cadence releases tightness in chest and throat',
+          'Restores perspective when overwhelmed by daily ego struggles'
+        ]
+      },
+      {
+        id: 'aditya-hridayam',
+        title: 'Aditya Hridayam',
+        tradition: 'Hindu • Ramayana',
+        association: 'Ramayana / Surya',
+        categories: ['all', 'hindu', 'energetic'],
+        recommendedStyle: 'Recitation with strong rhythmic cadence',
+        listenLink: 'https://www.youtube.com/results?search_query=Aditya+Hridayam+Sanskrit+traditional+chant',
+        sourceNote: 'YouTube search for traditional versions',
+        devanagariSnippet: 'ततो युद्धपरिश्रान्तं समरे चिन्तया स्थितम्...',
+        devanagariFull: 'ततो युद्धपरिश्रान्तं समरे चिन्तया स्थितम्। रावणं चाग्रतो दृष्ट्वा युद्धाय समुपस्थितम्॥ दैवतैश्च समागम्य द्रष्टुमभ्यागतो रणम्। उपगम्याब्रवीद्राममगस्त्यो भगवान् ऋषिः॥',
+        transliteration: 'Tato yuddha-pariśrāntaṃ samare cintayā sthitam | Rāvaṇaṃ cāgrato dṛṣṭvā yuddhāya samupasthitam || Daivataiś-ca samāgamya draṣṭum-abhyāgato raṇam | Upagamyābravīd-rāmam-agastyo bhagavān ṛṣiḥ ||',
+        essence: 'Sacred hymn of the Sun given to Lord Rama to overcome battle weariness, doubt, and mental exhaustion.',
+        benefits: [
+          'Immediate antidote to cognitive exhaustion and burnout',
+          'Restores decisive executive function and unwavering courage',
+          'Energizes mental vitality and focus'
+        ]
+      },
+      {
+        id: 'hanuman-chalisa',
+        title: 'Hanuman Chalisa',
+        tradition: 'Hindu • Devotion',
+        association: 'Rama/Hanuman devotion',
+        categories: ['all', 'hindu', 'energetic', 'healing'],
+        recommendedStyle: 'Musical devotional recitation for courage & grounding',
+        listenLink: 'https://www.youtube.com/results?search_query=Hanuman+Chalisa+traditional+Sanskrit+Hindi+chant',
+        sourceNote: 'YouTube search for traditional versions',
+        devanagariSnippet: 'श्रीगुरु चरन सरोज रज निज मनु मुकुरु सुधारि...',
+        devanagariFull: 'श्रीगुरु चरन सरोज रज निज मनु मुकुरु सुधारि। बरनउँ रघुबर बिमल जसु जो दायकु फल चारि॥ बुद्धिहीन तनु जानिके सुमिरौ पवन-कुमार। बल बुधि बिद्या देहु मोहि हरहु कलेस बिकार॥',
+        transliteration: 'Śrī-guru carana saroja raja nija manu mukuru sudhāri | Baranau raghubara bimala jasu jo dāyaku phala cāri || Buddhi-hīna tanu jānike sumirau pavana-kumāra | Bala budhi bidyā dehu mohi harahu kalesa bikāra ||',
+        essence: 'Forty verses evoking the courage, humility, and supreme strength of Hanuman to banish fear and anguish.',
+        benefits: [
+          'Unrivaled for grounding panic attacks, severe fear, and emotional tremors',
+          'Instills childlike trust, somatic courage, and emotional warmth',
+          'Rhythmic rhyming Awadhi verses evoke rapid calming dopamine'
+        ]
+      }
+    ];
+
+    this.japaCount = parseInt(localStorage.getItem('adhyay_japa_count') || '0', 10);
+    this.currentMantraFilter = 'all';
+
+    this.initMantraAudioPlayer();
+    this.renderMantraCards('all');
+    this.bindMantraEvents();
+    this.updateJapaUI();
+  }
+
+  initMantraAudioPlayer() {
+    this.mantraAudio = document.getElementById('mantra-audio-element');
+    if (!this.mantraAudio) return;
+
+    this.mantraAudio.volume = 0.9;
+
+    this.mantraAudio.addEventListener('timeupdate', () => {
+      const cur = this.mantraAudio.currentTime;
+      const dur = this.mantraAudio.duration || 44;
+      const curEl = document.getElementById('mantra-current-time');
+      const fillEl = document.getElementById('mantra-seek-fill');
+      if (curEl) curEl.textContent = this.formatTime(cur);
+      if (fillEl && dur > 0) {
+        fillEl.style.width = `${(cur / dur) * 100}%`;
+      }
+    });
+
+    this.mantraAudio.addEventListener('loadedmetadata', () => {
+      const durEl = document.getElementById('mantra-total-duration');
+      if (durEl && this.mantraAudio.duration) {
+        durEl.textContent = this.formatTime(this.mantraAudio.duration);
+      }
+    });
+
+    this.mantraAudio.addEventListener('ended', () => {
+      if (this.mantraAudio.loop) {
+        this.incrementJapa();
+      } else {
+        this.pauseHeroMantra();
+        this.incrementJapa();
+      }
+    });
+
+    this.mantraAudio.addEventListener('play', () => {
+      const playIcon = document.getElementById('mantra-play-icon');
+      const pauseIcon = document.getElementById('mantra-pause-icon');
+      const statusEl = document.getElementById('mantra-audio-status');
+      if (playIcon) playIcon.classList.add('hidden');
+      if (pauseIcon) pauseIcon.classList.remove('hidden');
+      if (statusEl) statusEl.textContent = 'Chanting Active • Vedic Swaras';
+
+      // Pause regular ambient soundscapes to avoid sound clashing
+      if (this.isSoundscapePlaying) {
+        this.toggleSoundscapePlay();
+      }
+    });
+
+    this.mantraAudio.addEventListener('pause', () => {
+      const playIcon = document.getElementById('mantra-play-icon');
+      const pauseIcon = document.getElementById('mantra-pause-icon');
+      const statusEl = document.getElementById('mantra-audio-status');
+      if (playIcon) playIcon.classList.remove('hidden');
+      if (pauseIcon) pauseIcon.classList.add('hidden');
+      if (statusEl) statusEl.textContent = 'Ready to Chant';
+    });
+  }
+
+  toggleHeroMantraPlay() {
+    if (!this.mantraAudio) return;
+    if (this.mantraAudio.paused) {
+      this.playHeroMantra();
+    } else {
+      this.pauseHeroMantra();
+    }
+  }
+
+  playHeroMantra() {
+    if (!this.mantraAudio) return;
+    this.mantraAudio.play().catch(e => console.log('Audio play note:', e));
+  }
+
+  pauseHeroMantra() {
+    if (!this.mantraAudio) return;
+    this.mantraAudio.pause();
+  }
+
+  bindMantraEvents() {
+    // Play/Pause button
+    const btnPlay = document.getElementById('btn-mantra-hero-play');
+    if (btnPlay) {
+      btnPlay.addEventListener('click', () => this.toggleHeroMantraPlay());
+    }
+
+    // Loop button
+    const btnLoop = document.getElementById('btn-mantra-loop');
+    if (btnLoop) {
+      btnLoop.addEventListener('click', () => {
+        if (!this.mantraAudio) return;
+        this.mantraAudio.loop = !this.mantraAudio.loop;
+        btnLoop.classList.toggle('active', this.mantraAudio.loop);
+        this.showToast(this.mantraAudio.loop ? 'Mantra Repeat ON (Continuous Japa)' : 'Mantra Repeat OFF');
+      });
+    }
+
+    // Seek track
+    const seekTrack = document.getElementById('mantra-seek-track');
+    if (seekTrack) {
+      seekTrack.addEventListener('click', (e) => {
+        if (!this.mantraAudio || !this.mantraAudio.duration) return;
+        const rect = seekTrack.getBoundingClientRect();
+        const pos = (e.clientX - rect.left) / rect.width;
+        this.mantraAudio.currentTime = pos * this.mantraAudio.duration;
+      });
+    }
+
+    // Japa Tap Button
+    const btnJapaTap = document.getElementById('btn-japa-increment');
+    if (btnJapaTap) {
+      btnJapaTap.addEventListener('click', () => this.incrementJapa());
+    }
+
+    // Japa Reset Button
+    const btnJapaReset = document.getElementById('btn-japa-reset');
+    if (btnJapaReset) {
+      btnJapaReset.addEventListener('click', () => this.resetJapa());
+    }
+
+    // Filter Chips
+    const chips = document.querySelectorAll('.mantra-filter-chip');
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        const filter = chip.getAttribute('data-filter');
+        this.currentMantraFilter = filter;
+        this.renderMantraCards(filter);
+      });
+    });
+
+    // Close Modal Button
+    const btnCloseModal = document.getElementById('btn-close-mantra-modal');
+    if (btnCloseModal) {
+      btnCloseModal.addEventListener('click', () => this.closeMantraModal());
+    }
+
+    const modalBackdrop = document.getElementById('modal-mantra-detail');
+    if (modalBackdrop) {
+      modalBackdrop.addEventListener('click', (e) => {
+        if (e.target === modalBackdrop) this.closeMantraModal();
+      });
+    }
+  }
+
+  incrementJapa() {
+    this.japaCount++;
+    localStorage.setItem('adhyay_japa_count', this.japaCount);
+    this.updateJapaUI();
+
+    // Haptic feedback if available on device
+    if (navigator.vibrate) {
+      navigator.vibrate(30);
+    }
+
+    if (this.japaCount % 108 === 0 && this.japaCount > 0) {
+      if (this.sound) this.sound.playBowlStrike(528);
+      this.showToast('📿 Full Mala Completed (108 Chants)! May your mind rest in serenity.');
+    }
+  }
+
+  resetJapa() {
+    this.japaCount = 0;
+    localStorage.setItem('adhyay_japa_count', 0);
+    this.updateJapaUI();
+    this.showToast('Japa Mala counter reset to 0');
+  }
+
+  updateJapaUI() {
+    const numEl = document.getElementById('japa-count-num');
+    const fillEl = document.getElementById('japa-progress-fill');
+    if (numEl) numEl.textContent = this.japaCount;
+    if (fillEl) {
+      const pct = Math.min(((this.japaCount % 108) / 108) * 100, 100);
+      fillEl.style.width = `${pct}%`;
+    }
+  }
+
+  renderMantraCards(filter = 'all') {
+    const container = document.getElementById('mantras-cards-grid');
+    if (!container) return;
+
+    const filtered = this.mantrasData.filter(m => {
+      if (filter === 'all') return true;
+      return m.categories.includes(filter);
+    });
+
+    container.innerHTML = filtered.map(m => `
+      <div class="mantra-card" data-id="${m.id}">
+        <div class="mantra-card-top-row">
+          <span class="mantra-card-tradition">${m.tradition}</span>
+          <span class="mantra-card-deity">${m.association}</span>
+        </div>
+        <h4 class="mantra-card-title">${m.title}</h4>
+        <div class="mantra-card-devanagari">${m.devanagariSnippet}</div>
+        <p class="mantra-card-essence">${m.essence}</p>
+        <div class="mantra-card-sound-style">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+          <span>${m.recommendedStyle}</span>
+        </div>
+        <div class="mantra-card-actions">
+          ${m.hasLocalAudio ? `
+            <button class="btn-mantra-listen" onclick="window.adhyayApp.playHeroFromCard('${m.id}')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span>Play Built-in Audio</span>
+            </button>
+          ` : `
+            <a href="${m.listenLink}" target="_blank" rel="noopener noreferrer" class="btn-mantra-listen">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span>Listen (${m.sourceNote.includes('Vedamu') ? 'Vedic Audio' : 'YouTube'})</span>
+            </a>
+          `}
+          <button class="btn-mantra-explore" onclick="window.adhyayApp.openMantraModal('${m.id}')">
+            Explore & Meaning
+          </button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  playHeroFromCard(id) {
+    const el = document.getElementById('screen-mantras');
+    if (el) el.scrollTop = 0;
+    this.playHeroMantra();
+  }
+
+  openMantraModal(id) {
+    const mantra = this.mantrasData.find(m => m.id === id);
+    if (!mantra) return;
+
+    const modal = document.getElementById('modal-mantra-detail');
+    const badge = document.getElementById('modal-mantra-badge');
+    const title = document.getElementById('modal-mantra-title');
+    const subtitle = document.getElementById('modal-mantra-subtitle');
+    const body = document.getElementById('modal-mantra-body');
+
+    if (badge) badge.textContent = mantra.tradition;
+    if (title) title.textContent = mantra.title;
+    if (subtitle) subtitle.textContent = mantra.association + ' • ' + mantra.sourceNote;
+
+    if (body) {
+      body.innerHTML = `
+        <div class="mantra-devanagari-box">
+          <div class="mantra-devanagari-full">${mantra.devanagariFull}</div>
+          <div class="mantra-transliteration">${mantra.transliteration}</div>
+        </div>
+
+        <div class="mantra-section-heading">Essence & Spiritual Meaning</div>
+        <p class="mantra-meaning-text">${mantra.essence}</p>
+
+        <div class="mantra-section-heading">Neuro-Physiological Benefits in Adhyay</div>
+        <ul class="mantra-benefits-list">
+          ${mantra.benefits.map(b => `<li>${b}</li>`).join('')}
+        </ul>
+
+        <div class="mantra-section-heading">Recommended Chanting Style</div>
+        <p class="mantra-meaning-text" style="font-size:12px; color:var(--text-muted);">${mantra.recommendedStyle} (Source: ${mantra.sourceNote})</p>
+
+        <div class="mantra-modal-action-row">
+          ${mantra.hasLocalAudio ? `
+            <button class="btn-mantra-listen" onclick="window.adhyayApp.closeMantraModal(); window.adhyayApp.playHeroMantra();">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span>Play Built-in Invocation</span>
+            </button>
+          ` : `
+            <a href="${mantra.listenLink}" target="_blank" rel="noopener noreferrer" class="btn-mantra-listen">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span>Open Verified Audio Link</span>
+            </a>
+          `}
+          <button class="btn-mantra-explore" onclick="window.adhyayApp.closeMantraModal(); window.adhyayApp.incrementJapa(); window.adhyayApp.showToast('Japa count +1 for ${mantra.title.replace(/'/g, "\\'")}');">
+            📿 Chant (+1)
+          </button>
+        </div>
+      `;
+    }
+
+    if (modal) modal.classList.remove('hidden');
+  }
+
+  closeMantraModal() {
+    const modal = document.getElementById('modal-mantra-detail');
+    if (modal) modal.classList.add('hidden');
+  }
+
   formatTime(totalSec) {
     const mins = Math.floor(totalSec / 60);
     const secs = Math.floor(totalSec % 60);
     return `${mins}:${String(secs).padStart(2, '0')}`;
+  }
+
+  // ==========================================================================
+  // BIOMIND — HEALTH CONNECT BIOMETRIC INTEGRATION
+  // Reads heart rate, SpO₂, and resting HR from CMF Watch Pro 2 via
+  // Google Health Connect. Captures pre/post session snapshots and renders
+  // a beautiful biometric comparison in the Clarity Report.
+  // ==========================================================================
+
+  /**
+   * Initialize BioMind — check Health Connect availability and permissions.
+   * Works silently on web (non-native) — just hides the BioMind card.
+   */
+  async initBioMind() {
+    const bioCard = document.getElementById('biomind-card');
+    const bioConnectBtn = document.getElementById('btn-biomind-connect');
+
+    // Check if running inside Capacitor native shell
+    if (!window.Capacitor || !window.Capacitor.Plugins || !window.Capacitor.Plugins.HealthConnect) {
+      console.log('BioMind: Not running in native — Health Connect unavailable');
+      if (bioCard) bioCard.classList.add('biomind-web-mode');
+      this.bioMindAvailable = false;
+      this.renderBioMindStatus();
+      return;
+    }
+
+    const HC = window.Capacitor.Plugins.HealthConnect;
+
+    try {
+      const availability = await HC.isAvailable();
+      console.log('BioMind: Health Connect status:', availability.status);
+
+      if (!availability.available) {
+        this.bioMindAvailable = false;
+        this.renderBioMindStatus();
+        return;
+      }
+
+      this.bioMindAvailable = true;
+
+      // Check permissions
+      const perms = await HC.checkPermissions();
+      this.bioMindPermissionsGranted = perms.granted;
+      console.log('BioMind: Permissions granted:', perms.granted);
+
+      this.renderBioMindStatus();
+
+    } catch (err) {
+      console.warn('BioMind: Init error:', err);
+      this.bioMindAvailable = false;
+      this.renderBioMindStatus();
+    }
+
+    // Bind connect button
+    if (bioConnectBtn) {
+      bioConnectBtn.addEventListener('click', () => this.connectBioMind());
+    }
+
+    // Bind Health Screen & Pre-Session Buttons
+    const btnHealthBack = document.getElementById('btn-health-back');
+    if (btnHealthBack) {
+      btnHealthBack.addEventListener('click', () => this.popScreenHistory());
+    }
+
+    const btnHealthRefresh = document.getElementById('btn-health-refresh');
+    if (btnHealthRefresh) {
+      btnHealthRefresh.addEventListener('click', () => {
+        this.renderHealthScreen(true);
+        this.showToast('Refreshing Watch Biometrics…');
+      });
+    }
+
+    const btnHealthScreenConnect = document.getElementById('btn-health-screen-connect');
+    if (btnHealthScreenConnect) {
+      btnHealthScreenConnect.addEventListener('click', () => this.connectBioMind());
+    }
+
+    const btnHealthStartPractice = document.getElementById('btn-health-start-practice');
+    if (btnHealthStartPractice) {
+      btnHealthStartPractice.addEventListener('click', () => {
+        this.navigateToScreen('screen-technique-walkthrough');
+      });
+    }
+  }
+
+  /**
+   * Open Health Connect permissions screen
+   */
+  async connectBioMind() {
+    if (!window.Capacitor?.Plugins?.HealthConnect) {
+      this.showToast('Health Connect is only available on Android');
+      return;
+    }
+
+    try {
+      await window.Capacitor.Plugins.HealthConnect.requestPermissions();
+      this.showToast('Opening Health Connect Permissions…');
+
+      // Re-check after a delay (user returns from permissions screen)
+      setTimeout(async () => {
+        try {
+          const perms = await window.Capacitor.Plugins.HealthConnect.checkPermissions();
+          this.bioMindPermissionsGranted = perms.granted;
+          this.renderBioMindStatus();
+          if (perms.granted) {
+            this.showToast('✅ Watch Connected — BioMind Active');
+          }
+        } catch (e) {
+          console.warn('BioMind: Permission recheck failed', e);
+        }
+      }, 3000);
+    } catch (err) {
+      console.error('BioMind: Permission request failed:', err);
+      this.showToast('Could not open Health Connect settings');
+    }
+  }
+
+  /**
+   * Capture biometric snapshot BEFORE the meditation session starts.
+   */
+  async capturePreSessionSnapshot() {
+    if (!this.bioMindAvailable || !this.bioMindPermissionsGranted) {
+      this.preSessionSnapshot = null;
+      return;
+    }
+
+    try {
+      const HC = window.Capacitor.Plugins.HealthConnect;
+      const snapshot = await HC.takeSnapshot({ minutes: 15 });
+      this.preSessionSnapshot = snapshot;
+      console.log('BioMind: Pre-session snapshot captured:', snapshot);
+
+      // Show live pre-session HR on the practice screen
+      const preHrEl = document.getElementById('biomind-pre-hr-live');
+      if (preHrEl && snapshot.heartRate?.available) {
+        preHrEl.textContent = `♡ ${snapshot.heartRate.latestBpm} bpm`;
+        preHrEl.classList.remove('hidden');
+      }
+    } catch (err) {
+      console.warn('BioMind: Pre-session snapshot failed:', err);
+      this.preSessionSnapshot = null;
+    }
+  }
+
+  /**
+   * Capture biometric snapshot AFTER the meditation session ends.
+   * Then compute the deltas and render the BioMind report card.
+   */
+  async capturePostSessionSnapshot() {
+    if (!this.bioMindAvailable || !this.bioMindPermissionsGranted || !this.preSessionSnapshot) {
+      this.renderBioMindReport(null);
+      return;
+    }
+
+    try {
+      const HC = window.Capacitor.Plugins.HealthConnect;
+      const snapshot = await HC.takeSnapshot({ minutes: 5 });
+      this.postSessionSnapshot = snapshot;
+      console.log('BioMind: Post-session snapshot captured:', snapshot);
+
+      // Calculate the bio-report data
+      const bioReport = this.computeBioReport();
+      this.renderBioMindReport(bioReport);
+      this.saveBioSession(bioReport);
+
+    } catch (err) {
+      console.warn('BioMind: Post-session snapshot failed:', err);
+      this.renderBioMindReport(null);
+    }
+  }
+
+  /**
+   * Compute the before/after biometric comparison.
+   */
+  computeBioReport() {
+    const pre = this.preSessionSnapshot;
+    const post = this.postSessionSnapshot;
+    if (!pre || !post) return null;
+
+    const report = {
+      timestamp: new Date().toISOString(),
+      technique: this.activeTechnique?.name || 'Unknown',
+      techniqueId: this.activeTechnique?.id || 'unknown',
+      duration: this.sessionDuration
+    };
+
+    // Heart Rate delta
+    if (pre.heartRate?.available && post.heartRate?.available) {
+      report.hrBefore = pre.heartRate.latestBpm || pre.heartRate.avgBpm;
+      report.hrAfter = post.heartRate.latestBpm || post.heartRate.avgBpm;
+      report.hrDelta = report.hrAfter - report.hrBefore;
+      report.hrAvailable = true;
+    } else {
+      report.hrAvailable = false;
+    }
+
+    // SpO₂ delta
+    if (pre.spo2?.available && post.spo2?.available) {
+      report.spo2Before = pre.spo2.percentage;
+      report.spo2After = post.spo2.percentage;
+      report.spo2Delta = +(report.spo2After - report.spo2Before).toFixed(1);
+      report.spo2Available = true;
+    } else {
+      report.spo2Available = false;
+    }
+
+    // Resting HR (baseline context)
+    if (pre.restingHR?.available) {
+      report.restingHR = pre.restingHR.bpm;
+    }
+
+    // Compute a simple BioMind score (0-100)
+    // Based on: HR decrease is good, SpO₂ increase is good
+    let score = 50; // baseline
+    if (report.hrAvailable && report.hrDelta < 0) {
+      score += Math.min(30, Math.abs(report.hrDelta) * 2); // up to +30 for HR drop
+    }
+    if (report.spo2Available && report.spo2Delta >= 0) {
+      score += Math.min(20, report.spo2Delta * 10); // up to +20 for SpO₂ rise
+    }
+    score = Math.min(100, Math.max(0, Math.round(score)));
+    report.bioScore = score;
+
+    return report;
+  }
+
+  /**
+   * Save bio-session to local history for trend tracking.
+   */
+  saveBioSession(bioReport) {
+    if (!bioReport) return;
+
+    this.bioSessionHistory.unshift(bioReport);
+    if (this.bioSessionHistory.length > 50) this.bioSessionHistory.pop();
+    localStorage.setItem('adhyay_bio_sessions', JSON.stringify(this.bioSessionHistory));
+  }
+
+  /**
+   * Render the BioMind status indicator on the card.
+   */
+  renderBioMindStatus() {
+    const statusEl = document.getElementById('biomind-status');
+    const connectBtn = document.getElementById('btn-biomind-connect');
+    const dataSection = document.getElementById('biomind-data-section');
+
+    if (!statusEl) return;
+
+    if (!this.bioMindAvailable) {
+      // Web mode or Health Connect not installed
+      statusEl.innerHTML = `
+        <span class="biomind-dot offline"></span>
+        <span>Watch not connected</span>
+      `;
+      if (connectBtn) connectBtn.classList.add('hidden');
+      if (dataSection) dataSection.classList.add('hidden');
+    } else if (!this.bioMindPermissionsGranted) {
+      // HC available but permissions not granted
+      statusEl.innerHTML = `
+        <span class="biomind-dot pending"></span>
+        <span>Tap to connect your watch</span>
+      `;
+      if (connectBtn) connectBtn.classList.remove('hidden');
+      if (dataSection) dataSection.classList.add('hidden');
+    } else {
+      // Connected and ready
+      statusEl.innerHTML = `
+        <span class="biomind-dot online"></span>
+        <span>CMF Watch Connected</span>
+      `;
+      if (connectBtn) connectBtn.classList.add('hidden');
+      if (dataSection) dataSection.classList.remove('hidden');
+    }
+  }
+
+  /**
+   * Render the BioMind biometric comparison report card.
+   * This appears in the Clarity Report screen after a session.
+   */
+  renderBioMindReport(bioReport) {
+    const container = document.getElementById('biomind-data-section');
+    if (!container) return;
+
+    // No data available
+    if (!bioReport) {
+      container.innerHTML = `
+        <div class="biomind-no-data">
+          <p>Wear your watch during the next session to see your body's biometric response</p>
+        </div>
+      `;
+      container.classList.remove('hidden');
+      return;
+    }
+
+    let html = '';
+
+    // Heart Rate Arc
+    if (bioReport.hrAvailable) {
+      const hrSign = bioReport.hrDelta <= 0 ? '' : '+';
+      const hrClass = bioReport.hrDelta <= 0 ? 'positive' : 'elevated';
+      const hrIcon = bioReport.hrDelta <= 0 ? '↓' : '↑';
+      const hrLabel = bioReport.hrDelta <= 0 
+        ? 'Your vagal brake activated — parasympathetic calm achieved' 
+        : 'Heart rate rose slightly — try a longer session next time';
+
+      html += `
+        <div class="biomind-metric-row">
+          <div class="biomind-metric-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <div class="biomind-metric-body">
+            <div class="biomind-metric-label">Heart Rate</div>
+            <div class="biomind-metric-values">
+              <span class="biomind-val-before">${bioReport.hrBefore} bpm</span>
+              <span class="biomind-arrow">→</span>
+              <span class="biomind-val-after">${bioReport.hrAfter} bpm</span>
+              <span class="biomind-delta ${hrClass}">${hrIcon} ${hrSign}${bioReport.hrDelta} bpm</span>
+            </div>
+            <div class="biomind-insight">${hrLabel}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    // SpO₂
+    if (bioReport.spo2Available) {
+      const spo2Sign = bioReport.spo2Delta >= 0 ? '+' : '';
+      const spo2Class = bioReport.spo2Delta >= 0 ? 'positive' : 'neutral';
+
+      html += `
+        <div class="biomind-metric-row">
+          <div class="biomind-metric-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+          </div>
+          <div class="biomind-metric-body">
+            <div class="biomind-metric-label">Blood Oxygen (SpO₂)</div>
+            <div class="biomind-metric-values">
+              <span class="biomind-val-before">${bioReport.spo2Before}%</span>
+              <span class="biomind-arrow">→</span>
+              <span class="biomind-val-after">${bioReport.spo2After}%</span>
+              <span class="biomind-delta ${spo2Class}">${spo2Sign}${bioReport.spo2Delta}%</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Resting HR context
+    if (bioReport.restingHR) {
+      html += `
+        <div class="biomind-metric-row biomind-context">
+          <div class="biomind-metric-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <div class="biomind-metric-body">
+            <div class="biomind-metric-label">Resting Heart Rate (Baseline)</div>
+            <div class="biomind-metric-values">
+              <span class="biomind-val-before">${bioReport.restingHR} bpm</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // BioMind Score
+    html += `
+      <div class="biomind-score-row">
+        <div class="biomind-score-ring">
+          <svg viewBox="0 0 36 36" class="biomind-score-svg">
+            <path class="biomind-score-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+            <path class="biomind-score-fill" stroke-dasharray="${bioReport.bioScore}, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+          </svg>
+          <span class="biomind-score-number">${bioReport.bioScore}</span>
+        </div>
+        <div class="biomind-score-text">
+          <div class="biomind-score-label">BioMind Score</div>
+          <div class="biomind-score-desc">${bioReport.bioScore >= 70 ? 'Your body responded well to this practice' : bioReport.bioScore >= 40 ? 'Mild physiological response detected' : 'Try a longer session for deeper effect'}</div>
+        </div>
+      </div>
+    `;
+
+    // Technique efficacy note
+    html += `
+      <div class="biomind-technique-tag">
+        <span>⌚</span> Measured during: <strong>${bioReport.technique}</strong>
+      </div>
+    `;
+
+    container.innerHTML = html;
+    container.classList.remove('hidden');
+  }
+
+  /**
+   * Update pre-session biometrics baseline display (shown on Step 1 and Step 3 of technique walkthrough)
+   */
+  async updatePreSessionBiometrics() {
+    let hrVal = '-- bpm';
+    let spo2Val = '--%';
+    let rhrVal = '-- bpm';
+    let statusText = 'Ready';
+
+    if (window.Capacitor?.Plugins?.HealthConnect && this.bioMindAvailable && this.bioMindPermissionsGranted) {
+      try {
+        const HC = window.Capacitor.Plugins.HealthConnect;
+        const snapshot = await HC.takeSnapshot({ minutes: 15 });
+        this.preSessionSnapshot = snapshot;
+
+        if (snapshot.heartRate?.available) {
+          hrVal = `${snapshot.heartRate.latestBpm || snapshot.heartRate.avgBpm} bpm`;
+        }
+        if (snapshot.spo2?.available) {
+          spo2Val = `${snapshot.spo2.percentage}%`;
+        }
+        if (snapshot.restingHR?.available) {
+          rhrVal = `${snapshot.restingHR.bpm} bpm`;
+        }
+        statusText = 'CMF Watch Synced';
+      } catch (err) {
+        console.warn('Pre-session biometrics query failed', err);
+      }
+    } else if (this.bioMindAvailable && !this.bioMindPermissionsGranted) {
+      statusText = 'Connect Watch';
+    } else {
+      // In web browser preview or demo mode
+      statusText = 'Watch Mode';
+      hrVal = '74 bpm';
+      spo2Val = '98.5%';
+      rhrVal = '66 bpm';
+    }
+
+    // Update on Step 1 Card
+    const elHr1 = document.getElementById('pre-health-hr-1');
+    const elSpo2_1 = document.getElementById('pre-health-spo2-1');
+    const elRhr1 = document.getElementById('pre-health-rhr-1');
+    const elBadgeText1 = document.getElementById('pre-health-watch-text-1');
+    if (elHr1) elHr1.textContent = hrVal;
+    if (elSpo2_1) elSpo2_1.textContent = spo2Val;
+    if (elRhr1) elRhr1.textContent = rhrVal;
+    if (elBadgeText1) elBadgeText1.textContent = statusText;
+
+    // Update on Step 3 Card
+    const elHr3 = document.getElementById('pre-health-hr-3');
+    const elSpo2_3 = document.getElementById('pre-health-spo2-3');
+    const elRhr3 = document.getElementById('pre-health-rhr-3');
+    const elBadgeText3 = document.getElementById('pre-health-watch-text-3');
+    if (elHr3) elHr3.textContent = hrVal;
+    if (elSpo2_3) elSpo2_3.textContent = spo2Val;
+    if (elRhr3) elRhr3.textContent = rhrVal;
+    if (elBadgeText3) elBadgeText3.textContent = statusText;
+
+    // Also update live pill
+    const preHrEl = document.getElementById('biomind-pre-hr-live');
+    if (preHrEl && hrVal !== '-- bpm') {
+      preHrEl.textContent = `♡ ${hrVal}`;
+      preHrEl.classList.remove('hidden');
+    }
+  }
+
+  /**
+   * Render the dedicated BioMind Health Screen (telemetry tiles, connection status, history log)
+   */
+  async renderHealthScreen(forceRefresh = false) {
+    const elHr = document.getElementById('health-current-hr');
+    const elSpo2 = document.getElementById('health-current-spo2');
+    const elRhr = document.getElementById('health-resting-hr');
+    const elSteps = document.getElementById('health-today-steps');
+    const elStatusText = document.getElementById('health-screen-status-text');
+    const btnConnect = document.getElementById('btn-health-screen-connect');
+    const historyList = document.getElementById('health-history-list');
+    const historyCount = document.getElementById('health-history-count');
+
+    // 1. Fetch live telemetry from Health Connect if in native shell
+    if (window.Capacitor?.Plugins?.HealthConnect && this.bioMindAvailable) {
+      if (this.bioMindPermissionsGranted) {
+        if (btnConnect) btnConnect.classList.add('hidden');
+        if (elStatusText) elStatusText.textContent = 'Active & Synced';
+
+        try {
+          const HC = window.Capacitor.Plugins.HealthConnect;
+          const [snapshot, stepsData] = await Promise.all([
+            HC.takeSnapshot({ minutes: 30 }),
+            HC.readSteps().catch(() => ({ steps: 0 }))
+          ]);
+
+          if (elHr && snapshot.heartRate?.available) {
+            elHr.innerHTML = `${snapshot.heartRate.latestBpm || snapshot.heartRate.avgBpm} <span class="unit">bpm</span>`;
+          }
+          if (elSpo2 && snapshot.spo2?.available) {
+            elSpo2.innerHTML = `${snapshot.spo2.percentage} <span class="unit">%</span>`;
+          }
+          if (elRhr && snapshot.restingHR?.available) {
+            elRhr.innerHTML = `${snapshot.restingHR.bpm} <span class="unit">bpm</span>`;
+          }
+          if (elSteps && stepsData?.steps) {
+            elSteps.textContent = stepsData.steps.toLocaleString();
+          }
+        } catch (e) {
+          console.warn('Health screen telemetry fetch failed', e);
+        }
+      } else {
+        if (btnConnect) btnConnect.classList.remove('hidden');
+        if (elStatusText) elStatusText.textContent = 'Permissions Needed';
+      }
+    } else {
+      // Web preview fallback values
+      if (elHr && elHr.textContent.includes('--')) elHr.innerHTML = `72 <span class="unit">bpm</span>`;
+      if (elSpo2 && elSpo2.textContent.includes('--')) elSpo2.innerHTML = `99 <span class="unit">%</span>`;
+      if (elRhr && elRhr.textContent.includes('--')) elRhr.innerHTML = `65 <span class="unit">bpm</span>`;
+      if (elSteps && elSteps.textContent.includes('--')) elSteps.textContent = '4,280';
+      if (elStatusText) elStatusText.textContent = 'CMF Watch Pro 2 (Demo)';
+    }
+
+    // 2. Render recent session history log
+    if (historyCount) {
+      historyCount.textContent = `${this.bioSessionHistory.length} session${this.bioSessionHistory.length === 1 ? '' : 's'}`;
+    }
+
+    if (historyList) {
+      if (!this.bioSessionHistory || this.bioSessionHistory.length === 0) {
+        historyList.innerHTML = `
+          <div class="biomind-no-data">
+            <p>Wear your CMF Watch Pro 2 during a session to record your body's before/after physiological shift.</p>
+          </div>
+        `;
+      } else {
+        historyList.innerHTML = this.bioSessionHistory.map(item => {
+          const dt = new Date(item.timestamp);
+          const timeStr = dt.toLocaleDateString([], { month: 'short', day: 'numeric' }) + ' • ' + dt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          const hrDeltaSign = item.hrDelta <= 0 ? '' : '+';
+          const hrDeltaText = item.hrAvailable ? `HR ${item.hrBefore}→${item.hrAfter} (${hrDeltaSign}${item.hrDelta})` : 'HR Synced';
+
+          return `
+            <div class="health-history-item">
+              <div class="history-item-left">
+                <span class="history-item-tech">${item.technique}</span>
+                <span class="history-item-date">${timeStr}</span>
+              </div>
+              <div class="history-item-metrics">
+                <span class="history-item-hr">${hrDeltaText}</span>
+                <span class="history-item-score">${item.bioScore} pts</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+    }
   }
 }
 

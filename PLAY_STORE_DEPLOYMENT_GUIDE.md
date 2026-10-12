@@ -139,7 +139,7 @@ Navigate to **Grow** > **Store presence** > **Main store listing**:
 
 ### Graphic Assets:
 1. **App icon**: `512 x 512 px` (32-bit PNG with alpha).
-2. **Feature graphic**: `1024 x 500 px` (JPG or 24-bit PNG).
+2. **Feature graphic**: `1024 x 500 px` (`play_store_feature_graphic_1024x500.png` in root or `assets/feature_graphic_1024x500.png`).
 3. **Phone screenshots**: Minimum 2 screenshots (16:9 or 9:16 aspect ratio, e.g. 1080x1920 or 1080x2400).
    - Screenshot 1: Home screen with mood check-in & circular soundscapes
    - Screenshot 2: Now Playing celestial yogi vinyl player
@@ -162,3 +162,45 @@ Navigate to **Grow** > **Store presence** > **Main store listing**:
 5. Click **Next** > **Save** > **Review release** > **Start rollout**.
 6. Under the **Testers** tab, add emails or a Google Group with your testers and share the join link.
 7. Once closed testing concludes (or if using an Organization account), promote the release to **Production**!
+
+---
+
+## 8. Step 7: BioMind — CMF Watch Pro 2 & Health Connect Setup
+
+Adhyay features **BioMind Biometric Intelligence**, enabling users to see how meditation, mantras, and breathwork directly affect their physiology in real-time.
+
+### How CMF Watch Pro 2 Syncs with Adhyay:
+```
+[CMF Watch Pro 2]
+       │ (Bluetooth)
+       ▼
+[CMF Watch App / Nothing X]
+       │ (Auto-sync)
+       ▼
+[Google Health Connect]
+       │ (HealthConnectPlugin.kt - On-Device Bridge)
+       ▼
+[Adhyay Clarity Engine]
+```
+
+### 1. User Setup Steps:
+1. Open the **CMF Watch app** on your phone.
+2. Go to **Profile** > **Connected Apps / Data Sharing** > Enable **Google Health Connect** sync.
+3. In Adhyay, start a meditation session or tap **Connect Watch via Health Connect** on the Clarity Report.
+4. When prompted, grant Adhyay read permission for:
+   - **Heart Rate**
+   - **Oxygen Saturation (SpO₂)**
+   - **Resting Heart Rate**
+   - **Steps** (optional daily context)
+5. Keep your watch on during your session.
+6. When the session finishes, Adhyay compares your pre-session baseline against your post-session biometric telemetry to compute your **BioMind Score** and physiological shifts (e.g., vagal brake activation, heart rate drop, SpO₂ stabilization).
+
+### 2. Google Play Console Declarations for Health Connect:
+When publishing to Google Play, declare the Health Connect integration under **App content** > **Health Connect permissions**:
+- **Data types requested**:
+  - `READ_HEART_RATE`: Used exclusively to measure physiological calming response before and after mindfulness sessions.
+  - `READ_OXYGEN_SATURATION`: Used to reflect respiratory depth and oxygenation trends during breathwork.
+  - `READ_RESTING_HEART_RATE`: Used as personal baseline reference.
+- **Privacy Policy URL**: `https://purushub.github.io/Adhyay/privacy-policy.html`
+- **Zero data storage outside device**: Health metrics are processed entirely on-device and never transmitted to external servers.
+

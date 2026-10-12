@@ -974,6 +974,43 @@
                 <span id="wslide-benefit-2">Signals your heart to slow down naturally</span>
               </div>
             </div>
+
+            <!-- Pre-Meditation Health Baseline Card (CMF Watch Pro 2 Telemetry) -->
+            <div class="pre-session-health-card" id="pre-session-health-card-1">
+              <div class="pre-health-header">
+                <div class="pre-health-title-group">
+                  <div class="pre-health-heart-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                  </div>
+                  <div>
+                    <h4 class="pre-health-title">Pre-Session Health Baseline</h4>
+                    <span class="pre-health-sub">BEFORE YOU BEGIN PRACTICE</span>
+                  </div>
+                </div>
+                <span class="pre-health-status-badge" id="pre-health-watch-badge-1">
+                  <span class="biomind-dot online"></span>
+                  <span id="pre-health-watch-text-1">Watch Ready</span>
+                </span>
+              </div>
+              <div class="pre-health-metrics-row">
+                <div class="pre-health-metric">
+                  <span class="pre-metric-label">Current Pulse</span>
+                  <span class="pre-metric-val" id="pre-health-hr-1">-- bpm</span>
+                </div>
+                <div class="pre-health-metric">
+                  <span class="pre-metric-label">Blood Oxygen</span>
+                  <span class="pre-metric-val" id="pre-health-spo2-1">--%</span>
+                </div>
+                <div class="pre-health-metric">
+                  <span class="pre-metric-label">Resting HR</span>
+                  <span class="pre-metric-val" id="pre-health-rhr-1">-- bpm</span>
+                </div>
+              </div>
+              <p class="pre-health-prompt">
+                Keep your watch on. Adhyay will record your starting baseline to measure your nervous system's shift toward calm.
+              </p>
+            </div>
+
             <button class="btn-start-primary" id="btn-walkthrough-next-1">
               <span>Next: How It Works</span>
               <span class="btn-arrow">→</span>
@@ -1086,6 +1123,44 @@
               </div>
             </div>
 
+            <!-- BioMind Live Heart Rate Pill (CMF Watch Pro 2 via Health Connect) -->
+            <div style="text-align: center; margin-bottom: 8px;">
+              <span class="biomind-live-pill hidden" id="biomind-pre-hr-live">♡ -- bpm</span>
+            </div>
+
+            <!-- Pre-Meditation Health Baseline Card (Step 3 Live Practice) -->
+            <div class="pre-session-health-card compact" id="pre-session-health-card-3">
+              <div class="pre-health-header">
+                <div class="pre-health-title-group">
+                  <div class="pre-health-heart-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                  </div>
+                  <div>
+                    <h4 class="pre-health-title">Starting Biometric Baseline</h4>
+                    <span class="pre-health-sub">BEFORE YOU BEGIN PRACTICE</span>
+                  </div>
+                </div>
+                <span class="pre-health-status-badge" id="pre-health-watch-badge-3">
+                  <span class="biomind-dot online"></span>
+                  <span id="pre-health-watch-text-3">Synced</span>
+                </span>
+              </div>
+              <div class="pre-health-metrics-row">
+                <div class="pre-health-metric">
+                  <span class="pre-metric-label">Starting HR</span>
+                  <span class="pre-metric-val" id="pre-health-hr-3">-- bpm</span>
+                </div>
+                <div class="pre-health-metric">
+                  <span class="pre-metric-label">Oxygen (SpO₂)</span>
+                  <span class="pre-metric-val" id="pre-health-spo2-3">--%</span>
+                </div>
+                <div class="pre-health-metric">
+                  <span class="pre-metric-label">Resting Baseline</span>
+                  <span class="pre-metric-val" id="pre-health-rhr-3">-- bpm</span>
+                </div>
+              </div>
+            </div>
+
             <!-- Practice Controls -->
             <div class="practice-controls-stack">
               <button class="btn-start-primary" id="btn-timer-toggle">
@@ -1117,19 +1192,16 @@
             <div class="title-bar-spacer"></div>
           </div>
 
-          <!-- Vecteezy Style Chaos-to-Clarity Transformation Illustration -->
+          <!-- Adhyay Official Tangled to Untangled Clarity Results Visual -->
           <div class="report-illustration-wrap">
-            <svg viewBox="0 0 200 65" width="180" height="58" class="chaos-to-clarity-svg">
-              <!-- Left: Chaotic tangled thought scribble -->
-              <path d="M15,35 Q25,10 35,40 T45,15 T30,55 T55,30 T40,20 T65,35" stroke="var(--text-muted)" stroke-width="1.8" fill="none" opacity="0.6"/>
-              <!-- Unravelling transition thread -->
-              <path d="M65,35 C85,35 95,32 110,32" stroke="var(--accent-primary)" stroke-width="1.8" stroke-dasharray="3 3" fill="none"/>
-              <!-- Right: Harmonious geometric concentric circle with calm yogi dot -->
-              <circle cx="155" cy="32" r="24" fill="var(--accent-soft)"/>
-              <circle cx="155" cy="32" r="18" fill="none" stroke="var(--accent-primary)" stroke-width="1.5"/>
-              <circle cx="155" cy="32" r="11" fill="none" stroke="var(--accent-primary)" stroke-width="1" stroke-dasharray="2 3"/>
-              <circle cx="155" cy="32" r="4" fill="var(--accent-primary)"/>
-            </svg>
+            <div class="report-clarity-banner-card" id="report-clarity-banner-card">
+              <img src="assets/adhyay_clarity_results.jpg" alt="Your Adhyay Results: Tangled to Untangled Clarity" class="report-clarity-banner-img" id="report-clarity-banner-img" loading="eager">
+              <div class="report-clarity-banner-overlay">
+                <span class="clarity-banner-tag">
+                  <span class="clarity-pulse-dot"></span> Tangled &rarr; Untangled
+                </span>
+              </div>
+            </div>
           </div>
 
           <!-- Clarity Score Card -->
@@ -1194,6 +1266,44 @@
               </div>
               <div class="param-name">Peace of Mind</div>
               <div class="param-bar"><div class="param-fill sand" style="width: 90%;"></div></div>
+            </div>
+          </div>
+
+          <!-- ============================================
+               BIOMIND — BIOMETRIC INTELLIGENCE CARD
+               Watch data from CMF Watch Pro 2 via Health Connect
+               ============================================ -->
+          <div class="biomind-card" id="biomind-card">
+            <div class="biomind-header">
+              <div class="biomind-title-row">
+                <div class="biomind-icon-wrap">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <rect x="3" y="6" width="18" height="12" rx="3" />
+                    <path d="M8 12h2l1-3 2 6 1-3h2" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="biomind-title">BioMind</h3>
+                  <span class="biomind-subtitle">BIOMETRIC INTELLIGENCE</span>
+                </div>
+              </div>
+              <div class="biomind-status-wrap" id="biomind-status">
+                <span class="biomind-dot offline"></span>
+                <span>Initializing…</span>
+              </div>
+            </div>
+
+            <!-- Connect Watch Button (shown when permissions needed) -->
+            <button class="btn-biomind-connect hidden" id="btn-biomind-connect">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              Connect Watch via Health Connect
+            </button>
+
+            <!-- Biometric Data Section (populated by JS after session) -->
+            <div class="biomind-data-section hidden" id="biomind-data-section">
+              <div class="biomind-no-data">
+                <p>Complete a session with your watch on to see biometric data</p>
+              </div>
             </div>
           </div>
 
@@ -1287,6 +1397,161 @@
             <button class="btn-ghost" id="btn-share-report">Copy Summary</button>
           </div>
 
+        </section>
+
+        <!-- ==============================================
+             SCREEN: BIOMIND HEALTH (SMARTWATCH BIOMETRICS)
+             CMF Watch Pro 2 via Google Health Connect
+             ============================================== -->
+        <section id="screen-health" class="screen-view">
+          
+          <div class="screen-title-bar">
+            <button id="btn-health-back" class="btn-icon-back" title="Back">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="science-header">
+              <h2 id="health-header-title">BioMind Health</h2>
+              <span class="science-tagline">WATCH BIOMETRICS & MIND-BODY TELEMETRY</span>
+            </div>
+            <button id="btn-health-refresh" class="btn-icon-back" title="Refresh Telemetry">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            </button>
+          </div>
+
+          <div class="screen-scrollable">
+            <!-- Watch Connectivity Hero Card -->
+            <div class="health-watch-banner">
+              <div class="health-watch-top">
+                <div class="health-watch-badge">
+                  <div class="health-watch-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                      <rect x="5" y="6" width="14" height="12" rx="3" />
+                      <path d="M9 2h6M9 22h6" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="health-watch-name">Nothing CMF Watch Pro 2</h3>
+                    <span class="health-watch-sub">Connected via Google Health Connect</span>
+                  </div>
+                </div>
+                <div class="biomind-status-wrap" id="health-screen-status">
+                  <span class="biomind-dot online"></span>
+                  <span id="health-screen-status-text">Active & Synced</span>
+                </div>
+              </div>
+              <p class="health-watch-note">
+                Observing the tangible physiological effects of ancient mantras and conscious breathing on your autonomic nervous system.
+              </p>
+              <button class="btn-biomind-connect hidden" id="btn-health-screen-connect">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                Connect CMF Watch Pro 2
+              </button>
+            </div>
+
+            <!-- Current Real-Time Biometric Readings Grid -->
+            <div class="health-telemetry-grid">
+              <!-- Heart Rate Card -->
+              <div class="health-metric-tile">
+                <div class="health-tile-header">
+                  <span class="health-tile-title">Heart Rate</span>
+                  <span class="health-heart-pulse">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#ec4899" stroke="#ec4899" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                  </span>
+                </div>
+                <div class="health-tile-value" id="health-current-hr">-- <span class="unit">bpm</span></div>
+                <div class="health-tile-sub" id="health-current-hr-sub">Live pulse telemetry</div>
+              </div>
+
+              <!-- Blood Oxygen Card -->
+              <div class="health-metric-tile">
+                <div class="health-tile-header">
+                  <span class="health-tile-title">Blood Oxygen</span>
+                  <span class="health-tile-icon-blue">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+                  </span>
+                </div>
+                <div class="health-tile-value" id="health-current-spo2">-- <span class="unit">%</span></div>
+                <div class="health-tile-sub" id="health-current-spo2-sub">SpO₂ saturation</div>
+              </div>
+
+              <!-- Resting HR Baseline Card -->
+              <div class="health-metric-tile">
+                <div class="health-tile-header">
+                  <span class="health-tile-title">Resting HR</span>
+                  <span class="health-tile-icon-violet">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                  </span>
+                </div>
+                <div class="health-tile-value" id="health-resting-hr">-- <span class="unit">bpm</span></div>
+                <div class="health-tile-sub">Daily resting baseline</div>
+              </div>
+
+              <!-- Steps / Activity -->
+              <div class="health-metric-tile">
+                <div class="health-tile-header">
+                  <span class="health-tile-title">Today's Steps</span>
+                  <span class="health-tile-icon-emerald">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.2"><path d="M4 15l4-8 4 8 4-8 4 8"/></svg>
+                  </span>
+                </div>
+                <div class="health-tile-value" id="health-today-steps">--</div>
+                <div class="health-tile-sub">Physical activity</div>
+              </div>
+            </div>
+
+            <!-- Mind-Body Physiological Science Card -->
+            <div class="health-science-card">
+              <div class="health-science-header">
+                <span class="science-pill-mini">CLINICAL PHYSIOLOGY</span>
+                <h3 class="health-science-title">How Practices Affect Your Body</h3>
+              </div>
+              <div class="health-science-list">
+                <div class="health-science-item">
+                  <div class="science-bullet-dot"></div>
+                  <div>
+                    <strong>Vagus Nerve Stimulation (Parasympathetic Shift)</strong>
+                    <p>Extended exhales (such as in 4-7-8 and Deep Sigh) stimulate the vagus nerve, causing acetylcholine release that slows heart rate and lowers blood pressure.</p>
+                  </div>
+                </div>
+                <div class="health-science-item">
+                  <div class="science-bullet-dot"></div>
+                  <div>
+                    <strong>Mantra Resonant Frequency (HRV Synchronization)</strong>
+                    <p>Rhythmic chanting at 0.1 Hz (6 cycles per minute) synchronizes cardiovascular oscillations, optimizing Heart Rate Variability and calming emotional arousal.</p>
+                  </div>
+                </div>
+                <div class="health-science-item">
+                  <div class="science-bullet-dot"></div>
+                  <div>
+                    <strong>Alveolar Recruitment & Cellular Oxygenation</strong>
+                    <p>Conscious diaphragmatic pauses increase capillary blood oxygen exchange, stabilizing SpO₂ and nourishing the prefrontal cortex.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recent Sessions Biometric History -->
+            <div class="health-history-card">
+              <div class="health-history-header">
+                <div>
+                  <span class="science-pill-mini">MIND-BODY LOG</span>
+                  <h3 class="health-history-title">Recent Bio-Session History</h3>
+                </div>
+                <span class="history-count-badge" id="health-history-count">0 sessions</span>
+              </div>
+              <div id="health-history-list" class="health-history-list">
+                <div class="biomind-no-data">
+                  <p>Wear your CMF Watch Pro 2 during a session to record your body's before/after physiological shift.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Action Button -->
+            <button class="btn-start-primary" id="btn-health-start-practice" style="margin-top: 14px; margin-bottom: 24px;">
+              <span>Begin Practice with Watch</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
         </section>
 
         <!-- ==============================================
@@ -1456,6 +1721,118 @@
         </section>
 
         <!-- ==============================================
+             SCREEN: SACRED MANTRAS (HINDU & BUDDHIST CHANTS)
+             ============================================== -->
+        <section id="screen-mantras" class="screen-view">
+          
+          <div class="screen-title-bar">
+            <button id="btn-mantras-back" class="btn-icon-back" title="Back">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="mantras-header">
+              <div class="mantra-title-row">
+                <span class="mantra-sacred-symbol">ॐ</span>
+                <h2 id="mantras-header-title">Sacred Mantras</h2>
+              </div>
+              <p id="mantras-header-desc">Powerful Vedic swaras, energetic Shiva stotras & Tibetan chants for focus and deep peace</p>
+            </div>
+            <div class="title-bar-spacer"></div>
+          </div>
+
+          <!-- Featured Hero Player: Sri Rudram - The Final Invocation -->
+          <div class="mantra-hero-player-card">
+            <div class="mantra-hero-glow-aura"></div>
+            
+            <div class="mantra-hero-badge-row">
+              <span class="mantra-badge-energetic">
+                <span class="mantra-pulse-dot"></span> ENERGETIC INVOCATION
+              </span>
+              <span class="mantra-tradition-pill">Vedic • Shiva</span>
+            </div>
+
+            <div class="mantra-hero-main-info">
+              <div class="mantra-hero-symbol-circle">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <circle cx="12" cy="12" r="10" stroke-opacity="0.3"/>
+                  <path d="M12 2a10 10 0 0 1 10 10"/>
+                  <circle cx="12" cy="12" r="6"/>
+                  <circle cx="12" cy="12" r="2" fill="currentColor"/>
+                </svg>
+              </div>
+              <div class="mantra-hero-text">
+                <h3 class="mantra-hero-title">Sri Rudram: The Final Invocation</h3>
+                <p class="mantra-hero-subtitle">Traditional Vedic Swaras • Inner Strength & Vitality</p>
+                <div class="mantra-devanagari-quote">ॐ नमो भगवते रुद्राय नमः</div>
+              </div>
+            </div>
+
+            <!-- Built-in Audio Player Component -->
+            <div class="mantra-audio-player-box">
+              <audio id="mantra-audio-element" preload="metadata" src="assets/audio/sri_rudram_invocation.mp3"></audio>
+              
+              <div class="mantra-audio-controls-row">
+                <button class="mantra-play-circle-btn" id="btn-mantra-hero-play" aria-label="Play or Pause Sri Rudram">
+                  <svg class="icon-play" id="mantra-play-icon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                  <svg class="icon-pause hidden" id="mantra-pause-icon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                </button>
+
+                <div class="mantra-timeline-wrap">
+                  <div class="mantra-time-row">
+                    <span id="mantra-current-time" class="mantra-time-text">0:00</span>
+                    <span class="mantra-playing-status-tag" id="mantra-audio-status">Ready to Chant</span>
+                    <span id="mantra-total-duration" class="mantra-time-text">0:44</span>
+                  </div>
+                  <div class="mantra-seek-track" id="mantra-seek-track">
+                    <div class="mantra-seek-fill" id="mantra-seek-fill" style="width: 0%;"></div>
+                  </div>
+                </div>
+
+                <button class="mantra-loop-btn" id="btn-mantra-loop" title="Loop Invocation" aria-label="Loop">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Japa Mala 108 Chanting Companion -->
+              <div class="mantra-japa-companion">
+                <div class="japa-label-group">
+                  <span class="japa-title">Japa Mala Counter</span>
+                  <span class="japa-count-display"><strong id="japa-count-num">0</strong> <span class="japa-max">/ 108</span></span>
+                </div>
+                <div class="japa-progress-bar">
+                  <div class="japa-progress-fill" id="japa-progress-fill" style="width: 0%;"></div>
+                </div>
+                <div class="japa-actions-row">
+                  <button class="btn-japa-tap" id="btn-japa-increment" aria-label="Tap per chant">
+                    <span class="japa-tap-icon">📿</span>
+                    <span>Tap to Chant (+1)</span>
+                  </button>
+                  <button class="btn-japa-reset" id="btn-japa-reset" title="Reset Mala" aria-label="Reset">Reset</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category Filter Tabs -->
+          <div class="mantra-filters-wrap">
+            <div class="mantra-filter-scroll">
+              <button class="mantra-filter-chip active" data-filter="all">All Mantras (13)</button>
+              <button class="mantra-filter-chip" data-filter="hindu">Vedic & Hindu (10)</button>
+              <button class="mantra-filter-chip" data-filter="buddhist">Buddhist & Tibetan (3)</button>
+              <button class="mantra-filter-chip" data-filter="energetic">High Energy & Shiva (4)</button>
+              <button class="mantra-filter-chip" data-filter="healing">Healing & Peace (4)</button>
+            </div>
+          </div>
+
+          <!-- Mantras Grid -->
+          <div class="mantras-grid-container" id="mantras-cards-grid">
+            <!-- Rendered by app.js or initial layout -->
+          </div>
+
+        </section>
+
+        <!-- ==============================================
              SCREEN 6: NOW PLAYING MOOD SOUNDSCAPE PLAYER
              (Inspired by Circular Disc Player & Celestial Yogi)
              ============================================== -->
@@ -1585,7 +1962,7 @@
 
         <button class="nav-tab" data-target="screen-diagnose" id="nav-btn-diagnose" aria-label="Diagnostic">
           <div class="nav-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10" stroke-width="1.8"/>
               <path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2.2-2.5 3.5"/>
               <circle cx="12" cy="16.6" r="0.9" fill="currentColor"/>
@@ -1594,11 +1971,35 @@
           <span id="nav-lbl-diag">Diagnostic</span>
         </button>
 
+        <button class="nav-tab" data-target="screen-mantras" id="nav-btn-mantras" aria-label="Mantras">
+          <div class="nav-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3c-1.2 2.5-2.8 5-2.8 7.5a2.8 2.8 0 0 0 5.6 0c0-2.5-1.6-5-2.8-7.5z"/>
+              <path d="M4.5 14c2.2 0 4.2-1.2 5.2-3.2a7.5 7.5 0 0 1-5.2 3.2z"/>
+              <path d="M19.5 14c-2.2 0-4.2-1.2-5.2-3.2a7.5 7.5 0 0 0 5.2 3.2z"/>
+              <path d="M7 16.5c2.5 1.8 4.2 2 5 2s2.5-.2 5-2"/>
+              <circle cx="12" cy="19.5" r="1" fill="currentColor"/>
+            </svg>
+          </div>
+          <span id="nav-lbl-mantras">Mantras</span>
+        </button>
+
+        <!-- EXACT CENTER (Item 4 of 7): PRACTICE PLAY ORB -->
         <button class="nav-tab nav-highlight-tab" data-target="screen-technique-walkthrough" id="nav-btn-practice">
           <div class="nav-highlight-orb">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           </div>
           <span id="nav-lbl-practice">Practice</span>
+        </button>
+
+        <!-- HEALTH TAB: HEART SHAPED ICON IN SAME THEME (Item 5 of 7) -->
+        <button class="nav-tab" data-target="screen-health" id="nav-btn-health" aria-label="Health">
+          <div class="nav-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          </div>
+          <span id="nav-lbl-health">Health</span>
         </button>
 
         <button class="nav-tab" data-target="screen-report" id="nav-btn-report">
@@ -1930,6 +2331,28 @@
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
             </button>
           </form>
+        </div>
+      </div>
+
+      <!-- SACRED MANTRA DETAIL & MEANING MODAL -->
+      <div class="mantra-modal-backdrop hidden" id="modal-mantra-detail">
+        <div class="mantra-modal-sheet">
+          <div class="sheet-grabber"></div>
+          
+          <div class="mantra-modal-header">
+            <div class="mantra-modal-title-col">
+              <span class="mantra-modal-badge" id="modal-mantra-badge">Vedic • Shaiva</span>
+              <h3 class="mantra-modal-title" id="modal-mantra-title">Sri Rudram</h3>
+              <p class="mantra-modal-subtitle" id="modal-mantra-subtitle">Traditional Vedic Swaras • Shiva</p>
+            </div>
+            <button class="btn-close-modal" id="btn-close-mantra-modal" title="Close">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+
+          <div class="mantra-modal-body" id="modal-mantra-body">
+            <!-- Injected via JS -->
+          </div>
         </div>
       </div>
 
